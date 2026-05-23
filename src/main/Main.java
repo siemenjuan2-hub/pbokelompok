@@ -9,11 +9,10 @@ public class Main {
         window.setResizable(false);
         window.setTitle("is it wrong to save some girl in a dungeon?");
 
-        GamePanel gamePanel = new GamePanel();  
+        GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
         window.pack();
-
 
 
         window.setLocationRelativeTo(null);
