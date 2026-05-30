@@ -7,28 +7,26 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
         // screen settings
         final int originalTileSize = 64;
-        final int scale = 3;
+        final int scale = 2;
 
-        public final int tileSize = originalTileSize * scale; // 48x48 tile
-        final int maxScreenCol = 29;
-        final int maxScreenRow = 20;
-        final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-        final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+        public final int tileSize = originalTileSize * scale; // 64x2 = 128 (1 tile)
+        final public int maxScreenCol = 29; // 29 tile kesamping
+        final public int maxScreenRow = 20; // 20 tile kebawah
+        final int screenWidth = tileSize * maxScreenCol; // 3712 pixels kesamping
+        final int screenHeight = tileSize * maxScreenRow; // 2560 pixels kebawah
 
         int FPS = 60;
 
         KeyHandler keyH = new KeyHandler();
         Thread gameThread;
         Player player = new Player(this, keyH);
-
-        int playerX = 100;
-        int playerY = 100;
-        int playerSpeed = 3;
-
+        TileManager tileM = new TileManager(this);
+        
         public GamePanel() {
             this.setPreferredSize(new Dimension(screenWidth, screenHeight));
             this.setBackground(Color.black);
@@ -78,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D)g; // ada beberapa function yang tidak ada di graphic biasa, jadi pakai 2d
+            tileM.draw(g2);
             player.draw(g2);
             g2.dispose();
         }
