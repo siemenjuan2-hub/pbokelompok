@@ -99,11 +99,19 @@ int worldY = worldRow * gp.tileSize; // Posisi Jarak Piksel dari batas atas Worl
 
             //Ini biar Yang kegambar itu yang di layar laptop aja, yang jauh jauh ga kegamabar (efisiensi misal map e guede banget. Kalo mapnya kecill ga pake juga gamasalah)
             if (worldX + gp.tileSize > gp.player.WorldX - gp.player.ScreenX && 
-                worldX - gp.tileSize < gp.player.WorldX +gp.player.ScreenX && 
+                worldX - gp.tileSize < gp.player.WorldX + gp.player.ScreenX && 
                 worldY + gp.tileSize > gp.player.WorldY - gp.player.ScreenY &&
-                worldY - gp.tileSize< gp.player.WorldY + gp.player.ScreenY) {
+                worldY - gp.tileSize < gp.player.WorldY + gp.player.ScreenY) 
+            {
                 
-                g2.drawImage(tile[tileNum].image, screenX, screenY  , gp.tileSize, gp.tileSize, null);
+                g2.drawImage(
+                        tile[tileNum].image,
+                        screenX,
+                        screenY,
+                        gp.tileSize,
+                        gp.tileSize,
+                        null
+                    );  
             }
             worldCol++;
             //Kalo kolom di baris nya dah habis digambar, reset ke kolom 0 lalu turun ke baris berikutnya
