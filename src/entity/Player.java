@@ -3,23 +3,42 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Player extends Entity {
     GamePanel gp;
-    KeyHandler keyH;
+    KeyHandler keyH; 
+
+    public final int ScreenX;
+    public final int ScreenY;
+
     double stamina;
     boolean isiStamina;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        solidArea = new Rectangle();
+        solidArea.x = 8; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.y = 16; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.width = 48; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.height = 48; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
+
+
+
+
+// Untuk dapat titik tengah device
+        ScreenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        ScreenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         setDefaultValues();
         getPlayerImage();}
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        WorldX = gp.tileSize * 23;// ini nanti tergantuns mau spawn dimana gitu
+        WorldY = gp.tileSize *21; // sama
         stamina = 20;
         isiStamina = false;
         speed = 3;
@@ -69,21 +88,39 @@ public class Player extends Entity {
             
             if(keyH.upPressed == true){
                 direction = "up";
-                y -= speed;
-                
             }
             if(keyH.downPressed == true){
                 direction = "down";
-                y += speed;
             }
             if(keyH.rightPressed == true){
                 direction = "right";
-                x += speed;
             }
             if(keyH.leftPressed == true){
                 direction = "left";
-                x -= speed;
             }
+
+            // Cek tile collison
+            collisionON = false;
+            gp.cCheker.checkTile(this);
+
+            // Kalo collisonnya false, playernya bisa gerak
+            if (collisionON == false) {
+                switch (direction) {
+                    case "up":
+                        WorldY -= speed;
+                        break;
+                    case "down":
+                        WorldY += speed;
+                        break;
+                    case "left":
+                        WorldX -= speed;
+                        break;
+                    case "right":
+                        WorldX += speed;
+                        break;
+                }
+            }
+
             spriteCounter++;
             if(spriteCounter > 10){
                     // isi ulang Stamina
@@ -136,6 +173,6 @@ public class Player extends Entity {
                     }
                     break;
             }
-            g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, ScreenX, ScreenY, gp.tileSize, gp.tileSize, null);
     }
 }
