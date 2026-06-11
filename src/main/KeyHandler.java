@@ -29,6 +29,7 @@ public class KeyHandler implements KeyListener{
         if(key == KeyEvent.VK_SHIFT) {
             shiftPrassed = true;
         }
+        
     }
 
     @Override

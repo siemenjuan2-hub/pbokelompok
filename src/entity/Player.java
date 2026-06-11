@@ -11,8 +11,10 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH; 
 
-    public final int ScreenX;
-    public final int ScreenY;
+    public int ScreenX;
+    public int ScreenY;
+
+
 
     double stamina;
     boolean isiStamina;
@@ -28,13 +30,11 @@ public class Player extends Entity {
         solidArea.height = 48; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
 
 
+        // Untuk dapat titik tengah device
 
-
-// Untuk dapat titik tengah device
-        ScreenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        ScreenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         setDefaultValues();
+        
         getPlayerImage();}
     public void setDefaultValues() {
         WorldX = gp.tileSize * 23;// ini nanti tergantuns mau spawn dimana gitu
@@ -43,11 +43,12 @@ public class Player extends Entity {
         isiStamina = false;
         speed = 3;
         direction = "down";
+        spriteNum = 1;
     }
 
     public void getPlayerImage() {
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/char1.jpeg"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/char1.jpeg"));
             down2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
@@ -122,6 +123,7 @@ public class Player extends Entity {
             }
 
             spriteCounter++;
+            System.out.println("X=" + WorldX + " Y=" + WorldY);
             if(spriteCounter > 10){
                     // isi ulang Stamina
                     if (isiStamina) {
@@ -139,40 +141,61 @@ public class Player extends Entity {
                 }
             }
     }
-    public void draw(Graphics2D g2) {
-            // g2.setColor(Color.white);
-            // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-            BufferedImage image = null;
-            switch(direction) {
-                case "up":
-                    if (spriteNum == 1){
-                        image = up1;
-                    } else if (spriteNum == 2){
-                        image = up2;
-                    }
-                    break;
-                case "down":
-                    if (spriteNum == 1){
-                        image = down1;
-                    } else if (spriteNum == 2){
-                        image = down2;
-                    }
-                    break;
-                case "left":
-                    if (spriteNum == 1){
-                        image = left1;
-                    } else if (spriteNum == 2){
-                        image = left2;
-                    }
-                    break;
-                case "right":
-                    if (spriteNum == 1){
-                        image = right1;
-                    } else if (spriteNum == 2){
-                        image = right2;
-                    }
-                    break;
+public void draw(Graphics2D g2) {
+        ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
+        ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);
+
+
+    BufferedImage image = null;
+
+    switch(direction) {
+        case "up":
+            if (spriteNum == 1){
+                image = up1;
+            } else if (spriteNum == 2){
+                image = up2;
             }
-            g2.drawImage(image, ScreenX, ScreenY, gp.tileSize, gp.tileSize, null);
+            break;
+
+        case "down":
+            if (spriteNum == 1){
+                image = down1;
+            } else if (spriteNum == 2){
+                image = down2;
+            }
+            break;
+
+        case "left":
+            if (spriteNum == 1){
+                image = left1;
+            } else if (spriteNum == 2){
+                image = left2;
+            }
+            break;
+
+        case "right":
+            if (spriteNum == 1){
+                image = right1;
+            } else if (spriteNum == 2){
+                image = right2;
+            }
+            break;
     }
+    System.out.println("Panel = " + gp.getWidth() + " x " + gp.getHeight());
+    System.out.println("Player = " + ScreenY + " x " + ScreenX);
+    System.out.println(
+    "Width="+gp.getWidth()+
+    " Height="+gp.getHeight()
+    );
+
+    g2.drawImage(
+        image,
+        ScreenX,
+        ScreenY,
+        gp.tileSize,
+        gp.tileSize,
+        null
+    );
+}
+
 }
