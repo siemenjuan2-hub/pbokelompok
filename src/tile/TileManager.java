@@ -27,6 +27,9 @@ public class TileManager {
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/rumput1.jpeg"));
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/jalan1.jpeg"));
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/chest.jpeg"));
+            tile[2].collision = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
