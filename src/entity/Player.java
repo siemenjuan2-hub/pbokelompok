@@ -14,6 +14,9 @@ public class Player extends Entity {
     public int ScreenX;
     public int ScreenY;
 
+    // buat interaksi kunci dan pintu, saat ini belum ada kunci
+    int hasKey = 0;
+
     double stamina;
     boolean isiStamina;
 
@@ -22,10 +25,14 @@ public class Player extends Entity {
         this.keyH = keyH;
 //bugg
         solidArea = new Rectangle();
-        solidArea.x = 8; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.y = 16; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.width = 16; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.height = 16; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.x = 64; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.y = 128; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
+
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
+        solidArea.width = 128; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.height = 128; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
 
 
         // Untuk dapat titik tengah device
@@ -127,6 +134,9 @@ public class Player extends Entity {
             collisionON = false;
             gp.cCheker.checkTile(this);
 
+            // cek objek collision
+            int objIndex = gp.cCheker.checkObject(this, true);
+
             // Kalo collisonnya false, playernya bisa gerak
             if (collisionON == false) {
                 switch (direction) {
@@ -172,6 +182,31 @@ public class Player extends Entity {
                 }
             }
     }
+
+    public void pickUpObject(int i)
+    {
+        if(i != 999)
+        {
+            String ObjectName = gp.obj[i].name;
+
+            // interaksi kunci dan pintu, saat ini belum ada objek kunci dan pintu
+            switch(ObjectName)
+            {
+                case "Key":
+                    hasKey++; // kunci player bertambah saat nyentuh objek kunci
+                    gp.obj[i] = null; //index yang ditempati kunci objeknya dihilangkan setelah diambil
+                    break;
+                case "Door":
+                    if(hasKey > 0)
+                    {
+                        gp.obj[i] = null; // buka pintu menggunakan kunci, pintu dihilangkan
+                        hasKey--; // kunci berkurang dipakai untuk pintu
+                    }
+                    break;
+            }
+        }
+    }
+    
 public void draw(Graphics2D g2) {
         ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
         ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);
