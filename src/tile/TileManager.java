@@ -15,7 +15,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp){
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[30];
         mapTileNum = new int [gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap();
@@ -23,13 +23,95 @@ public class TileManager {
 
     public void getTileImage(){
         try {
+            //rumput
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/rumput1.jpeg"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Rumput.jpeg"));
+
+            //jalan kanan
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/jalan1.jpeg"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/JalanKanan.jpeg"));
+
+            //jalan kiri
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/chest.jpeg"));
-            tile[2].collision = true;
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/JalanKiri.jpeg"));
+
+
+            //daerah pantai / barrier
+            //Pasir
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Pasir.jpeg"));
+
+            //Air
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Water1.jpeg"));
+            tile[4].collision = true;
+
+            //Pasir pojok kiri bawah
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirPojokKiriBawah.jpeg"));
+            tile[5].collision = true;
+
+            //Pasir pojok kanan bawah
+            tile[6] = new Tile();
+            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirPojokKananBawah.jpeg"));
+            tile[6].collision = true;
+
+            //Pasir bawah
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirBawah.jpeg"));
+            tile[7].collision = true;
+
+              //Pasir pojok kiri atas
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirPojokKiriAtas.jpeg"));
+            tile[8].collision = true;
+
+            //Pasir pojok kanan atas
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirPojokKananAtas.jpeg"));
+            tile[9].collision = true;
+
+            //Pasir atas
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirAtas.jpeg"));
+            
+            // pasir kiri
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirKiri.jpeg"));
+            tile[11].collision = true;
+
+            // pasir kanan
+            tile[12] = new Tile();
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/PasirKanan.jpeg"));
+            tile[12].collision = true;
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputKanan.jpeg"));
+
+            tile[14] = new Tile();
+            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputKiri.jpeg"));
+
+            tile[15] = new Tile();
+            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputAtas.jpeg"));
+
+            tile[16] = new Tile();
+            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputBawah.jpeg"));
+
+            tile[17] = new Tile();
+            tile[17].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputPojokKiriBawah.jpeg"));
+
+            tile[18] = new Tile();
+            tile[18].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputPojokKananBawah.jpeg"));
+
+            tile[19] = new Tile();
+            tile[19].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputPojokKiriAtas.jpeg"));
+
+            tile[20] = new Tile();
+            tile[20].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/RumputPojokKananAtas.jpeg"));
+
+            tile[21] = new Tile();
+            tile[21].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Bunga.jpeg"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
