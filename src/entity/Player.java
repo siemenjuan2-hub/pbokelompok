@@ -22,12 +22,12 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-
+//bugg
         solidArea = new Rectangle();
         solidArea.x = 8; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
         solidArea.y = 16; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.width = 48; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.height = 48; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.width = 80; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.height = 128; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
 
 
         // Untuk dapat titik tengah device
@@ -41,7 +41,7 @@ public class Player extends Entity {
         WorldY = gp.tileSize *21; // sama
         stamina = 20;
         isiStamina = false;
-        speed = 3;
+        speed = 6;
         direction = "down";
         spriteNum = 1;
     }
@@ -64,16 +64,16 @@ public class Player extends Entity {
     public void update() {
         // sprint
         if (keyH.shiftPrassed && stamina > 0 && !isiStamina) {
-            speed = 5;
+            speed = 10;
         } else {
-            speed = 3;
+            speed = 6;
         }
 
         // stamina habis
         if (stamina <= 0) {
             stamina = 0;
             isiStamina = true;
-            speed = 3;
+            speed = 6;
         }
         
         // sudah cukup -> sprint boleh lagi
@@ -129,7 +129,7 @@ public class Player extends Entity {
                     if (isiStamina) {
                         stamina += 0.2;
                     }
-                    if(speed == 5){
+                    if(speed == 10){
                         stamina-=1;
                     }
                     if(spriteNum == 1){
