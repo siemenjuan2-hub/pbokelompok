@@ -1,0 +1,89 @@
+package main;
+
+import object.OBJ_AutumnBush;
+import object.OBJ_BrokenTree;
+import object.OBJ_BurnedTree;
+import object.OBJ_Bush1;
+import object.OBJ_Bush2;
+import object.OBJ_BushBlueFlowers;
+import object.OBJ_BushOrangeFlowers;
+import object.OBJ_BushPinkFlowers;
+import object.OBJ_BushRedFlowers;
+import object.OBJ_Cactus1;
+import object.OBJ_Cactus2;
+import object.OBJ_Fern1;
+import object.OBJ_Fern2;
+import object.OBJ_SnowBush;
+
+public class AssetSetter {
+    GamePanel gp;
+
+    public AssetSetter(GamePanel gp)
+    {
+        this.gp = gp;
+    }
+
+    public void setObject()
+    {
+        gp.obj[0] = new OBJ_AutumnBush();
+        gp.obj[0].worldX = 22 * gp.tileSize;
+        gp.obj[0].worldY = 20 * gp.tileSize;
+
+        gp.obj[1] = new OBJ_BrokenTree();
+        gp.obj[1].worldX = 23 * gp.tileSize;
+        gp.obj[1].worldY = 20 * gp.tileSize;      
+
+        gp.obj[2] = new OBJ_BurnedTree();
+        gp.obj[2].worldX = 24 * gp.tileSize;
+        gp.obj[2].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[3] = new OBJ_Bush1();
+        gp.obj[3].worldX = 25 * gp.tileSize;
+        gp.obj[3].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[4] = new OBJ_Bush2();
+        gp.obj[4].worldX = 26 * gp.tileSize;
+        gp.obj[4].worldY = 20 * gp.tileSize;  
+
+        gp.obj[5] = new OBJ_BushBlueFlowers();
+        gp.obj[5].worldX = 27 * gp.tileSize;
+        gp.obj[5].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[6] = new OBJ_BushOrangeFlowers();
+        gp.obj[6].worldX = 28 * gp.tileSize;
+        gp.obj[6].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[7] = new OBJ_BushOrangeFlowers();
+        gp.obj[7].worldX = 29 * gp.tileSize;
+        gp.obj[7].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[8] = new OBJ_BushPinkFlowers();
+        gp.obj[8].worldX = 30 * gp.tileSize;
+        gp.obj[8].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[9] = new OBJ_BushRedFlowers();
+        gp.obj[9].worldX = 31 * gp.tileSize;
+        gp.obj[9].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[10] = new OBJ_Cactus1();
+        gp.obj[10].worldX = 32 * gp.tileSize;
+        gp.obj[10].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[11] = new OBJ_Cactus2();
+        gp.obj[11].worldX = 33 * gp.tileSize;
+        gp.obj[11].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[12] = new OBJ_Fern1();
+        gp.obj[12].worldX = 34 * gp.tileSize;
+        gp.obj[12].worldY = 20 * gp.tileSize;    
+        
+        gp.obj[13] = new OBJ_Fern2();
+        gp.obj[13].worldX = 35 * gp.tileSize;
+        gp.obj[13].worldY = 20 * gp.tileSize;  
+        
+        gp.obj[14] = new OBJ_SnowBush();
+        gp.obj[14].worldX = 36 * gp.tileSize;
+        gp.obj[14].worldY = 20 * gp.tileSize;                
+        
+    }
+}
