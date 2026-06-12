@@ -111,7 +111,6 @@ public class TileManager {
 
             tile[21] = new Tile();
             tile[21].image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Bunga.jpeg"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,10 +171,10 @@ public class TileManager {
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
             int tileNum = mapTileNum[worldCol][worldRow];
 
-// worldCol & worldRow = nomor urut kotak tile di file teks map (0 sampai terserah map nya kita mau di set seberapa besar)
-// gp.tileSize         = ukuran 1 kotak tile dalam satuan piksel (misal: 48 piksel)
-int worldX = worldCol * gp.tileSize; // Posisi Jarak Piksel dari batas kiri World Map
-int worldY = worldRow * gp.tileSize; // Posisi Jarak Piksel dari batas atas World Map
+            // worldCol & worldRow = nomor urut kotak tile di file teks map (0 sampai terserah map nya kita mau di set seberapa besar)
+            // gp.tileSize         = ukuran 1 kotak tile dalam satuan piksel (misal: 48 piksel)
+            int worldX = worldCol * gp.tileSize; // Posisi Jarak Piksel dari batas kiri World Map
+            int worldY = worldRow * gp.tileSize; // Posisi Jarak Piksel dari batas atas World Map
 
 
             int screenX = worldX - gp.player.WorldX + gp.player.ScreenX; 

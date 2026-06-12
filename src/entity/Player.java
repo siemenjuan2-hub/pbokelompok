@@ -14,8 +14,6 @@ public class Player extends Entity {
     public int ScreenX;
     public int ScreenY;
 
-
-
     double stamina;
     boolean isiStamina;
 
@@ -257,8 +255,8 @@ public void draw(Graphics2D g2) {
         image,
         ScreenX,
         ScreenY,
-        gp.tileSize,
-        gp.tileSize,
+        gp.tileSize*2,
+        gp.tileSize*2,
         null
     );
 }
