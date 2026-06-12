@@ -11,10 +11,10 @@ import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
         // screen settings
-        final int originalTileSize = 64;
-        final int scale = 2;
+        final int originalTileSize = 48;
+        final int scale = 3;
 
-        public final int tileSize = originalTileSize * scale; // 64x2 = 128 (1 tile)
+        public final int tileSize = originalTileSize * scale; // 16x2 = 32 (1 tile)
         final public int maxScreenCol = 29; // 29 tile kesamping
         final public int maxScreenRow = 20; // 20 tile kebawah
         public final int screenWidth = tileSize * maxScreenCol; // 3712 pixels kesamping

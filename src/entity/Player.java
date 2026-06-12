@@ -26,8 +26,8 @@ public class Player extends Entity {
         solidArea = new Rectangle();
         solidArea.x = 8; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
         solidArea.y = 16; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.width = 80; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.height = 128; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.width = 16; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.height = 16; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
 
 
         // Untuk dapat titik tengah device
@@ -48,14 +48,39 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/char1.jpeg"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/char1.jpeg"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/char1.jpeg"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/charback1.jpeg"));
+            //W
+            up1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C2.png"));
+            up3 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C3.png"));
+            up4 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C4.png"));
+            up5 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C5.png"));
+            up6 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR4C6.png"));
+
+            //S
+            down1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C2.png"));
+            down3 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C3.png"));
+            down4 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C4.png"));
+            down5 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C5.png"));
+            down6 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR1C6.png"));
+
+            //A
+            left1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C2.png"));
+            left3 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C3.png"));
+            left4 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C4.png"));
+            left5 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C5.png"));
+            left6 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR2C6.png"));        
+            
+            //D
+            right1 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C2.png"));
+            right3 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C3.png"));
+            right4 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C4.png"));
+            right5 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C5.png"));
+            right6 = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/TileR3C6.png"));
+
+
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -135,6 +160,14 @@ public class Player extends Entity {
                     if(spriteNum == 1){
                         spriteNum = 2;
                     } else if (spriteNum == 2){
+                        spriteNum = 3;
+                    } else if (spriteNum == 3){
+                        spriteNum = 4;
+                    } else if (spriteNum == 4){
+                        spriteNum = 5;
+                    } else if (spriteNum == 5){
+                        spriteNum = 6;
+                    } else if (spriteNum == 6){
                         spriteNum = 1;
                     }
                     spriteCounter = 0;
@@ -154,6 +187,14 @@ public void draw(Graphics2D g2) {
                 image = up1;
             } else if (spriteNum == 2){
                 image = up2;
+            } else if (spriteNum == 3){
+                image = up3;
+            } else if (spriteNum == 4){
+                image = up4;
+            } else if (spriteNum == 5){
+                image = up5;
+            } else if (spriteNum == 6){
+                image = up6;
             }
             break;
 
@@ -162,6 +203,14 @@ public void draw(Graphics2D g2) {
                 image = down1;
             } else if (spriteNum == 2){
                 image = down2;
+            } else if (spriteNum == 3){
+                image = down3;
+            } else if (spriteNum == 4){
+                image = down4;
+            } else if (spriteNum == 5){
+                image = down5;
+            } else if (spriteNum == 6){
+                image = down6;
             }
             break;
 
@@ -170,6 +219,14 @@ public void draw(Graphics2D g2) {
                 image = left1;
             } else if (spriteNum == 2){
                 image = left2;
+            } else if (spriteNum == 3){
+                image = left3;
+            } else if (spriteNum == 4){
+                image = left4;
+            } else if (spriteNum == 5){
+                image = left5;
+            } else if (spriteNum == 6){
+                image = left6;
             }
             break;
 
@@ -178,6 +235,14 @@ public void draw(Graphics2D g2) {
                 image = right1;
             } else if (spriteNum == 2){
                 image = right2;
+            } else if (spriteNum == 3){
+                image = right3;
+            } else if (spriteNum == 4){
+                image = right4;
+            } else if (spriteNum == 5){
+                image = right5;
+            } else if (spriteNum == 6){
+                image = right6;
             }
             break;
     }
