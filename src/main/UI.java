@@ -17,6 +17,7 @@ public class UI {
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00"); // formating playtime
     public String currentDialogue = "";
+    public int commandNum = 0; // menu
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -35,9 +36,15 @@ public class UI {
 
         g2.setFont(arial_40);
         g2.setColor(Color.white);
+
+        //TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
         // play state
         if(gp.gameState == gp.playState){
-            // do play state stuff
+        g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
+        g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
         }
         // pause state
         if(gp.gameState == gp.pauseState){
@@ -48,10 +55,65 @@ public class UI {
             drawDialogScreen();
         }
 
-        g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
-        g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
-
         }
+
+        public void drawTitleScreen() {
+
+            //BACKGROUND COLOR
+            g2.setColor(new Color(0, 0, 0));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            //TITLE NAME
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
+            String text = "Is it Wrong to Save a Girl in a Dungeon";
+            int x = getXforCenteredText(text) - 100;
+            int y = gp.tileSize;
+
+            //SHADOW
+            g2.setColor(Color.black);
+            g2.drawString(text, x + 5, y + 5);
+
+            // MAIN COLOR
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+            //Display Apapun lah yang ada dilayar utama 
+            x = (gp.screenWidth / 2) - 150;
+            y += gp.tileSize * 1.5;
+            g2.drawImage(gp.player.down1, x - (gp.tileSize / 2), y - (gp.tileSize / 2), null);
+
+            //MENU 
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+
+            text = "NEW GAME";
+            x = getXforCenteredText(text) - 100;
+            y += gp.tileSize * 3;
+            g2.drawString(text, x, y);
+
+            if(commandNum == 0){
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+
+            text = "LOAD GAME";
+            x = getXforCenteredText(text) - 100; 
+            y += gp.tileSize * 1.2;
+            g2.drawString(text, x, y);
+
+            if(commandNum == 1){
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "QUIT";
+            x = getXforCenteredText(text) - 100;  
+            y += gp.tileSize * 1.2;
+            g2.drawString(text, x, y);
+
+            if(commandNum == 2){
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+        }
+
         public void drawDialogScreen(){
             //window
             int x = gp.tileSize * 2;
