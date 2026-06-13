@@ -16,6 +16,7 @@ public class UI {
     public boolean gameFinished = false;
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00"); // formating playtime
+    public String currentDialogue = "";
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -34,17 +35,51 @@ public class UI {
 
         g2.setFont(arial_40);
         g2.setColor(Color.white);
-
+        // play state
         if(gp.gameState == gp.playState){
             // do play state stuff
         }
+        // pause state
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
+        }
+        //dialog state
+        if(gp.gameState == gp.dialogState){
+            drawDialogScreen();
         }
 
         g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
         g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
 
+        }
+        public void drawDialogScreen(){
+            //window
+            int x = gp.tileSize * 2;
+            int y = gp.tileSize / 2;
+            int width = gp.screenWidth - (gp.tileSize * 4);
+            int height = gp.tileSize * 2;
+            drawSubWindow(x, y, width, height);
+            
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+            x += gp.tileSize;
+            y += gp.tileSize;
+            g2.drawString(currentDialogue, x, y);
+
+            for(String line : currentDialogue.split("\n")) {
+                g2.drawString(line, x, y);
+                y += 40; // jarak antar baris
+            }
+        }
+        
+        public void drawSubWindow(int x, int y, int width, int height){
+            Color c = new Color(0, 0, 0, 150);
+            g2.setColor(c);
+            g2.fillRoundRect(x, y, width, height, 35, 35);
+
+            c = new Color(255, 255, 255);
+            g2.setColor(c);
+            g2.setStroke(new java.awt.BasicStroke(5));
+            g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
         }
     public void drawPauseScreen(){
         String text = "PAUSED";
