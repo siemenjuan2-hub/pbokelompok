@@ -17,6 +17,8 @@ public class Npc_OldMan extends Entity{
         this.setSpeed(3);
 
         getImage();
+
+        setDialogues();
     }
 
     public void getImage() {
@@ -35,6 +37,14 @@ public class Npc_OldMan extends Entity{
         //Kanan
         right1 = setUp("/assets/Npc/Wizard/oldman_right_1");
         right2 = setUp("/assets/Npc/Wizard/oldman_right_2");
+    }
+
+    public void setDialogues() {
+        dialogues[0] = "Hello, young adventurer!";
+        dialogues[1] = "The world is full of mysteries.";
+        dialogues[2] = "Be careful out there.";
+        dialogues[3] = "I used to be a great wizard, you know.";
+        dialogues[4] = "If you find any magical artifacts, bring them to me.";
     }
 
     @Override
@@ -62,6 +72,8 @@ public class Npc_OldMan extends Entity{
 
 
     }
-    
-    
+
+    public void speak(){
+        super.speak();
+    }
 }

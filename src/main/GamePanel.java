@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
         int FPS = 60;
 
         // SYSTEM
-        KeyHandler keyH = new KeyHandler(this);
+        public KeyHandler keyH = new KeyHandler(this);
         Thread gameThread;
         public CollisonChecker cCheker = new CollisonChecker(this);
         public AssetSetter aSetter = new AssetSetter(this);
@@ -43,12 +43,13 @@ public class GamePanel extends JPanel implements Runnable {
         // ENTITY & OBJECT
         public Player player = new Player(this, keyH);
         public SuperObject obj[] = new SuperObject[20];
-        public Entity npc[] =  new Entity[10];
+        public Entity npc[] =  new Entity[30];
         
         //game state
         public int gameState;
         public final int playState = 1;
         public final int pauseState = 2;        
+        public final int dialogState = 3;
 
         public GamePanel() {
             this.setPreferredSize(new Dimension(screenWidth, screenHeight));

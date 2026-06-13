@@ -172,7 +172,7 @@ public class CollisonChecker {
         int index = 999;
         for(int i = 0 ; i < target.length ; i++)
         {
-            if(target[i] != null)
+            if(target[i] != null && target[i] != entity)
             {
                 // cari posisi solid areanya entity
                 entity.solidArea.x = entity.WorldX + entity.solidArea.x;

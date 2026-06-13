@@ -10,7 +10,7 @@ import main.GamePanel;
 import main.UtilityTool;
 
 
-public class Entity {
+public abstract class Entity {
 
     GamePanel gp;
     public int WorldX, WorldY;
@@ -25,20 +25,50 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionON = false;
     public int actionLockCounter = 0;
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     public Entity(GamePanel gp){
         this.gp = gp;
     }
 
-    public void setAction(){ }
+    public abstract void setAction();
+    public void speak(){
+            gp.ui.currentDialogue = dialogues[dialogueIndex];
+            dialogueIndex++;
+            if(dialogues[dialogueIndex] == null){
+                dialogueIndex = 0;
+            }
+        switch (gp.player.direction) {
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
 
+    }
     public void update(){
 
         setAction();
-
         collisionON = false;
+        // Cek collison tile
         gp.cCheker.checkTile(this);
+
+        // cek collison npc
+        gp.cCheker.checkEntity(this, gp.npc);
+        
+        //CEK COLLISON OBJEK
         gp.cCheker.checkObject(this, false);
+    
+        // CEK COLLISON PLAYER    
         gp.cCheker.checkPlayer(this);
 
         if (collisionON == false) {
