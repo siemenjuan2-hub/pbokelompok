@@ -6,6 +6,9 @@ public class KeyHandler implements KeyListener{
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPrassed;
 
+    //DEBUG 
+    boolean checkDrawTime = false;
+
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -28,6 +31,15 @@ public class KeyHandler implements KeyListener{
 
         if(key == KeyEvent.VK_SHIFT) {
             shiftPrassed = true;
+        }
+
+        if(key == KeyEvent.VK_T) {
+            if (checkDrawTime == false) {
+                checkDrawTime = true;
+            }
+            else if (checkDrawTime == true) {
+                checkDrawTime = false;
+            }
         }
         
     }
