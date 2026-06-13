@@ -19,6 +19,7 @@ public class Player extends Entity {
     public double stamina;
     public int maxStamina;
     boolean isiStamina;
+    boolean isiHp;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -89,7 +90,7 @@ public class Player extends Entity {
 
     
     public void update() {
-        if (keyH.shiftPrassed && stamina > 0 && !isiStamina) {
+        if (keyH.shiftPressed && stamina > 0 && !isiStamina) {
             this.setSpeed(10);
         } else {
             this.setSpeed(6);
@@ -103,7 +104,7 @@ public class Player extends Entity {
         }
         
         if (isiStamina) {
-            if(keyH.shiftPrassed && stamina >= 5){
+            if(keyH.shiftPressed && stamina >= 5){
                 isiStamina = false;
                 this.setSpeed(10);
             }else{
@@ -113,6 +114,10 @@ public class Player extends Entity {
         
         if (stamina > 20) {
             stamina = 20;
+        }
+
+        if(keyH.ePressed){
+            this.setHp(+10);
         }
         
         if(keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true||keyH.rightPressed == true){
