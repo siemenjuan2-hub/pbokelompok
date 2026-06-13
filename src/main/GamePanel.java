@@ -96,6 +96,12 @@ public class GamePanel extends JPanel implements Runnable {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D)g; // ada beberapa function yang tidak ada di graphic biasa, jadi pakai 2d
 
+            //Debug buat Liat Cetak Berapa Tile dalam nano seccond
+            long drawStart = 0;
+            if (keyH.checkDrawTime == true) {
+                drawStart = System.nanoTime();    
+            }
+
             // Tile
             tileM.draw(g2);
             System.out.println("PLAYER DRAW");
@@ -114,6 +120,18 @@ public class GamePanel extends JPanel implements Runnable {
 
             // UI
             ui.draw(g2);
+
+
+            //Debug buat Liat Cetak Berapa Tile dalam nano seccond
+            if (keyH.checkDrawTime == true) {
+                long drawEnd = System.nanoTime();
+                long passed = drawEnd - drawStart;
+                g2.setColor(Color.white);
+                g2.drawString("Draw Time: " + passed , 10 , 400);
+                System.out.println("Draw Time: " + passed);       
+            }
             g2.dispose();
+
+        
         }
 }
