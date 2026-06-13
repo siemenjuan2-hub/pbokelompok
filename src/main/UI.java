@@ -43,8 +43,8 @@ public class UI {
         }
         // play state
         if(gp.gameState == gp.playState){
-        g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
-        g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
+            g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
+            g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
         }
         // pause state
         if(gp.gameState == gp.pauseState){
@@ -55,7 +55,7 @@ public class UI {
             drawDialogScreen();
         }
 
-        }
+    }
 
         public void drawTitleScreen() {
 
