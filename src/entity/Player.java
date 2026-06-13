@@ -15,7 +15,7 @@ public class Player extends Entity {
     public int ScreenY;
 
     // buat interaksi kunci dan pintu, saat ini belum ada kunci
-    int hasKey = 0;
+    public int hasKey = 0;
 
     double stamina;
     boolean isiStamina;
@@ -23,16 +23,18 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-//bugg
+
+
+        //bugg
         solidArea = new Rectangle();
-        solidArea.x = 64; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.x = 96; //Nanti Sesuain sama ukuran karakter Hitung area solid nya, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
         solidArea.y = 128; //Nanti Sesuian sama ukuran krakter, misal ukuran karakter kita 48 terus yang mau dibuat solid ditulis
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        solidArea.width = 128; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
-        solidArea.height = 128; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.width = 64; //Nanti Sesuain dengan ukuran tiles yang dipake, misal lebar karakter kita 48 terus yang mau dibuat solid ditulis
+        solidArea.height = 64; //Nanti sesuain dengan ukuran tiles yang dipake, misal tinggi karakter kita 48 terus yang mau dibuat solid ditulis
 
 
         // Untuk dapat titik tengah device
@@ -136,6 +138,7 @@ public class Player extends Entity {
 
             // cek objek collision
             int objIndex = gp.cCheker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             // Kalo collisonnya false, playernya bisa gerak
             if (collisionON == false) {
@@ -192,15 +195,17 @@ public class Player extends Entity {
             // interaksi kunci dan pintu, saat ini belum ada objek kunci dan pintu
             switch(ObjectName)
             {
-                case "Key":
+                case "AutumnBush":
                     hasKey++; // kunci player bertambah saat nyentuh objek kunci
                     gp.obj[i] = null; //index yang ditempati kunci objeknya dihilangkan setelah diambil
+                    gp.ui.showMassage("You Got A Autumn Bush!");
                     break;
-                case "Door":
+                case "SnowBush":
                     if(hasKey > 0)
                     {
                         gp.obj[i] = null; // buka pintu menggunakan kunci, pintu dihilangkan
                         hasKey--; // kunci berkurang dipakai untuk pintu
+                        gp.ui.gameFinished = true;
                     }
                     break;
             }
@@ -208,10 +213,9 @@ public class Player extends Entity {
     }
     
 public void draw(Graphics2D g2) {
-        ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
-        ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);
 
-
+    ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
+    ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);
     BufferedImage image = null;
 
     switch(direction) {
@@ -280,7 +284,8 @@ public void draw(Graphics2D g2) {
             break;
     }
     System.out.println("Panel = " + gp.getWidth() + " x " + gp.getHeight());
-    System.out.println("Player = " + ScreenY + " x " + ScreenX);
+    System.out.println("Camera = " + ScreenY + " x " + ScreenX);
+    System.out.println("Player = " + WorldY + " x " + WorldX);
     System.out.println(
     "Width="+gp.getWidth()+
     " Height="+gp.getHeight()

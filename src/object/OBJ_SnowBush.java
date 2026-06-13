@@ -13,6 +13,6 @@ public class OBJ_SnowBush extends SuperObject{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        collision = true;        
+        collision = false;        
     }
 }
