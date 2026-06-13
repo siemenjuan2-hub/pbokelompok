@@ -32,7 +32,7 @@ public class SuperObject {
         }
 
         // buat cek collision lebih jelas
-        g2.setColor(java.awt.Color.RED);
-        g2.drawRect(screenX + solidAreaDefaultX, screenY + solidAreaDefaultY, solidArea.width, solidArea.height);
+        // g2.setColor(java.awt.Color.RED);
+        // g2.drawRect(screenX + solidAreaDefaultX, screenY + solidAreaDefaultY, solidArea.width, solidArea.height);
     }
 }

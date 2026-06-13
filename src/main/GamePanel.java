@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -27,20 +29,27 @@ public class GamePanel extends JPanel implements Runnable {
         public final int worldWidth = tileSize * maxWorldCol;
         public final int worldHeight = tileSize * maxWorldRow;
 
+        //FPS
         int FPS = 60;
 
-        KeyHandler keyH = new KeyHandler();
+        // SYSTEM
+        KeyHandler keyH = new KeyHandler(this);
         Thread gameThread;
-
-
         public CollisonChecker cCheker = new CollisonChecker(this);
         public AssetSetter aSetter = new AssetSetter(this);
         public UI ui = new UI(this);
-
-        public Player player = new Player(this, keyH);
         TileManager tileM = new TileManager(this);
-        public SuperObject obj[] = new SuperObject[20];
         
+        // ENTITY & OBJECT
+        public Player player = new Player(this, keyH);
+        public SuperObject obj[] = new SuperObject[20];
+        public Entity npc[] =  new Entity[10];
+        
+        //game state
+        public int gameState;
+        public final int playState = 1;
+        public final int pauseState = 2;        
+
         public GamePanel() {
             this.setPreferredSize(new Dimension(screenWidth, screenHeight));
             this.setBackground(Color.black);
@@ -52,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
         public void setupGame()
         {
             aSetter.setObject();
+            aSetter.setNpc();
+            gameState = playState;
         }
 
         public void startGameThread() {
@@ -88,7 +99,21 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         public void update(){
-            player.update();
+            if(gameState == playState){
+                // PLAYER
+                player.update();
+
+                // NPC
+                for(int i = 0 ; i < npc.length ; i++){
+                    if(npc[i] != null){
+                        npc[i].update();
+                    }
+                }
+            }
+            else if(gameState == pauseState){
+                // nothing
+            }
+
         }
 
         @Override
@@ -106,6 +131,16 @@ public class GamePanel extends JPanel implements Runnable {
             tileM.draw(g2);
             System.out.println("PLAYER DRAW");
 
+            // NPC 
+            for(int i = 0 ; i < npc.length ; i++){
+                if(npc[i] != null){
+                    npc[i].draw(g2);
+                }
+            }
+
+            // Player
+            player.draw(g2);
+
             // Objek 
             for(int i=0; i<obj.length; i++)
             {
@@ -114,14 +149,11 @@ public class GamePanel extends JPanel implements Runnable {
                     obj[i].draw(g2, this);
                 }
             }
-
-            // Player
-            player.draw(g2);
-
+            
             // UI
             ui.draw(g2);
-
-
+            
+            
             //Debug buat Liat Cetak Berapa Tile dalam nano seccond
             if (keyH.checkDrawTime == true) {
                 long drawEnd = System.nanoTime();

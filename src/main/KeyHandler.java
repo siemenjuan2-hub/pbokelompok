@@ -3,12 +3,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
-
+    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPrassed;
+
 
     //DEBUG 
     boolean checkDrawTime = false;
-
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -31,6 +34,15 @@ public class KeyHandler implements KeyListener{
 
         if(key == KeyEvent.VK_SHIFT) {
             shiftPrassed = true;
+        }
+
+        if(key == KeyEvent.VK_P) {
+            if(gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+            }
+            else if(gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
+            }
         }
 
         if(key == KeyEvent.VK_T) {

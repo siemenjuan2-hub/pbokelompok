@@ -10,18 +10,19 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHandler keyH; 
-
+    
     public int ScreenX;
     public int ScreenY;
 
-    public int hasKey = 0;
-    double stamina;
+    // public int hasKey = 0;
+    public double stamina;
+    public int maxStamina;
     boolean isiStamina;
 
+
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         // REVISI 1: Hitbox yang pas untuk karakter berukuran 48x48
@@ -41,80 +42,73 @@ public class Player extends Entity {
     
     public void setDefaultValues() {
         WorldX = gp.tileSize * 23;
-        WorldY = gp.tileSize * 21; 
-        stamina = 20;
+        WorldY = gp.tileSize * 21;
+        maxStamina = 20;
+        stamina = maxStamina;
+        this.setMaxHp(100);
+        this.setHp(this.getMaxHp());
         isiStamina = false;
-        speed = 6;
+        this.setSpeed(6);
         direction = "down";
         spriteNum = 1;
     }
 
     public void getPlayerImage() {
         //W
-        up1 = setUp("TileR4C1");
-        up2 = setUp("TileR4C2");
-        up3 = setUp("TileR4C3");
-        up4 = setUp("TileR4C4");
-        up5 = setUp("TileR4C5");
-        up6 = setUp("TileR4C6");
+        up1 = setUp("/assets/Player/Tiles/TileR4C1");
+        up2 = setUp("/assets/Player/Tiles/TileR4C2");
+        up3 = setUp("/assets/Player/Tiles/TileR4C3");
+        up4 = setUp("/assets/Player/Tiles/TileR4C4");
+        up5 = setUp("/assets/Player/Tiles/TileR4C5");
+        up6 = setUp("/assets/Player/Tiles/TileR4C6");
 
         //S
-        down1 = setUp("TileR1C1");
-        down2 = setUp("TileR1C2");
-        down3 = setUp("TileR1C3");
-        down4 = setUp("TileR1C4");
-        down5 = setUp("TileR1C5");
-        down6 = setUp("TileR1C6");
+        down1 = setUp("/assets/Player/Tiles/TileR1C1");
+        down2 = setUp("/assets/Player/Tiles/TileR1C2");
+        down3 = setUp("/assets/Player/Tiles/TileR1C3");
+        down4 = setUp("/assets/Player/Tiles/TileR1C4");
+        down5 = setUp("/assets/Player/Tiles/TileR1C5");
+        down6 = setUp("/assets/Player/Tiles/TileR1C6");
 
         //A
-        left1 = setUp("TileR2C1");
-        left2 = setUp("TileR2C2");
-        left3 = setUp("TileR2C3");
-        left4 = setUp("TileR2C4");
-        left5 = setUp("TileR2C5");
-        left6 = setUp("TileR2C6");
+        left1 = setUp("/assets/Player/Tiles/TileR2C1");
+        left2 = setUp("/assets/Player/Tiles/TileR2C2");
+        left3 = setUp("/assets/Player/Tiles/TileR2C3");
+        left4 = setUp("/assets/Player/Tiles/TileR2C4");
+        left5 = setUp("/assets/Player/Tiles/TileR2C5");
+        left6 = setUp("/assets/Player/Tiles/TileR2C6");
 
         //D
-        right1 = setUp("TileR3C1");
-        right2 = setUp("TileR3C2");
-        right3 = setUp("TileR3C3");
-        right4 = setUp("TileR3C4");
-        right5 = setUp("TileR3C5");
-        right6 = setUp("TileR3C6");
+        right1 = setUp("/assets/Player/Tiles/TileR3C1");
+        right2 = setUp("/assets/Player/Tiles/TileR3C2");
+        right3 = setUp("/assets/Player/Tiles/TileR3C3");
+        right4 = setUp("/assets/Player/Tiles/TileR3C4");
+        right5 = setUp("/assets/Player/Tiles/TileR3C5");
+        right6 = setUp("/assets/Player/Tiles/TileR3C6");
     }
 
-    public BufferedImage setUp (String ImageName) {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/assets/Player/Tiles/" + ImageName + ".png"));
-            
-            // REVISI 2: Masukkan variabel playerSize ke dalam fungsi scaleImage
-            image = uTool.scaleImage(image, gp.tileSize * 2 , gp.tileSize * 2);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return image;
-    }
-
+    
     public void update() {
         if (keyH.shiftPrassed && stamina > 0 && !isiStamina) {
-            speed = 10;
+            this.setSpeed(10);
         } else {
-            speed = 6;
+            this.setSpeed(6);
+            isiStamina = true;
         }
 
         if (stamina <= 0) {
             stamina = 0;
             isiStamina = true;
-            speed = 6;
+            this.setSpeed(6);
         }
         
-        if (isiStamina && stamina >= 5) {
-            isiStamina = false;
+        if (isiStamina) {
+            if(keyH.shiftPrassed && stamina >= 5){
+                isiStamina = false;
+                this.setSpeed(10);
+            }else{
+                stamina+=0.01;
+            }
         }
         
         if (stamina > 20) {
@@ -128,25 +122,32 @@ public class Player extends Entity {
             if(keyH.rightPressed == true){ direction = "right"; }
             if(keyH.leftPressed == true){ direction = "left"; }
 
+            // CHECK COLLUSION TILE
             collisionON = false;
             gp.cCheker.checkTile(this);
 
+            // CHECK COLLUSION OBJEK
             int objIndex = gp.cCheker.checkObject(this, true);
             pickUpObject(objIndex);
 
+            // CHECK COLLUSION NPC
+            int npcIndex = gp.cCheker.checkEntity(this, gp.npc);
+            interactNpc(npcIndex);
+
             if (collisionON == false) {
                 switch (direction) {
-                    case "up": WorldY -= speed; break;
-                    case "down": WorldY += speed; break;
-                    case "left": WorldX -= speed; break;
-                    case "right": WorldX += speed; break;
+                    case "up": WorldY -= this.getSpeed(); break;
+                    case "down": WorldY += this.getSpeed(); break;
+                    case "left": WorldX -= this.getSpeed(); break;
+                    case "right": WorldX += this.getSpeed(); break;
                 }
             }
 
             spriteCounter++;
             if(spriteCounter > 10){
-                if (isiStamina) { stamina += 0.2; }
-                if(speed == 10){ stamina -= 1; }
+                if(this.getSpeed() == 10){ 
+                    stamina -= 1; 
+                }
                 
                 if(spriteNum == 1){ spriteNum = 2; } 
                 else if (spriteNum == 2){ spriteNum = 3; } 
@@ -161,24 +162,30 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if(i != 999) {
-            String ObjectName = gp.obj[i].name;
-            switch(ObjectName) {
-                case "AutumnBush":
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMassage("You Got A Autumn Bush!");
-                    break;
-                case "SnowBush":
-                    if(hasKey > 0) {
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.gameFinished = true;
-                    }
-                    break;
-            }
+            // String ObjectName = gp.obj[i].name;
+            // switch(ObjectName) {
+            //     case "AutumnBush":
+            //         hasKey++;
+            //         gp.obj[i] = null;
+            //         gp.ui.showMassage("You Got A Autumn Bush!");
+            //         break;
+            //     case "SnowBush":
+            //         if(hasKey > 0) {
+            //             gp.obj[i] = null;
+            //             hasKey--;
+            //             gp.ui.gameFinished = true;
+            //         }
+            //         break;
+            // }
         }
     }
     
+    public void interactNpc(int i){
+        if(i != 999){
+            System.out.println("you are hitting an npc!");
+        }
+    }
+
     public void draw(Graphics2D g2) {
         ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
         ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);

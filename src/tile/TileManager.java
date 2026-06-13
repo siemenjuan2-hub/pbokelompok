@@ -55,6 +55,8 @@ public class TileManager {
         setup(19, "RumputPojokKiriAtas", false);
         setup(20, "RumputPojokKananAtas", false);
         setup(21, "Bunga", false);
+
+        
     }
 
     

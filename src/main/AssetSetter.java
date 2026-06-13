@@ -1,5 +1,6 @@
 package main;
 
+import entity.Npc_OldMan;
 import object.OBJ_AutumnBush;
 import object.OBJ_BrokenTree;
 import object.OBJ_BurnedTree;
@@ -14,6 +15,10 @@ import object.OBJ_Cactus2;
 import object.OBJ_Fern1;
 import object.OBJ_Fern2;
 import object.OBJ_SnowBush;
+import object.KananAtas;
+import object.KananBawah;
+import object.KiriAtas;
+import object.Kiribawah;
 
 public class AssetSetter {
     GamePanel gp;
@@ -25,9 +30,9 @@ public class AssetSetter {
 
     public void setObject()
     {
-        gp.obj[0] = new OBJ_AutumnBush(gp);
-        gp.obj[0].worldX = 22 * gp.tileSize;
-        gp.obj[0].worldY = 20 * gp.tileSize;
+        // gp.obj[0] = new OBJ_AutumnBush(gp);
+        // gp.obj[0].worldX = 22 * gp.tileSize;
+        // gp.obj[0].worldY = 20 * gp.tileSize;
 
         gp.obj[1] = new OBJ_BrokenTree(gp);
         gp.obj[1].worldX = 23 * gp.tileSize;
@@ -80,10 +85,34 @@ public class AssetSetter {
         gp.obj[13] = new OBJ_Fern2(gp);
         gp.obj[13].worldX = 35 * gp.tileSize;
         gp.obj[13].worldY = 20 * gp.tileSize;  
+
+        gp.obj[14] = new KananAtas(gp);
+        gp.obj[14].worldX = 37 * gp.tileSize;
+        gp.obj[14].worldY = 19 * gp.tileSize;
+
+        gp.obj[15] = new KananBawah(gp);
+        gp.obj[15].worldX = 37 * gp.tileSize;
+        gp.obj[15].worldY = 20 * gp.tileSize;
+
+        gp.obj[16] = new KiriAtas(gp);
+        gp.obj[16].worldX = 36 * gp.tileSize;
+        gp.obj[16].worldY = 19 * gp.tileSize;
+
+        gp.obj[17] = new Kiribawah(gp);
+        gp.obj[17].worldX = 36 * gp.tileSize;
+        gp.obj[17].worldY = 20 * gp.tileSize;
         
-        gp.obj[14] = new OBJ_SnowBush(gp);
-        gp.obj[14].worldX = 36 * gp.tileSize;
-        gp.obj[14].worldY = 20 * gp.tileSize;                
         
+        // gp.obj[14] = new OBJ_SnowBush(gp);
+        // gp.obj[14].worldX = 36 * gp.tileSize;
+        // gp.obj[14].worldY = 20 * gp.tileSize;                
+        
+    }
+
+    public void setNpc(){
+
+        gp.npc[0] = new Npc_OldMan(gp);
+        gp.npc[0].WorldX = gp.tileSize*21;
+        gp.npc[0].WorldY = gp.tileSize*21;
     }
 }
