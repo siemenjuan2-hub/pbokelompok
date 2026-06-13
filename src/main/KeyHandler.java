@@ -45,7 +45,8 @@ public class KeyHandler implements KeyListener{
                 }
             }       
         }
-        //play state    
+        //play state  
+        else if(gp.gameState == gp.playState) {  
             if(code == KeyEvent.VK_W) {
                 upPressed = true;
             }
@@ -79,8 +80,9 @@ public class KeyHandler implements KeyListener{
                     checkDrawTime = false;
                 }
             }
+        }
         //pause state
-        if(gp.gameState == gp.pauseState) {
+        else if(gp.gameState == gp.pauseState) {
             if(code == KeyEvent.VK_P) {
                 if(gp.gameState == gp.playState) {
                     gp.gameState = gp.pauseState;
