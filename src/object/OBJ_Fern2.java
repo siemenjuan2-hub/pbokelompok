@@ -19,7 +19,6 @@ public class OBJ_Fern2 extends SuperObject{
             uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        collision = true;        
+        }    
     }
 }

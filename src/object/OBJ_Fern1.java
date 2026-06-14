@@ -18,6 +18,5 @@ public class OBJ_Fern1 extends SuperObject{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        collision = true;        
     }
 }
