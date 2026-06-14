@@ -18,7 +18,6 @@ public class OBJ_BrokenTree extends SuperObject{
             image = ImageIO.read(getClass().getResourceAsStream("/assets/Objects/Broken_tree1.png"));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        collision = true;        
+        }        
     }
 }

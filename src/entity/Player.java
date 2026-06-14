@@ -19,7 +19,8 @@ public class Player extends Entity {
     public double stamina;
     public int maxStamina;
     boolean isiStamina;
-    boolean isiHp;
+    int chargeCounter = 0;
+    public int hasPotion = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -103,85 +104,88 @@ public class Player extends Entity {
             this.setSpeed(6);
         }
         
-        if (isiStamina) {
-            if(keyH.shiftPressed && stamina >= 5){
-                isiStamina = false;
-                this.setSpeed(10);
-            }else{
-                stamina+=0.01;
-            }
-        }
-        
-        if (stamina > 20) {
+
+        if (stamina >= 20) {
+            isiStamina = false;
             stamina = 20;
         }
+        
+        if(keyH.upPressed == true){ direction = "up"; }
+        if(keyH.downPressed == true){ direction = "down"; }
+        if(keyH.rightPressed == true){ direction = "right"; }
+        if(keyH.leftPressed == true){ direction = "left"; }
+        // CHECK COLLUSION TILE
+        collisionON = false;
+        gp.cCheker.checkTile(this);
+        
+        // CHECK COLLUSION OBJEK
+        int objIndex = gp.cCheker.checkObject(this, true);
+        pickUpObject(objIndex);
+        
+        // CHECK COLLUSION NPC
+        int npcIndex = gp.cCheker.checkEntity(this, gp.npc);
+        interactNpc(npcIndex);
+        
+        
+        
+        if (collisionON == false && keyH.upPressed == true || collisionON == false && keyH.downPressed == true || collisionON == false && keyH.rightPressed == true || collisionON == false && keyH.leftPressed == true) {
+            switch (direction) {
+                case "up": WorldY -= this.getSpeed(); break;
+                case "down": WorldY += this.getSpeed(); break;
+                case "left": WorldX -= this.getSpeed(); break;
+                case "right": WorldX += this.getSpeed(); break;
+            }
+            // CHECK COLLUSION Event
+            gp.eHandler.checkEvent();
+            spriteCounter++;
+        }else{
+            isiStamina = true;
+        }
+        chargeCounter++;
+        
+        if(spriteCounter > 10){
+            if(this.getSpeed() == 10){ 
+                stamina -= 1; 
+            }
 
-        if(keyH.ePressed){
-            this.setHp(+10);
+            if(spriteNum == 1){ spriteNum = 1; } 
+            else if (spriteNum == 2){ spriteNum = 2; } 
+            else if (spriteNum == 3){ spriteNum = 3; } 
+            else if (spriteNum == 4){ spriteNum = 4; } 
+            else if (spriteNum == 5){ spriteNum = 5; } 
+            else if (spriteNum == 6){ spriteNum = 6; }
+            spriteCounter = 0;
         }
         
-        if(keyH.upPressed == true||keyH.downPressed == true||keyH.leftPressed == true||keyH.rightPressed == true){
-            
-            if(keyH.upPressed == true){ direction = "up"; }
-            if(keyH.downPressed == true){ direction = "down"; }
-            if(keyH.rightPressed == true){ direction = "right"; }
-            if(keyH.leftPressed == true){ direction = "left"; }
-
-            // CHECK COLLUSION TILE
-            collisionON = false;
-            gp.cCheker.checkTile(this);
-
-            // CHECK COLLUSION OBJEK
-            int objIndex = gp.cCheker.checkObject(this, true);
-            pickUpObject(objIndex);
-
-            // CHECK COLLUSION NPC
-            int npcIndex = gp.cCheker.checkEntity(this, gp.npc);
-            interactNpc(npcIndex);
-
-            if (collisionON == false) {
-                switch (direction) {
-                    case "up": WorldY -= this.getSpeed(); break;
-                    case "down": WorldY += this.getSpeed(); break;
-                    case "left": WorldX -= this.getSpeed(); break;
-                    case "right": WorldX += this.getSpeed(); break;
+        if(chargeCounter > 10) {
+            if (isiStamina) {
+                if(keyH.shiftPressed && keyH.upPressed == false && keyH.downPressed == false && keyH.rightPressed == false && keyH.leftPressed == false){
+                    stamina+=0.5;
+                }else if(keyH.shiftPressed && stamina >= 5){
+                    isiStamina = false;
+                    this.setSpeed(10);
+                }else{
+                    stamina+=0.5;
                 }
             }
-
-            spriteCounter++;
-            if(spriteCounter > 10){
-                if(this.getSpeed() == 10){ 
-                    stamina -= 1; 
-                }
-                
-                if(spriteNum == 1){ spriteNum = 2; } 
-                else if (spriteNum == 2){ spriteNum = 3; } 
-                else if (spriteNum == 3){ spriteNum = 4; } 
-                else if (spriteNum == 4){ spriteNum = 5; } 
-                else if (spriteNum == 5){ spriteNum = 6; } 
-                else if (spriteNum == 6){ spriteNum = 1; }
-                spriteCounter = 0;
+            if(keyH.ePressed && this.getHp() < this.getMaxHp() && hasPotion > 0){
+                this.setHp(this.getHp() + 10);
+                hasPotion--;
             }
+            chargeCounter = 0;
         }
     }
 
     public void pickUpObject(int i) {
         if(i != 999) {
-            // String ObjectName = gp.obj[i].name;
-            // switch(ObjectName) {
-            //     case "AutumnBush":
-            //         hasKey++;
-            //         gp.obj[i] = null;
-            //         gp.ui.showMassage("You Got A Autumn Bush!");
-            //         break;
-            //     case "SnowBush":
-            //         if(hasKey > 0) {
-            //             gp.obj[i] = null;
-            //             hasKey--;
-            //             gp.ui.gameFinished = true;
-            //         }
-            //         break;
-            // }
+            String ObjectName = gp.obj[i].name;
+            switch(ObjectName) {
+                case "AutumnBush":
+                    hasPotion++;
+                    gp.obj[i] = null;
+                    gp.ui.showMassage("You Got A Autumn Bush!");
+                    break;
+            }
         }
     }
     

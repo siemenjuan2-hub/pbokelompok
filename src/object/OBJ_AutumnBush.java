@@ -18,6 +18,5 @@ public class OBJ_AutumnBush extends SuperObject{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        collision = false;
     }
 }

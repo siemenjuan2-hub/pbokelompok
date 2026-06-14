@@ -15,7 +15,7 @@ public class UI {
     int massageCounter = 0; // waktu notifikasi terlihat
     public boolean gameFinished = false;
     double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0.00"); // formating playtime
+    DecimalFormat dFormat = new DecimalFormat("#0"); // formating playtime
     public String currentDialogue = "";
     public int commandNum = 0; // menu
 
@@ -45,6 +45,7 @@ public class UI {
         if(gp.gameState == gp.playState){
             g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
             g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
+            g2.drawString("Potion: " + gp.player.hasPotion, gp.tileSize*4, gp.tileSize*8);
         }
         // pause state
         if(gp.gameState == gp.pauseState){

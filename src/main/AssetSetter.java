@@ -9,7 +9,6 @@ import entity.Keledai;
 import entity.Npc_OldMan;
 import entity.Sapi;
 import object.OBJ_AutumnBush;
-import object.OBJ_BrokenTree;
 import object.OBJ_BurnedTree;
 import object.OBJ_Bush1;
 import object.OBJ_Bush2;
@@ -31,38 +30,43 @@ public class AssetSetter {
         gp.obj[0] = new OBJ_AutumnBush(gp);
         gp.obj[0].worldX = 22 * gp.tileSize;
         gp.obj[0].worldY = 20 * gp.tileSize;
+        gp.obj[0].collision = false;
 
-        gp.obj[1] = new OBJ_BrokenTree(gp);
-        gp.obj[1].worldX = 23 * gp.tileSize;
-        gp.obj[1].worldY = 20 * gp.tileSize;      
+        gp.obj[1] = new OBJ_Bush1(gp);
+        gp.obj[1].worldX = 30 * gp.tileSize;
+        gp.obj[1].worldY = 21 * gp.tileSize;    
+        gp.obj[1].collision = false;  
 
-        gp.obj[2] = new OBJ_BurnedTree(gp);
-        gp.obj[2].worldX = 24 * gp.tileSize;
-        gp.obj[2].worldY = 20 * gp.tileSize;  
-        
-        gp.obj[3] = new OBJ_Bush1(gp);
+        gp.obj[2] = new OBJ_Bush2(gp);
+        gp.obj[2].worldX = 37 * gp.tileSize;
+        gp.obj[2].worldY = 41 * gp.tileSize;  
+        gp.obj[2].collision = false;
+
+        gp.obj[3] = new OBJ_AutumnBush(gp);
         gp.obj[3].worldX = 25 * gp.tileSize;
-        gp.obj[3].worldY = 20 * gp.tileSize;  
+        gp.obj[3].worldY = 20 * gp.tileSize;
+        gp.obj[3].collision = false;
         
-        gp.obj[4] = new OBJ_Bush2(gp);
-        gp.obj[4].worldX = 26 * gp.tileSize;
-        gp.obj[4].worldY = 20 * gp.tileSize;
+        gp.obj[4] = new OBJ_BurnedTree(gp);
+        gp.obj[4].worldX = 25 * gp.tileSize;
+        gp.obj[4].worldY = 21 * gp.tileSize;
+        gp.obj[4].collision = false;
 
-        gp.obj[4] = new KananAtas(gp);
-        gp.obj[4].worldX = 37 * gp.tileSize;
-        gp.obj[4].worldY = 19 * gp.tileSize;
-
-        gp.obj[5] = new KananBawah(gp);
+        gp.obj[5] = new KananAtas(gp);
         gp.obj[5].worldX = 37 * gp.tileSize;
-        gp.obj[5].worldY = 20 * gp.tileSize;
+        gp.obj[5].worldY = 19 * gp.tileSize;
 
-        gp.obj[6] = new KiriAtas(gp);
-        gp.obj[6].worldX = 36 * gp.tileSize;
-        gp.obj[6].worldY = 19 * gp.tileSize;
+        gp.obj[6] = new KananBawah(gp);
+        gp.obj[6].worldX = 37 * gp.tileSize;
+        gp.obj[6].worldY = 20 * gp.tileSize;
 
-        gp.obj[7] = new Kiribawah(gp);
+        gp.obj[7] = new KiriAtas(gp);
         gp.obj[7].worldX = 36 * gp.tileSize;
-        gp.obj[7].worldY = 20 * gp.tileSize;
+        gp.obj[7].worldY = 19 * gp.tileSize;
+
+        gp.obj[8] = new Kiribawah(gp);
+        gp.obj[8].worldX = 36 * gp.tileSize;
+        gp.obj[8].worldY = 20 * gp.tileSize;
         
     }
 
@@ -195,7 +199,7 @@ public class AssetSetter {
 
         // PASUKAN Babi
         gp.npc[22] = new Keledai(gp);
-        gp.npc[22].WorldX = gp.tileSize*40;
+        gp.npc[22].WorldX = gp.tileSize*30;
         gp.npc[22].WorldY = gp.tileSize*38;
         gp.npc[22].direction = "down";
 

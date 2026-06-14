@@ -9,7 +9,6 @@ import main.GamePanel;
 public class OBJ_BrokenTreeas extends SuperObject{
 
     GamePanel gp;
-
     public OBJ_BrokenTreeas(GamePanel gp)
     {
         this.gp = gp;
