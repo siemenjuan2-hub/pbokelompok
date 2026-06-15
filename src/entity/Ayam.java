@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 public class Ayam extends Entity{
     public Ayam (GamePanel gp){
         super(gp);
-        solidArea = new Rectangle(0, 0, 128, 128);
-
+        entitySize = 64;
+        solidArea = new Rectangle(0, 0, entitySize, entitySize);
         this.setSpeed(3);
 
         getImage();

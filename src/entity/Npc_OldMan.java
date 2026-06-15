@@ -11,7 +11,8 @@ import javax.imageio.ImageIO;
 public class Npc_OldMan extends Entity{
     public Npc_OldMan (GamePanel gp){
         super(gp);
-        solidArea = new Rectangle(0, 0, 128, 128);
+        entitySize = 100;
+        solidArea = new Rectangle(0, 0, entitySize, entitySize);
 
         direction = "down";
         this.setSpeed(3);

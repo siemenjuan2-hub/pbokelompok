@@ -21,6 +21,7 @@ public class Player extends Entity {
     boolean isiStamina;
     int chargeCounter = 0;
     public int hasPotion = 0;
+    public int entitySize = 256;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -30,14 +31,14 @@ public class Player extends Entity {
         // REVISI 1: Hitbox yang pas untuk karakter berukuran 48x48
         solidArea = new Rectangle();
         solidArea.x = 90;                 // Jarak aman dari sisi kiri karakter
-        solidArea.y = 128;                // Jarak aman dari kepala (hitbox melindungi area perut ke kaki)
+        solidArea.y = 120;                // Jarak aman dari kepala (hitbox melindungi area perut ke kaki)
         
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
         solidArea.width = 64;            // Lebar kotak tabrakan (48 - 8 - 8)
         solidArea.height = 64;           // Tinggi kotak tabrakan
-        
+    
         setDefaultValues();
         getPlayerImage();
     }
@@ -97,17 +98,22 @@ public class Player extends Entity {
             this.setSpeed(6);
             isiStamina = true;
         }
-
+        
         if (stamina <= 0) {
             stamina = 0;
             isiStamina = true;
             this.setSpeed(6);
         }
         
-
+        
         if (stamina >= 20) {
             isiStamina = false;
             stamina = 20;
+        }
+
+        if(getHp() <= 0){
+            setHp(0);
+            gp.gameState = gp.gameOverState;
         }
         
         if(keyH.upPressed == true){ direction = "up"; }
@@ -136,8 +142,8 @@ public class Player extends Entity {
                 case "right": WorldX += this.getSpeed(); break;
             }
             // CHECK COLLUSION Event
-            gp.eHandler.checkEvent();
             spriteCounter++;
+            gp.eHandler.checkEvent();
         }else{
             isiStamina = true;
         }
@@ -147,13 +153,12 @@ public class Player extends Entity {
             if(this.getSpeed() == 10){ 
                 stamina -= 1; 
             }
-
-            if(spriteNum == 1){ spriteNum = 1; } 
-            else if (spriteNum == 2){ spriteNum = 2; } 
-            else if (spriteNum == 3){ spriteNum = 3; } 
-            else if (spriteNum == 4){ spriteNum = 4; } 
-            else if (spriteNum == 5){ spriteNum = 5; } 
-            else if (spriteNum == 6){ spriteNum = 6; }
+            if(spriteNum == 1){ spriteNum = 2; }
+            else if(spriteNum == 2){ spriteNum = 3; }
+            else if(spriteNum == 3){ spriteNum = 4; }
+            else if(spriteNum == 4){ spriteNum = 5; }
+            else if(spriteNum == 5){ spriteNum = 6; }
+            else if(spriteNum == 6){ spriteNum = 1; }
             spriteCounter = 0;
         }
         
@@ -240,7 +245,16 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, ScreenX, ScreenY, null);
+        g2.drawImage(image, ScreenX, ScreenY, entitySize, entitySize, null);
+
+        // DEBUG HITBOX
+            g2.setColor(java.awt.Color.GREEN);
+            g2.drawRect(
+                ScreenX + solidArea.x,
+                ScreenY + solidArea.y,
+                solidArea.width,
+                solidArea.height
+            );
     }
 
 	@Override

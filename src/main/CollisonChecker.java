@@ -92,8 +92,8 @@ public class CollisonChecker {
                 entity.solidArea.y = entity.WorldY + entity.solidArea.y;
 
                 // cari solid area objek
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+                gp.obj[i].solidArea.x = gp.obj[i].WorldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].WorldY + gp.obj[i].solidArea.y;
 
                 switch(entity.direction)
                 {

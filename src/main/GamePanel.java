@@ -4,174 +4,266 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JPanel;
-
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
-        // screen settings
-        final int originalTileSize = 64;
-        final int scale = 2;
+    // screen settings
+    final int originalTileSize = 64;
+    final int scale = 2;
+    public final int tileSize = originalTileSize * scale; // 16x3 = 48 x 48 (1 tile)
+    
+    final public int maxScreenCol = 16;
+    final public int maxScreenRow = 14;
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels kesamping
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels kebawah
+    
+    //World Settings
+    public final int maxWorldCol = 50; //Tergantung nanti ukuran map kita seberapa
+    public final int maxWorldRow = 50; //Tergantung nanti ukuran map kita seberapa
+    // public final int worldWidth = tileSize * maxWorldCol;
+    // public final int worldHeight = tileSize * maxWorldRow;
+    
+    //FPS
+    int FPS = 60;
 
-        public final int tileSize = originalTileSize * scale; // 16x3 = 48 x 48 (1 tile)
-        final public int maxScreenCol = 16;
-        final public int maxScreenRow = 12;
-        public final int screenWidth = tileSize * maxScreenCol; // 768 pixels kesamping
-        public final int screenHeight = tileSize * maxScreenRow; // 576 pixels kebawah
+    // SYSTEM
+    public KeyHandler keyH = new KeyHandler(this);
+    public CollisonChecker cCheker = new CollisonChecker(this);
+    public Sound sound = new Sound();
+    public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    TileManager tileM = new TileManager(this);
+    Thread gameThread;
 
-        //World Settings
-        public final int maxWorldCol = 50; //Tergantung nanti ukuran map kita seberapa
-        public final int maxWorldRow = 50; //Tergantung nanti ukuran map kita seberapa
-        public final int worldWidth = tileSize * maxWorldCol;
-        public final int worldHeight = tileSize * maxWorldRow;
+    
+    // ENTITY & OBJECT
+    public Player player = new Player(this, keyH);
+    public Entity obj[] = new Entity[20];
+    public Entity npc[] =  new Entity[30];
+    ArrayList<Entity> entityList = new ArrayList<>();
+    public EventHandler eHandler = new EventHandler(this);
+    
+    
+    //game state
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;        
+    public final int dialogState = 3;
+    public final int gameOverState = 4;
 
-        //FPS
-        int FPS = 60;
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+    }
 
-        // SYSTEM
-        public KeyHandler keyH = new KeyHandler(this);
-        Thread gameThread;
-        public CollisonChecker cCheker = new CollisonChecker(this);
-        public AssetSetter aSetter = new AssetSetter(this);
-        public UI ui = new UI(this);
-        TileManager tileM = new TileManager(this);
-        
-        // ENTITY & OBJECT
-        public Player player = new Player(this, keyH);
-        public SuperObject obj[] = new SuperObject[20];
-        public Entity npc[] =  new Entity[30];
-        public EventHandler eHandler = new EventHandler(this);
-        
-        //game state
-        public int gameState;
-        public final int titleState = 0;
-        public final int playState = 1;
-        public final int pauseState = 2;        
-        public final int dialogState = 3;
+    public void setupGame()
+    {   
+        aSetter.setObject();
+        playMusic(0);
+        aSetter.setNpc();
+        gameState = titleState;
+    }
 
-        public GamePanel() {
-            this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-            this.setBackground(Color.black);
-            this.setDoubleBuffered(true);
-            this.addKeyListener(keyH);
-            this.setFocusable(true);
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+
+
+    @Override
+    public void run() {
+        double drawInterval = 1000000000/FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
+
+        while(gameThread != null){
+
+            update();
+
+            repaint();
+
+            
+            try {
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime = remainingTime/1000000;
+
+                if(remainingTime < 0){
+                    remainingTime = 0;
+                }
+                Thread.sleep((long) remainingTime);
+
+                nextDrawTime += drawInterval;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
-        public void setupGame()
-        {
-            aSetter.setObject();
-            aSetter.setNpc();
+    public void update(){
+        if(gameState == playState){
+            // PLAYER
+            player.update();
+
+            // NPC
+            for(int i = 0 ; i < npc.length ; i++){
+                if(npc[i] != null){
+                    npc[i].update();
+                }
+            }
+        }
+        else if(gameState == pauseState){
+            // nothing
+        }
+        else if(gameState == gameOverState){
+            this.player.setDefaultValues();
             gameState = titleState;
         }
 
-        public void startGameThread() {
-            gameThread = new Thread(this);
-            gameThread.start();
-        }
+    }
 
-        @Override
-        public void run() {
-            double drawInterval = 1000000000/FPS;
-            double nextDrawTime = System.nanoTime() + drawInterval;
-
-            while(gameThread != null){
-
-                update();
-
-                repaint();
-
-                
-                try {
-                    double remainingTime = nextDrawTime - System.nanoTime();
-                    remainingTime = remainingTime/1000000;
-
-                    if(remainingTime < 0){
-                        remainingTime = 0;
-                    }
-                    Thread.sleep((long) remainingTime);
-
-                    nextDrawTime += drawInterval;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        public void update(){
-            if(gameState == playState){
-                // PLAYER
-                player.update();
-
-                // NPC
-                for(int i = 0 ; i < npc.length ; i++){
-                    if(npc[i] != null){
-                        npc[i].update();
-                    }
-                }
-            }
-            else if(gameState == pauseState){
-                // nothing
-            }
-
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D)g; // ada beberapa function yang tidak ada di graphic biasa, jadi pakai 2d
-
-            //Debug buat Liat Cetak Berapa Tile dalam nano seccond
-            long drawStart = 0;
-            if (keyH.checkDrawTime == true) {
-                drawStart = System.nanoTime();    
-            }
-
-            //TITLE SCREEN
-            if(gameState == titleState) {
-                ui.draw(g2);
-            } 
-            else {
-                // TILE
-                tileM.draw(g2);
-
-                // OBJECT
-                for(int i = 0 ; i < obj.length ; i++){
-                    if(obj[i] != null){
-                        obj[i].draw(g2, this);
-                    }
-                }
-
-                // NPC
-                for(int i = 0 ; i < npc.length ; i++){
-                    if(npc[i] != null){
-                        npc[i].draw(g2);
-                    }
-                }
-
-                // PLAYER
-                player.draw(g2);
-
-                //UI
-                ui.draw(g2);
-            }
-
-            
-            
-            
-            //Debug buat Liat Cetak Berapa Tile dalam nano seccond
-            if (keyH.checkDrawTime == true) {
-                long drawEnd = System.nanoTime();
-                long passed = drawEnd - drawStart;
-                g2.setColor(Color.white);
-                g2.drawString("Draw Time: " + passed , 10 , 400);
-                System.out.println("Draw Time: " + passed);       
-            }
-            g2.dispose();
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g; // ada beberapa function yang tidak ada di graphic biasa, jadi pakai 2d
 
         
+        //Debug buat Liat Cetak Berapa Tile dalam nano seccond
+        long drawStart = 0;
+        if (keyH.checkDrawTime == true) {
+            drawStart = System.nanoTime();    
         }
+        
+        //TITLE SCREEN
+        if(gameState == titleState) {
+            ui.draw(g2);
+        } 
+        else {
+            // TILE
+            tileM.draw(g2);
+
+            //DEBUG TILE
+            drawTileGrid(g2);
+            
+            //add entitty to list
+            entityList.add(player);
+            for(int i = 0 ; i < npc.length ; i++){
+                if(npc[i] != null){
+                    entityList.add(npc[i]);
+                }
+            }
+            
+            //object
+            for(int i = 0 ; i < obj.length ; i++){
+                if(obj[i] != null){
+                    entityList.add(obj[i]);
+                }
+            }
+            //sort
+            Collections.sort(entityList, new Comparator<Entity>(){
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.WorldY, e2.WorldY);
+                    
+                    return result;
+                }
+            }
+        );
+        
+        //draw entity
+        for(int i = 0; i<entityList.size();i++){
+            entityList.get(i).draw(g2);
+        }
+        
+        //empty list
+        for (int i = 0; i<entityList.size();i++){
+            entityList.remove(i);
+        }
+        
+        
+        
+        //UI
+        ui.draw(g2);
+        eHandler.drawDebug(g2);
+        g2.setColor(Color.RED);
+
+    }
+    
+    
+    
+        
+        //Debug buat Liat Cetak Berapa Tile dalam nano seccond
+        if (keyH.checkDrawTime == true) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("Draw Time: " + passed , 10 , 400);
+            System.out.println("Draw Time: " + passed);       
+        }
+        g2.dispose();
+
+    
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+    
+    public void playSE(int i) {
+        sound.setFile(i);
+        sound.play();
+    }
+
+    public void drawTileGrid(Graphics2D g2){
+
+        g2.setColor(Color.RED);
+
+        for(int row = 0; row < maxWorldRow; row++){
+            for(int col = 0; col < maxWorldCol; col++){
+
+                int worldX = col * tileSize;
+                int worldY = row * tileSize;
+
+                int screenX = worldX - player.WorldX + player.ScreenX;
+                int screenY = worldY - player.WorldY + player.ScreenY;
+
+                // hanya gambar yang terlihat di layar
+                if(worldX + tileSize > player.WorldX - player.ScreenX &&
+                    worldX - tileSize < player.WorldX + player.ScreenX &&
+                    worldY + tileSize > player.WorldY - player.ScreenY &&
+                    worldY - tileSize < player.WorldY + player.ScreenY){
+
+                    g2.drawRect(
+                        screenX,
+                        screenY,
+                        tileSize,
+                        tileSize
+                    );
+
+                    // opsional tampilkan koordinat tile
+                    g2.drawString(
+                        col + "," + row,
+                        screenX + 5,
+                        screenY + 15
+                    );
+                }
+            }
+        }
+    }
 }

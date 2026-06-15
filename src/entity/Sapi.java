@@ -11,7 +11,8 @@ import javax.imageio.ImageIO;
 public class Sapi extends Entity{
     public Sapi (GamePanel gp){
         super(gp);
-        solidArea = new Rectangle(0, 0, 128, 128);
+        entitySize = 128;
+        solidArea = new Rectangle(0, 0, entitySize, entitySize);
 
         this.setSpeed(3);
 
