@@ -28,45 +28,49 @@ public class AssetSetter {
     public void setObject()
     {
         gp.obj[0] = new OBJ_AutumnBush(gp);
-        gp.obj[0].worldX = 22 * gp.tileSize;
-        gp.obj[0].worldY = 20 * gp.tileSize;
+        gp.obj[0].WorldX = 22 * gp.tileSize;
+        gp.obj[0].WorldY = 20 * gp.tileSize;
         gp.obj[0].collision = false;
 
         gp.obj[1] = new OBJ_Bush1(gp);
-        gp.obj[1].worldX = 30 * gp.tileSize;
-        gp.obj[1].worldY = 21 * gp.tileSize;    
+        gp.obj[1].WorldX = 30 * gp.tileSize;
+        gp.obj[1].WorldY = 21 * gp.tileSize;    
         gp.obj[1].collision = false;  
 
         gp.obj[2] = new OBJ_Bush2(gp);
-        gp.obj[2].worldX = 37 * gp.tileSize;
-        gp.obj[2].worldY = 41 * gp.tileSize;  
+        gp.obj[2].WorldX = 37 * gp.tileSize;
+        gp.obj[2].WorldY = 41 * gp.tileSize;  
         gp.obj[2].collision = false;
 
         gp.obj[3] = new OBJ_AutumnBush(gp);
-        gp.obj[3].worldX = 25 * gp.tileSize;
-        gp.obj[3].worldY = 20 * gp.tileSize;
+        gp.obj[3].WorldX = 25 * gp.tileSize;
+        gp.obj[3].WorldY = 20 * gp.tileSize;
         gp.obj[3].collision = false;
         
         gp.obj[4] = new OBJ_BurnedTree(gp);
-        gp.obj[4].worldX = 25 * gp.tileSize;
-        gp.obj[4].worldY = 21 * gp.tileSize;
+        gp.obj[4].WorldX = 25 * gp.tileSize;
+        gp.obj[4].WorldY = 21 * gp.tileSize;
         gp.obj[4].collision = false;
 
         gp.obj[5] = new KananAtas(gp);
-        gp.obj[5].worldX = 37 * gp.tileSize;
-        gp.obj[5].worldY = 19 * gp.tileSize;
+        gp.obj[5].WorldX = 37 * gp.tileSize;
+        gp.obj[5].WorldY = 20 * gp.tileSize;
+        gp.obj[5].collision = false;
 
         gp.obj[6] = new KananBawah(gp);
-        gp.obj[6].worldX = 37 * gp.tileSize;
-        gp.obj[6].worldY = 20 * gp.tileSize;
+        gp.obj[6].WorldX = 37 * gp.tileSize;
+        gp.obj[6].WorldY = 21 * gp.tileSize;
+        gp.obj[6].collision = true;
 
         gp.obj[7] = new KiriAtas(gp);
-        gp.obj[7].worldX = 36 * gp.tileSize;
-        gp.obj[7].worldY = 19 * gp.tileSize;
+        gp.obj[7].WorldX = 36 * gp.tileSize;
+        gp.obj[7].WorldY = 20 * gp.tileSize;
+        gp.obj[7].collision = false;
 
         gp.obj[8] = new Kiribawah(gp);
-        gp.obj[8].worldX = 36 * gp.tileSize;
-        gp.obj[8].worldY = 20 * gp.tileSize;
+        gp.obj[8].WorldX = 36 * gp.tileSize;
+        gp.obj[8].WorldY = 21 * gp.tileSize;
+        gp.obj[8].collision = true;
         
     }
 

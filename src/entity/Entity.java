@@ -11,14 +11,15 @@ import main.UtilityTool;
 
 
 public abstract class Entity {
-
     GamePanel gp;
+    public int entitySize;
+    public String name;
     public int WorldX, WorldY;
     private int speed;
     private int maxHp;
     private int hp;
     public BufferedImage up1, up2, up3, up4, up5, up6, down1, down2, down3, down4, down5, down6, left1, left2, left3, left4, left5, left6, right1, right2, right3, right4, right5, right6;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
@@ -27,6 +28,9 @@ public abstract class Entity {
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
+    public BufferedImage image;
+    public String names;
+    public boolean collision = false;
 
     public Entity(GamePanel gp){
         this.gp = gp;
@@ -157,7 +161,16 @@ public abstract class Entity {
                 break;
         }
             
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, entitySize, entitySize, null);
+
+            // DEBUG HITBOX
+            g2.setColor(java.awt.Color.PINK);
+            g2.drawRect(
+                screenX + solidArea.x,
+                screenY + solidArea.y,
+                solidArea.width,
+                solidArea.height
+            );
         }
     }
 

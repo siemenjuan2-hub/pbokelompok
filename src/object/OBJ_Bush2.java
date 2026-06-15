@@ -1,24 +1,24 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Bush2 extends SuperObject{
-
-    GamePanel gp;
-
+public class OBJ_Bush2 extends Entity {
     public OBJ_Bush2(GamePanel gp)
     {
-        this.gp = gp;
+        super(gp);
+        entitySize = 128;
         name = "Bush2";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/assets/Objects/Bush_simple2_1.png"));
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }   
+        down1 = setUp("/assets/Objects/Bush_simple2_1");
+        solidArea.x = 0;
+        solidArea.y = 0;
+        solidArea.width = entitySize;
+        solidArea.height = entitySize;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+    }
+
+    @Override
+    public void setAction() {
     }
 }

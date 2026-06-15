@@ -11,8 +11,9 @@ import javax.imageio.ImageIO;
 public class Bebek extends Entity{
     public Bebek (GamePanel gp){
         super(gp);
-        solidArea = new Rectangle(0, 0, 128, 128);
-
+        entitySize = 96;
+        solidArea = new Rectangle(0, 0, entitySize, entitySize);
+        
         this.setSpeed(3);
 
         getImage();

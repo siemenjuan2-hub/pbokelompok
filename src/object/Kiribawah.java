@@ -1,24 +1,24 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class Kiribawah  extends SuperObject{
-
-    GamePanel gp;
-
+public class Kiribawah extends Entity {
     public Kiribawah(GamePanel gp)
     {
-        this.gp = gp;
+        super(gp);
+        entitySize = 128;
         name = "RumahKiriBawah";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/assets/World/Rumah/TileR2C1.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        collision = true;        
+        down1 = setUp("/assets/World/Rumah/TileR2C1");
+        solidArea.x = 0;
+        solidArea.y = 0;
+        solidArea.width = entitySize;
+        solidArea.height = entitySize;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+    }
+
+    @Override
+    public void setAction() {
     }
 }

@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class EventHandler {
@@ -12,10 +14,10 @@ public class EventHandler {
         this.gp = gp;
 
         eventRect = new Rectangle();
-        eventRect.x = gp.tileSize/2;
-        eventRect.y = gp.tileSize/2;
-        eventRect.width = gp.tileSize/4;
-        eventRect.height = gp.tileSize/4;
+        eventRect.x = gp.tileSize / 4;
+        eventRect.y = gp.tileSize / 4;
+        eventRect.width = gp.tileSize / 2;
+        eventRect.height = gp.tileSize / 2;
         eventRectDefaultX = eventRect.x;
         eventRectDefaultY = eventRect.y;
     }
@@ -91,4 +93,34 @@ public class EventHandler {
         gp.player.WorldX = gp.tileSize * 30;
         gp.player.WorldY = gp.tileSize * 21;
     }
+
+    public void drawDebug(Graphics2D g2) {
+        drawEventRect(g2, 25, 21); // Burned Tree
+        drawEventRect(g2, 30, 21); // Teleport 1
+        drawEventRect(g2, 37, 41); // Teleport 2
+    }
+
+    private void drawEventRect(Graphics2D g2, int col, int row) {
+
+    int screenX =
+            col * gp.tileSize
+            - gp.player.WorldX
+            + gp.player.ScreenX
+            + eventRectDefaultX;
+
+    int screenY =
+            row * gp.tileSize
+            - gp.player.WorldY
+            + gp.player.ScreenY
+            + eventRectDefaultY;
+
+    g2.setColor(Color.YELLOW);
+
+    g2.drawRect(
+            screenX,
+            screenY,
+            eventRect.width,
+            eventRect.height
+    );
+}
 }
