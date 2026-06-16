@@ -17,6 +17,9 @@ import object.KananBawah;
 import object.KiriAtas;
 import object.Kiribawah;
 
+
+import monster.MON_GreenSlime;
+
 public class AssetSetter {
     GamePanel gp;
 
@@ -216,5 +219,15 @@ public class AssetSetter {
         gp.npc[24].WorldX = gp.tileSize*12;
         gp.npc[24].WorldY = gp.tileSize*9;
         gp.npc[24].direction = "right";
+    }
+
+    public void setMonster() {
+        gp.monster[0] = new monster.MON_GreenSlime(gp);
+        gp.monster[0].WorldX = gp.tileSize*23;
+        gp.monster[0].WorldY = gp.tileSize*37;
+
+        gp.monster[1] = new monster.MON_GreenSlime(gp);
+        gp.monster[1].WorldX = gp.tileSize*26;
+        gp.monster[1].WorldY = gp.tileSize*42;
     }
 }

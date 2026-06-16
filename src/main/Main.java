@@ -7,6 +7,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
+        window.setUndecorated(true);
         window.setTitle("is it wrong to save some girl in a dungeon?");
 
         GamePanel gamePanel = new GamePanel();

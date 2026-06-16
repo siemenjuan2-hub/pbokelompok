@@ -205,8 +205,8 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        ScreenX = gp.getWidth() / 2 - (gp.tileSize / 2);
-        ScreenY = gp.getHeight() / 2 - (gp.tileSize / 2);
+        ScreenX = gp.getWidth() / 2 - (gp.tileSize);
+        ScreenY = gp.getHeight() / 2 - (gp.tileSize * 3);
 
         BufferedImage image = null;
 

@@ -13,6 +13,8 @@ import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
+import monster.MON_GreenSlime;
+
 public class GamePanel extends JPanel implements Runnable {
     // screen settings
     final int originalTileSize = 64;
@@ -47,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public Entity obj[] = new Entity[20];
     public Entity npc[] =  new Entity[30];
+    public Entity monster[] = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
     public EventHandler eHandler = new EventHandler(this);
     
@@ -72,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         playMusic(0);
         aSetter.setNpc();
+        aSetter.setMonster();
         gameState = titleState;
     }
 
@@ -121,6 +125,12 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            // MONSTER
+            for(int i = 0 ; i < monster.length ; i++){
+                if(monster[i] != null){
+                    monster[i].update();
+                }
+            }
         }
         else if(gameState == pauseState){
             // nothing
@@ -167,6 +177,12 @@ public class GamePanel extends JPanel implements Runnable {
             for(int i = 0 ; i < obj.length ; i++){
                 if(obj[i] != null){
                     entityList.add(obj[i]);
+                }
+            }
+            // monster
+            for(int i = 0 ; i < monster.length ; i++){
+                if(monster[i] != null){
+                    entityList.add(monster[i]);
                 }
             }
             //sort
