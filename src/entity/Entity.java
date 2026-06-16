@@ -11,26 +11,40 @@ import main.UtilityTool;
 
 
 public abstract class Entity {
-    GamePanel gp;
+    public GamePanel gp;
+    public BufferedImage up1, up2, up3, up4, up5, up6, down1, down2, down3, down4, down5, down6, left1, left2, left3, left4, left5, left6, right1, right2, right3, right4, right5, right6;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
+    public BufferedImage image;
+    public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
+    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+    public int solidAreaDefaultX, solidAreaDefaultY;
+    public boolean collision = true;
+    String dialogues[] = new String[20];
     public int entitySize;
-    public String name;
+    public String names; // bedanya sama bawah apa cug
+    
+    // STATE
     public int WorldX, WorldY;
+    public String direction = "down";
+    public int spriteNum = 1;
+    int dialogueIndex = 0;
+    public boolean collisionON = false;
+    public boolean invincible = false;
+    boolean attack = false;
+
+    // COUNTER 
+    public int spriteCounter = 0;
+    public int actionLockCounter = 0;
+    public int invincibleCounter = 0;
+
+    // CHARACTER ATRIBUTES
+    public int type; // 0 = npc, 1 = monster. 
+    public String name; // Bedanya sama atas apa cug
     private int speed;
     private int maxHp;
     private int hp;
-    public BufferedImage up1, up2, up3, up4, up5, up6, down1, down2, down3, down4, down5, down6, left1, left2, left3, left4, left5, left6, right1, right2, right3, right4, right5, right6;
-    public String direction = "down";
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
-    public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
-    public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collisionON = false;
-    public int actionLockCounter = 0;
-    String dialogues[] = new String[20];
-    int dialogueIndex = 0;
-    public BufferedImage image;
-    public String names;
-    public boolean collision = false;
+
+    
 
     public Entity(GamePanel gp){
         this.gp = gp;
@@ -71,9 +85,18 @@ public abstract class Entity {
         
         //CEK COLLISON OBJEK
         gp.cCheker.checkObject(this, false);
+
+        //CEK COLLISON MONSTER
+        gp.cCheker.checkEntity(this, gp.monster);
     
         // CEK COLLISON PLAYER    
-        gp.cCheker.checkPlayer(this);
+        boolean contactPlayer = gp.cCheker.checkPlayer(this);
+            if(this.type == 1 && contactPlayer == true){
+                if(gp.player.invincible == false){
+                    gp.player.setHp(gp.player.getHp() - 1);
+                    gp.player.invincible = true;
+                }
+            }
 
         if (collisionON == false) {
             switch (direction) {
@@ -96,7 +119,7 @@ public abstract class Entity {
         }
     }
 
-    public BufferedImage setUp (String ImagePath) {
+    public BufferedImage setUp (String ImagePath, int width, int height) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
@@ -104,7 +127,7 @@ public abstract class Entity {
             image = ImageIO.read(getClass().getResourceAsStream(ImagePath + ".png"));
             
             // REVISI 2: Masukkan variabel playerSize ke dalam fungsi scaleImage
-            image = uTool.scaleImage(image, gp.tileSize * 2 , gp.tileSize * 2);
+            image = uTool.scaleImage(image, width * 2, height * 2);
 
             
         } catch (Exception e) {

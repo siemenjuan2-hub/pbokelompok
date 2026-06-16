@@ -85,6 +85,7 @@ public class AssetSetter {
         gp.npc[0].WorldY = gp.tileSize*31;
         gp.npc[0].direction = "right";
 
+
         gp.npc[1] = new Npc_OldMan(gp);
         gp.npc[1].WorldX = gp.tileSize*21;
         gp.npc[1].WorldY = gp.tileSize*41;
@@ -95,10 +96,12 @@ public class AssetSetter {
         gp.npc[2].WorldY = gp.tileSize*36;
         gp.npc[2].direction = "up";
 
+
         gp.npc[3] = new Npc_OldMan(gp);
         gp.npc[3].WorldX = gp.tileSize*15;
         gp.npc[3].WorldY = gp.tileSize*9;
         gp.npc[3].direction = "down";
+
 
 
 
@@ -204,7 +207,7 @@ public class AssetSetter {
         gp.npc[21].direction = "right";
 
 
-        // PASUKAN Babi
+        // PASUKAN Keledai
         gp.npc[22] = new Keledai(gp);
         gp.npc[22].WorldX = gp.tileSize*30;
         gp.npc[22].WorldY = gp.tileSize*38;
@@ -229,5 +232,13 @@ public class AssetSetter {
         gp.monster[1] = new monster.MON_GreenSlime(gp);
         gp.monster[1].WorldX = gp.tileSize*26;
         gp.monster[1].WorldY = gp.tileSize*42;
+
+        gp.monster[2] = new monster.MON_GreenSlime(gp);
+        gp.monster[2].WorldX = gp.tileSize*29;
+        gp.monster[2].WorldY = gp.tileSize*39;
+
+        gp.monster[3] = new monster.MON_GreenSlime(gp);
+        gp.monster[3].WorldX = gp.tileSize*32;
+        gp.monster[3].WorldY = gp.tileSize*36;
     }
 }

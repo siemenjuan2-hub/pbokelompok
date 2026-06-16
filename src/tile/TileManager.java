@@ -129,44 +129,47 @@ public void setup(int index, String imageName, boolean collision) {
     }
 }
 
-    public void draw(Graphics2D g2){
+        public void draw(Graphics2D g2){
+
         int worldCol = 0;
         int worldRow = 0;
 
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
+
             int tileNum = mapTileNum[worldCol][worldRow];
 
-            // worldCol & worldRow = nomor urut kotak tile di file teks map (0 sampai terserah map nya kita mau di set seberapa besar)
-            // gp.tileSize         = ukuran 1 kotak tile dalam satuan piksel (misal: 48 piksel)
-            int worldX = worldCol * gp.tileSize; // Posisi Jarak Piksel dari batas kiri World Map
-            int worldY = worldRow * gp.tileSize; // Posisi Jarak Piksel dari batas atas World Map
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
 
+            int screenX =
+                worldX - gp.player.WorldX + gp.player.ScreenX;
 
-            int screenX = worldX - gp.player.WorldX + gp.player.ScreenX; 
-            int screenY = worldY - gp.player.WorldY + gp.player.ScreenY;
+            int screenY =
+                worldY - gp.player.WorldY + gp.player.ScreenY;
 
+            // render hanya area layar + buffer 1 tile
+            if(
+                screenX > -gp.tileSize &&
+                screenX < gp.getWidth() + gp.tileSize &&
+                screenY > -gp.tileSize &&
+                screenY < gp.getHeight() + gp.tileSize
+            ){
 
-            //Ini biar Yang kegambar itu yang di layar laptop aja, yang jauh jauh ga kegamabar (efisiensi misal map e guede banget. Kalo mapnya kecill ga pake juga gamasalah)
-            if (worldX + gp.tileSize > gp.player.WorldX - gp.player.ScreenX && 
-                worldX - gp.tileSize < gp.player.WorldX + gp.player.ScreenX && 
-                worldY + gp.tileSize > gp.player.WorldY - gp.player.ScreenY &&
-                worldY - gp.tileSize < gp.player.WorldY + gp.player.ScreenY) 
-            {
-                
                 g2.drawImage(
-                        tile[tileNum].image,
-                        screenX,
-                        screenY,
-                        gp.tileSize,
-                        gp.tileSize,
-                        null
-                    );  
+                    tile[tileNum].image,
+                    screenX,
+                    screenY,
+                    gp.tileSize,
+                    gp.tileSize,
+                    null
+                );
             }
+
             worldCol++;
-            //Kalo kolom di baris nya dah habis digambar, reset ke kolom 0 lalu turun ke baris berikutnya
+
             if(worldCol == gp.maxWorldCol){
                 worldCol = 0;
-                worldRow ++;
+                worldRow++;
             }
         }
     }

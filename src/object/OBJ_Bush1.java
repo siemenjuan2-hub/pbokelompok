@@ -9,7 +9,7 @@ public class OBJ_Bush1 extends Entity {
         super(gp);
         entitySize = 128;
         name = "Bush1";
-        down1 = setUp("/assets/Objects/Bush_simple1_1");
+        down1 = setUp("/assets/Objects/Bush_simple1_1", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;

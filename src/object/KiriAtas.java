@@ -9,7 +9,7 @@ public class KiriAtas extends Entity {
         super(gp);
         entitySize = 128;
         name = "RumahKiriAtas";
-        down1 = setUp("/assets/World/Rumah/TileR1C1");
+        down1 = setUp("/assets/World/Rumah/TileR1C1", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;

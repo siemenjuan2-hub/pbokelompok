@@ -9,7 +9,7 @@ public class OBJ_AutumnBush extends Entity {
         super(gp);
         entitySize = 128;
         name = "AutumnBush";
-        down1 = setUp("/assets/Objects/Autumn_bush1");
+        down1 = setUp("/assets/Objects/Autumn_bush1", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;

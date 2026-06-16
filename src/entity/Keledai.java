@@ -23,20 +23,20 @@ public class Keledai extends Entity{
 
     public void getImage() {
         //Atas
-        up1 = setUp("/assets/Npc/Keledai/up_1");
-        up2 = setUp("/assets/Npc/Keledai/up_2");
+        up1 = setUp("/assets/Npc/Keledai/up_1", gp.tileSize, gp.tileSize);
+        up2 = setUp("/assets/Npc/Keledai/up_2", gp.tileSize, gp.tileSize);
 
         //Bawah
-        down1 = setUp("/assets/Npc/Keledai/down_1");
-        down2 = setUp("/assets/Npc/Keledai/down_2");
+        down1 = setUp("/assets/Npc/Keledai/down_1", gp.tileSize, gp.tileSize);
+        down2 = setUp("/assets/Npc/Keledai/down_2", gp.tileSize, gp.tileSize);
 
         //Kiri
-        left1 = setUp("/assets/Npc/Keledai/left_1");
-        left2 = setUp("/assets/Npc/Keledai/left_2");
+        left1 = setUp("/assets/Npc/Keledai/left_1", gp.tileSize, gp.tileSize);
+        left2 = setUp("/assets/Npc/Keledai/left_2", gp.tileSize, gp.tileSize);
 
         //Kanan
-        right1 = setUp("/assets/Npc/Keledai/right_1");
-        right2 = setUp("/assets/Npc/Keledai/right_2");
+        right1 = setUp("/assets/Npc/Keledai/right_1", gp.tileSize, gp.tileSize);
+        right2 = setUp("/assets/Npc/Keledai/right_2", gp.tileSize, gp.tileSize);
     }
 
     public void setDialogues() {
