@@ -58,92 +58,91 @@ public class UI {
 
     }
 
-        public void drawTitleScreen() {
+    public void drawTitleScreen() {
 
-            //BACKGROUND COLOR
-            g2.setColor(new Color(0, 0, 0));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //BACKGROUND COLOR
+        g2.setColor(new Color(0, 0, 0));
+        g2.fillRect(0, 0, gp.getWidth(), gp.getHeight());
 
-            //TITLE NAME
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
-            String text = "Is it Wrong to Save a Girl in a Dungeon";
-            int x = getXforCenteredText(text) - 100;
-            int y = gp.tileSize;
+        //TITLE NAME
+        String text = "Is it Wrong to Save a Girl in a Dungeon";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
+        int x = getXforCenteredText(text);
+        int y = gp.getHeight() / 6;
 
-            //SHADOW
-            g2.setColor(Color.black);
-            g2.drawString(text, x + 5, y + 5);
+        //SHADOW
+        g2.setColor(Color.black);
+        g2.drawString(text, x + 5, y + 5);
 
-            // MAIN COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
+        // MAIN COLOR
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
 
-            //Display Apapun lah yang ada dilayar utama 
-            x = (gp.screenWidth / 2) - 150;
-            y += gp.tileSize * 1.5;
-            g2.drawImage(gp.player.down1, x - (gp.tileSize / 2), y - (gp.tileSize / 2), null);
+        //Display Apapun lah yang ada dilayar utama 
+        x = gp.getWidth() / 2 - gp.player.entitySize / 2;
+        y = gp.getHeight() / 3;
+        g2.drawImage(gp.player.down1, x, y, gp.player.entitySize, gp.player.entitySize, null);
 
-            //MENU 
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+        //MENU 
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+        int menuY = gp.getHeight() * 2 / 3;
+        text = "NEW GAME";
+        x = getXforCenteredText(text);
 
-            text = "NEW GAME";
-            x = getXforCenteredText(text) - 100;
-            y += gp.tileSize * 3;
-            g2.drawString(text, x, y);
+        g2.drawString(text, x, menuY);
 
-            if(commandNum == 0){
-                g2.drawString(">", x - gp.tileSize, y);
-            }
-
-
-            text = "LOAD GAME";
-            x = getXforCenteredText(text) - 100; 
-            y += gp.tileSize * 1.2;
-            g2.drawString(text, x, y);
-
-            if(commandNum == 1){
-                g2.drawString(">", x - gp.tileSize, y);
-            }
-
-            text = "QUIT";
-            x = getXforCenteredText(text) - 100;  
-            y += gp.tileSize * 1.2;
-            g2.drawString(text, x, y);
-
-            if(commandNum == 2){
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+        if(commandNum == 0){
+            g2.drawString(">", x - 50, menuY);
         }
 
-        public void drawDialogScreen(){
-            //window
-            int x = gp.tileSize * 2;
-            int y = gp.tileSize / 2;
-            int width = gp.screenWidth - (gp.tileSize * 4);
-            int height = gp.tileSize * 2;
-            drawSubWindow(x, y, width, height);
-            
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
-            x += gp.tileSize;
-            y += gp.tileSize;
-            g2.drawString(currentDialogue, x, y);
 
-            for(String line : currentDialogue.split("\n")) {
-                g2.drawString(line, x, y);
-                y += 40; // jarak antar baris
-            }
+        menuY += 100;
+        text = "LOAD GAME";
+        x = getXforCenteredText(text);
+        g2.drawString(text, x, menuY);
+        if(commandNum == 1){
+            g2.drawString(">", x - 50, menuY);
         }
+
+        menuY += 100;
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        g2.drawString(text, x, menuY);
+        if(commandNum == 2){
+            g2.drawString(">", x - 50, menuY);
+        }
+    }
+
+    public void drawDialogScreen(){
+        //window
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize / 2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
+        int height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
         
-        public void drawSubWindow(int x, int y, int width, int height){
-            Color c = new Color(0, 0, 0, 150);
-            g2.setColor(c);
-            g2.fillRoundRect(x, y, width, height, 35, 35);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString(currentDialogue, x, y);
 
-            c = new Color(255, 255, 255);
-            g2.setColor(c);
-            g2.setStroke(new java.awt.BasicStroke(5));
-            g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+        for(String line : currentDialogue.split("\n")) {
+            g2.drawString(line, x, y);
+            y += 40; // jarak antar baris
         }
+    }
+    
+    public void drawSubWindow(int x, int y, int width, int height){
+        Color c = new Color(0, 0, 0, 150);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new java.awt.BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+    }
+
     public void drawPauseScreen(){
         String text = "PAUSED";
         int x = getXforCenteredText(text);
@@ -151,9 +150,9 @@ public class UI {
         int y = gp.screenHeight / 2;
         g2.drawString(text, x, y);
     }
+
     public int getXforCenteredText(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth / 2 - length / 2;
-        return x;
+        return gp.getWidth() / 2 - length / 2;
     }
 }

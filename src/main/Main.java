@@ -1,24 +1,24 @@
 package main;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setUndecorated(true);
-        window.setTitle("is it wrong to save some girl in a dungeon?");
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+    public static void main(String[] args) {
 
-        gamePanel.setupGame();
-        gamePanel.startGameThread();
-        window.pack();
+        SwingUtilities.invokeLater(() -> {
 
+            FullScreenToggle window = new FullScreenToggle();
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+            GamePanel gamePanel = new GamePanel();
+            window.add(gamePanel);
+
+            gamePanel.setupGame();
+            gamePanel.startGameThread();
+
+            window.pack();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+        });
     }
 }

@@ -6,7 +6,8 @@ import main.GamePanel;
 public class MON_GreenSlime extends Entity {
     public MON_GreenSlime(GamePanel gp) {
         super(gp);
-        
+        type = 1;
+        entitySize = 64;
         name = "Green Slime";
         this.setSpeed(1);
         this.setMaxHp(10);
@@ -22,14 +23,14 @@ public class MON_GreenSlime extends Entity {
     }
 
     public void getImage() {
-        up1 = setUp("/monster/greenslime_down_1");
-        up2 = setUp("/monster/greenslime_down_2");
-        down1 = setUp("/monster/greenslime_down_1");
-        down2 = setUp("/monster/greenslime_down_2");
-        left1 = setUp("/monster/greenslime_down_1");
-        left2 = setUp("/monster/greenslime_down_2");
-        right1 = setUp("/monster/greenslime_down_1");
-        right2 = setUp("/monster/greenslime_down_2");
+        up1 = setUp("/assets/Monster/greenSlime/greenslime_down_1", gp.tileSize, gp.tileSize);
+        up2 = setUp("/assets/Monster/greenSlime/greenslime_down_2", gp.tileSize, gp.tileSize);
+        down1 = setUp("/assets/Monster/greenSlime/greenslime_down_1", gp.tileSize, gp.tileSize);
+        down2 = setUp("/assets/Monster/greenSlime/greenslime_down_2", gp.tileSize, gp.tileSize);
+        left1 = setUp("/assets/Monster/greenSlime/greenslime_down_1", gp.tileSize, gp.tileSize);
+        left2 = setUp("/assets/Monster/greenSlime/greenslime_down_2", gp.tileSize, gp.tileSize);
+        right1 = setUp("/assets/Monster/greenSlime/greenslime_down_1", gp.tileSize, gp.tileSize);
+        right2 = setUp("/assets/Monster/greenSlime/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
 

@@ -9,7 +9,7 @@ public class KananBawah extends Entity {
         super(gp);
         entitySize = 128;
         name = "RumahKananBawah";
-        down1 = setUp("/assets/World/Rumah/TileR2C2");
+        down1 = setUp("/assets/World/Rumah/TileR2C2", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;

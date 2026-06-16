@@ -21,8 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 2;
     public final int tileSize = originalTileSize * scale; // 16x3 = 48 x 48 (1 tile)
     
-    final public int maxScreenCol = 16;
-    final public int maxScreenRow = 14;
+    public int maxScreenCol = 10;
+    public int maxScreenRow = 8;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels kesamping
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels kebawah
     
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame()
     {   
         aSetter.setObject();
-        playMusic(0);
+        // playMusic(0);
         aSetter.setNpc();
         aSetter.setMonster();
         gameState = titleState;
@@ -202,22 +202,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         //empty list
-        for (int i = 0; i<entityList.size();i++){
-            entityList.remove(i);
-        }
-        
-        
+        entityList.clear();
         
         //UI
         ui.draw(g2);
         eHandler.drawDebug(g2);
         g2.setColor(Color.RED);
-
     }
     
-    
-    
-        
         //Debug buat Liat Cetak Berapa Tile dalam nano seccond
         if (keyH.checkDrawTime == true) {
             long drawEnd = System.nanoTime();
@@ -260,11 +252,12 @@ public class GamePanel extends JPanel implements Runnable {
                 int screenY = worldY - player.WorldY + player.ScreenY;
 
                 // hanya gambar yang terlihat di layar
-                if(worldX + tileSize > player.WorldX - player.ScreenX &&
-                    worldX - tileSize < player.WorldX + player.ScreenX &&
+                if (
+                    worldX + tileSize > player.WorldX - player.ScreenX &&
+                    worldX - tileSize < player.WorldX - player.ScreenX + getWidth() &&
                     worldY + tileSize > player.WorldY - player.ScreenY &&
-                    worldY - tileSize < player.WorldY + player.ScreenY){
-
+                    worldY - tileSize < player.WorldY - player.ScreenY + getHeight()
+                ) {
                     g2.drawRect(
                         screenX,
                         screenY,
@@ -272,7 +265,6 @@ public class GamePanel extends JPanel implements Runnable {
                         tileSize
                     );
 
-                    // opsional tampilkan koordinat tile
                     g2.drawString(
                         col + "," + row,
                         screenX + 5,

@@ -20,15 +20,16 @@ public class Player extends Entity {
     public int maxStamina;
     boolean isiStamina;
     int chargeCounter = 0;
+    int attackCounter = 0;
     public int hasPotion = 0;
     public int entitySize = 256;
-
+    public boolean atkDelay = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
 
-        // REVISI 1: Hitbox yang pas untuk karakter berukuran 48x48
+        // 1: Hitbox 
         solidArea = new Rectangle();
         solidArea.x = 90;                 // Jarak aman dari sisi kiri karakter
         solidArea.y = 120;                // Jarak aman dari kepala (hitbox melindungi area perut ke kaki)
@@ -39,8 +40,13 @@ public class Player extends Entity {
         solidArea.width = 64;            // Lebar kotak tabrakan (48 - 8 - 8)
         solidArea.height = 64;           // Tinggi kotak tabrakan
     
+
+        attackArea.width = 64;           // Lebar area serangan (sesuai dengan sprite serangan)
+        attackArea.height = 64;          // Tinggi area serangan (sesuai dengan sprite serangan)
+
         setDefaultValues();
         getPlayerImage();
+        getPlayerAttackImage();
     }
     
     public void setDefaultValues() {
@@ -58,40 +64,71 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         //W
-        up1 = setUp("/assets/Player/Tiles/TileR4C1");
-        up2 = setUp("/assets/Player/Tiles/TileR4C2");
-        up3 = setUp("/assets/Player/Tiles/TileR4C3");
-        up4 = setUp("/assets/Player/Tiles/TileR4C4");
-        up5 = setUp("/assets/Player/Tiles/TileR4C5");
-        up6 = setUp("/assets/Player/Tiles/TileR4C6");
+        up1 = setUp("/assets/Player/Tiles/TileR4C1", gp.tileSize, gp.tileSize);
+        up2 = setUp("/assets/Player/Tiles/TileR4C2", gp.tileSize, gp.tileSize);
+        up3 = setUp("/assets/Player/Tiles/TileR4C3", gp.tileSize, gp.tileSize);
+        up4 = setUp("/assets/Player/Tiles/TileR4C4", gp.tileSize, gp.tileSize);
+        up5 = setUp("/assets/Player/Tiles/TileR4C5", gp.tileSize, gp.tileSize);
+        up6 = setUp("/assets/Player/Tiles/TileR4C6", gp.tileSize, gp.tileSize);
 
         //S
-        down1 = setUp("/assets/Player/Tiles/TileR1C1");
-        down2 = setUp("/assets/Player/Tiles/TileR1C2");
-        down3 = setUp("/assets/Player/Tiles/TileR1C3");
-        down4 = setUp("/assets/Player/Tiles/TileR1C4");
-        down5 = setUp("/assets/Player/Tiles/TileR1C5");
-        down6 = setUp("/assets/Player/Tiles/TileR1C6");
+        down1 = setUp("/assets/Player/Tiles/TileR1C1", gp.tileSize, gp.tileSize);
+        down2 = setUp("/assets/Player/Tiles/TileR1C2", gp.tileSize, gp.tileSize);
+        down3 = setUp("/assets/Player/Tiles/TileR1C3", gp.tileSize, gp.tileSize);
+        down4 = setUp("/assets/Player/Tiles/TileR1C4", gp.tileSize, gp.tileSize);
+        down5 = setUp("/assets/Player/Tiles/TileR1C5", gp.tileSize, gp.tileSize);
+        down6 = setUp("/assets/Player/Tiles/TileR1C6", gp.tileSize, gp.tileSize);
 
         //A
-        left1 = setUp("/assets/Player/Tiles/TileR2C1");
-        left2 = setUp("/assets/Player/Tiles/TileR2C2");
-        left3 = setUp("/assets/Player/Tiles/TileR2C3");
-        left4 = setUp("/assets/Player/Tiles/TileR2C4");
-        left5 = setUp("/assets/Player/Tiles/TileR2C5");
-        left6 = setUp("/assets/Player/Tiles/TileR2C6");
+        left1 = setUp("/assets/Player/Tiles/TileR2C1", gp.tileSize, gp.tileSize);
+        left2 = setUp("/assets/Player/Tiles/TileR2C2", gp.tileSize, gp.tileSize);
+        left3 = setUp("/assets/Player/Tiles/TileR2C3", gp.tileSize, gp.tileSize);
+        left4 = setUp("/assets/Player/Tiles/TileR2C4", gp.tileSize, gp.tileSize);
+        left5 = setUp("/assets/Player/Tiles/TileR2C5", gp.tileSize, gp.tileSize);
+        left6 = setUp("/assets/Player/Tiles/TileR2C6", gp.tileSize, gp.tileSize);
 
         //D
-        right1 = setUp("/assets/Player/Tiles/TileR3C1");
-        right2 = setUp("/assets/Player/Tiles/TileR3C2");
-        right3 = setUp("/assets/Player/Tiles/TileR3C3");
-        right4 = setUp("/assets/Player/Tiles/TileR3C4");
-        right5 = setUp("/assets/Player/Tiles/TileR3C5");
-        right6 = setUp("/assets/Player/Tiles/TileR3C6");
+        right1 = setUp("/assets/Player/Tiles/TileR3C1", gp.tileSize, gp.tileSize);
+        right2 = setUp("/assets/Player/Tiles/TileR3C2", gp.tileSize, gp.tileSize);
+        right3 = setUp("/assets/Player/Tiles/TileR3C3", gp.tileSize, gp.tileSize);
+        right4 = setUp("/assets/Player/Tiles/TileR3C4", gp.tileSize, gp.tileSize);
+        right5 = setUp("/assets/Player/Tiles/TileR3C5", gp.tileSize, gp.tileSize);
+        right6 = setUp("/assets/Player/Tiles/TileR3C6", gp.tileSize, gp.tileSize);
+    }
+
+    public void getPlayerAttackImage() {
+        //W
+        attackUp1 = setUp("/assets/Monster/AssetList/orc_attack_down_1.png", gp.tileSize, gp.tileSize);
+        attackUp2 = setUp("/assets/Monster/AssetList/orc_attack_down_2.png", gp.tileSize, gp.tileSize);
+
+        //S
+        attackDown1 = setUp("/assets/Monster/AssetList/orc_attack_down_1.png", gp.tileSize, gp.tileSize );
+        attackDown2 = setUp("/assets/Monster/AssetList/orc_attack_down_2.png", gp.tileSize, gp.tileSize);
+
+        //A
+        attackLeft1 = setUp("/assets/Monster/AssetList/orc_attack_down_1.png", gp.tileSize, gp.tileSize);
+        attackLeft2 = setUp("/assets/Monster/AssetList/orc_attack_down_2.png", gp.tileSize, gp.tileSize);
+
+        //D
+        attackRight1 = setUp("/assets/Monster/AssetList/orc_attack_down_1.png", gp.tileSize, gp.tileSize);
+        attackRight2 = setUp("/assets/Monster/AssetList/orc_attack_down_2.png", gp.tileSize, gp.tileSize);
     }
 
     
     public void update() {
+        ScreenX = gp.getWidth()/2 - entitySize/2;
+        ScreenY = gp.getHeight()/2 - entitySize/2;
+        
+        if (attack == true) {
+            attack();
+        } else {
+            // Jika enter ditekan (dari KeyHandler), ubah status menjadi menyerang
+            if (keyH.enterPressed == true) {
+                attack = true;
+                attackCounter = 0; // Reset counter serangan ke awal
+            }
+
+        
         if (keyH.shiftPressed && stamina > 0 && !isiStamina) {
             this.setSpeed(10);
         } else {
@@ -115,6 +152,17 @@ public class Player extends Entity {
             setHp(0);
             gp.gameState = gp.gameOverState;
         }
+
+        invincibleCounter++;
+        if (invincibleCounter > 60) {
+                if (invincible == true) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+
+
+        
         
         if(keyH.upPressed == true){ direction = "up"; }
         if(keyH.downPressed == true){ direction = "down"; }
@@ -130,9 +178,8 @@ public class Player extends Entity {
         
         // CHECK COLLUSION NPC
         int npcIndex = gp.cCheker.checkEntity(this, gp.npc);
+
         interactNpc(npcIndex);
-        
-        
         
         if (collisionON == false && keyH.upPressed == true || collisionON == false && keyH.downPressed == true || collisionON == false && keyH.rightPressed == true || collisionON == false && keyH.leftPressed == true) {
             switch (direction) {
@@ -163,6 +210,10 @@ public class Player extends Entity {
         }
         
         if(chargeCounter > 10) {
+            if (atkDelay) {
+                attack();
+                atkDelay = false;
+            }
             if (isiStamina) {
                 if(keyH.shiftPressed && keyH.upPressed == false && keyH.downPressed == false && keyH.rightPressed == false && keyH.leftPressed == false){
                     stamina+=0.5;
@@ -180,6 +231,74 @@ public class Player extends Entity {
             chargeCounter = 0;
         }
     }
+}
+        
+    public void attack(){
+        attackCounter ++;
+
+        if(attackCounter <= 5){
+            spriteNum = 1;
+        }
+        if(attackCounter > 5 && attackCounter <= 25){
+            spriteNum = 2;
+
+            //Nyimpan Posisi saat ini
+            int currentWorldX = WorldX;
+            int currentWorldY = WorldY;
+            int solidAreaWidth = solidArea.width;
+            int solidAreaHeight = solidArea.height;
+
+            //Adjust posisi player untuk area serangan
+            switch(direction){
+                case "up":
+                    WorldY -= attackArea.height;
+                    break;
+                case "down":
+                    WorldY += attackArea.height;
+                    break;
+                case "left":
+                    WorldX -= attackArea.width;
+                    break;
+                case "right":
+                    WorldX += attackArea.width;
+                    break;
+            }
+
+            solidArea.width = attackArea.width;
+            solidArea.height = attackArea.height;
+
+            int monsterIndex = gp.cCheker.checkEntity(this, gp.monster);
+            damageMonster(monsterIndex);
+
+            WorldX = currentWorldX;
+            WorldY = currentWorldY;
+            solidArea.width = solidAreaWidth;
+            solidArea.height = solidAreaHeight;
+        }
+        if(attackCounter > 25){
+            spriteNum = 1;
+            spriteCounter = 0;
+            attack = false;
+        }
+
+        // simpan
+        int oldX = WorldX;
+        int oldY = WorldY;
+
+
+        int oldW = solidArea.width;
+        int oldH = solidArea.height;
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+
+        // restore
+        WorldX = oldX;
+        WorldY = oldY;
+
+        solidArea.width = oldW;
+        solidArea.height = oldH;
+    }
 
     public void pickUpObject(int i) {
         if(i != 999) {
@@ -195,68 +314,168 @@ public class Player extends Entity {
     }
     
     public void interactNpc(int i){
-        if(i != 999){
-            if(gp.keyH.enterPressed == true){
+        if(gp.keyH.enterPressed == true){
+            if(i != 999){
                 gp.gameState = gp.dialogState;
                 gp.npc[i].speak();
             }
-            gp.keyH.enterPressed = false;
+            else{
+                if(attack == false){
+                    attack = true;
+                    spriteNum = 1;
+                    spriteCounter = 0;
+                }
+            }
+        }
+    }
+
+    public void contactMonster(int i){
+        if(i != 999){
+            if(invincible == false){
+                this.setHp(this.getHp() - 1);
+                invincible = true;
+            }
+        }
+        
+    }
+
+    public void damageMonster(int i){
+        if (i != 999) {
+            if (invincible == false ) {
+                System.out.println("Monster Hit!");
+            } else {
+                System.out.println("Miss!");
+            }
         }
     }
 
     public void draw(Graphics2D g2) {
-        ScreenX = gp.getWidth() / 2 - (gp.tileSize);
-        ScreenY = gp.getHeight() / 2 - (gp.tileSize * 3);
-
         BufferedImage image = null;
+
+        int tempScreenX = ScreenX;
+        int tempScreenY = ScreenY;
 
         switch(direction) {
             case "up":
-                if (spriteNum == 1){ image = up1; } 
-                else if (spriteNum == 2){ image = up2; } 
-                else if (spriteNum == 3){ image = up3; } 
-                else if (spriteNum == 4){ image = up4; } 
-                else if (spriteNum == 5){ image = up5; } 
-                else if (spriteNum == 6){ image = up6; }
+                if (attack == false) {
+                    if (spriteNum == 1){ image = up1; } 
+                    else if (spriteNum == 2){ image = up2; }
+                    else if (spriteNum == 3){ image = up3; } 
+                    else if (spriteNum == 4){ image = up4; } 
+                    else if (spriteNum == 5){ image = up5; } 
+                    else if (spriteNum == 6){ image = up6; } 
+                }
+                if (attack == true) {
+                    tempScreenY = ScreenY - gp.tileSize;    // Geser gambar serangan ke atas
+                    if (spriteNum == 1){ image = attackUp1; } 
+                    else if (spriteNum == 2){ image = attackUp2; } 
+                }
                 break;
+
+
             case "down":
-                if (spriteNum == 1){ image = down1; } 
-                else if (spriteNum == 2){ image = down2; } 
-                else if (spriteNum == 3){ image = down3; } 
-                else if (spriteNum == 4){ image = down4; } 
-                else if (spriteNum == 5){ image = down5; } 
-                else if (spriteNum == 6){ image = down6; }
+                if (attack == false) {
+                    if (spriteNum == 1){ image = down1; } 
+                    else if (spriteNum == 2){ image = down2; } 
+                    else if (spriteNum == 3){ image = down3; } 
+                    else if (spriteNum == 4){ image = down4; } 
+                    else if (spriteNum == 5){ image = down5; } 
+                    else if (spriteNum == 6){ image = down6; }
+                }
+                if (attack == true) {
+                    if (spriteNum == 1){ image = attackDown1; } 
+                    else if (spriteNum == 2){ image = attackDown2; } 
+                }
                 break;
+
+
             case "left":
-                if (spriteNum == 1){ image = left1; } 
-                else if (spriteNum == 2){ image = left2; } 
-                else if (spriteNum == 3){ image = left3; } 
-                else if (spriteNum == 4){ image = left4; } 
-                else if (spriteNum == 5){ image = left5; } 
-                else if (spriteNum == 6){ image = left6; }
+                if (attack == false) {
+                    if (spriteNum == 1){ image = left1; } 
+                    else if (spriteNum == 2){ image = left2; } 
+                    else if (spriteNum == 3){ image = left3; } 
+                    else if (spriteNum == 4){ image = left4; } 
+                    else if (spriteNum == 5){ image = left5; } 
+                    else if (spriteNum == 6){ image = left6; }
+                }
+                if (attack == true) {
+                    tempScreenX = ScreenX - gp.tileSize;    // Geser gambar serangan ke kiri
+                    if (spriteNum == 1){ image = attackLeft1; } 
+                    else if (spriteNum == 2){ image = attackLeft2; } 
+                }
                 break;
+
+
             case "right":
-                if (spriteNum == 1){ image = right1; } 
-                else if (spriteNum == 2){ image = right2; } 
-                else if (spriteNum == 3){ image = right3; } 
-                else if (spriteNum == 4){ image = right4; } 
-                else if (spriteNum == 5){ image = right5; } 
-                else if (spriteNum == 6){ image = right6; }
+                if (attack == false) {
+                    if (spriteNum == 1){ image = right1; } 
+                    else if (spriteNum == 2){ image = right2; } 
+                    else if (spriteNum == 3){ image = right3; } 
+                    else if (spriteNum == 4){ image = right4; } 
+                    else if (spriteNum == 5){ image = right5; } 
+                    else if (spriteNum == 6){ image = right6; }
+                }
+                if (attack == true) {
+                    tempScreenX = ScreenX + gp.tileSize;    // Geser gambar serangan ke kanan
+                    if (spriteNum == 1){ image = attackRight1; } 
+                    else if (spriteNum == 2){ image = attackRight2; } 
+                }
                 break;
         }
 
-        g2.drawImage(image, ScreenX, ScreenY, entitySize, entitySize, null);
+        if (invincible == true) {
+            g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.3f));
+        }
 
-        // DEBUG HITBOX
-            g2.setColor(java.awt.Color.GREEN);
-            g2.drawRect(
-                ScreenX + solidArea.x,
-                ScreenY + solidArea.y,
-                solidArea.width,
-                solidArea.height
-            );
-    }
+        g2.drawImage(image, tempScreenX, tempScreenY, entitySize, entitySize, null);
 
+        // RESET ALPHA
+        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER,1f));
+
+        // HITBOX PLAYER
+        g2.setColor(java.awt.Color.GREEN);
+        
+        g2.drawRect(
+            tempScreenX + solidArea.x,
+            tempScreenY + solidArea.y,
+            solidArea.width,
+            solidArea.height);
+
+            // HITBOX ATTACK
+            if(attack){
+            
+                int atkX = tempScreenX + solidArea.x;
+                int atkY = tempScreenY + solidArea.y;
+            
+                switch(direction){
+            
+                    case "up":
+                        atkY -= attackArea.height;
+                        break;
+            
+                    case "down":
+                        atkY += solidArea.height;
+                        break;
+            
+                    case "left":
+                        atkX -= attackArea.width;
+                        break;
+            
+                    case "right":
+                        atkX += solidArea.width;
+                        break;
+                }
+            
+                g2.setColor(java.awt.Color.RED);
+            
+                g2.drawRect(
+                    atkX,
+                    atkY,
+                    attackArea.width,
+                    attackArea.height
+                );
+            }
+        }
 	@Override
 	public void setAction() {
 		//empty
