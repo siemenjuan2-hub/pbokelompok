@@ -12,73 +12,91 @@ public class CollisonChecker {
 
     public void checkTile(Entity entity) {
 
-        // Buat cari batas kotak (hitbox) yang solid
-        int entityLeftWorldX = entity.WorldX + entity.solidArea.x;
-        int entityRightWorldX = entity.WorldX + entity.solidArea.x + entity.solidArea.width;
-        int entityTopWorldY = entity.WorldY + entity.solidArea.y;
-        int entityBottomWorldY = entity.WorldY + entity.solidArea.y + entity.solidArea.height;
-        
-        // Buat ngubah koordinat tadi biar jadi kolom atau baris 
-        int entityLeftCol = entityLeftWorldX / gp.tileSize;
-        int entityRightCol = entityRightWorldX / gp.tileSize;
-        int entityTopRow = entityTopWorldY / gp.tileSize;
-        int entityBottomRow = entityBottomWorldY / gp.tileSize;
+        int entityLeftWorldX =
+                entity.WorldX + entity.solidArea.x;
 
-        int tileNum1; // Mirip temp gitulah buat ngecek kaki kiri tangan kiri (hitbox bagian kiri)
-        int tileNum2; // Mirip temp gitulah buat ngecek kaki kanan tangan kanan (hitbox bagian kanan)
-        //Dia juga sekaligus ngecek tile didepannya kita itu jalan bukan
+        int entityRightWorldX =
+                entity.WorldX +
+                entity.solidArea.x +
+                entity.solidArea.width;
 
-        //Nabrak sesuai arah hadap karakternya kita
-        switch (entity.direction) {
+        int entityTopWorldY =
+                entity.WorldY +
+                entity.solidArea.y;
+
+        int entityBottomWorldY =
+                entity.WorldY +
+                entity.solidArea.y +
+                entity.solidArea.height;
+
+
+        int entityLeftCol =
+                entityLeftWorldX / gp.tileSize;
+
+        int entityRightCol =
+                entityRightWorldX / gp.tileSize;
+
+        int entityTopRow =
+                entityTopWorldY / gp.tileSize;
+
+        int entityBottomRow =
+                entityBottomWorldY / gp.tileSize;
+
+
+        switch(entity.direction){
+
             case "up":
-                entityTopRow = (entityTopWorldY - entity.getSpeed()) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-
-                //Kalo nabrak gabisa maju
-                if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
-                    entity.collisionON = true;
-                }
+                entityTopRow =
+                        (entityTopWorldY - entity.getSpeed())
+                        / gp.tileSize;
                 break;
-
 
             case "down":
-                entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-
-                //Kalo nabrak gabisa maju
-                if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
-                    entity.collisionON = true;
-                }
+                entityBottomRow =
+                        (entityBottomWorldY + entity.getSpeed())
+                        / gp.tileSize;
                 break;
-
 
             case "left":
-                entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-
-                //Kalo nabrak gabisa maju
-                if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
-                    entity.collisionON = true;
-                }
+                entityLeftCol =
+                        (entityLeftWorldX - entity.getSpeed())
+                        / gp.tileSize;
                 break;
-
 
             case "right":
-                entityRightCol = (entityRightWorldX + entity.getSpeed()) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-
-                //Kalo nabrak gabisa maju
-                if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
-                    entity.collisionON = true;
-                }
+                entityRightCol =
+                        (entityRightWorldX + entity.getSpeed())
+                        / gp.tileSize;
                 break;
         }
-    }
 
+
+        // CEGAH KELUAR MAP
+        if(
+            entityLeftCol < 0 ||
+            entityRightCol >= gp.maxWorldCol ||
+            entityTopRow < 0 ||
+            entityBottomRow >= gp.maxWorldRow
+        ){
+            entity.collisionON = true;
+            return;
+        }
+
+
+        int tileNum1 =
+            gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+
+        int tileNum2 =
+            gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+
+
+        if(
+            gp.tileM.tile[tileNum1].collision ||
+            gp.tileM.tile[tileNum2].collision
+        ){
+            entity.collisionON = true;
+        }
+    }
     // check collision object
     public int checkObject(Entity entity, boolean player)
     {   

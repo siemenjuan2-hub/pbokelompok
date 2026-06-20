@@ -15,10 +15,10 @@ import main.UtilityTool;
 public abstract class Entity {
     public GamePanel gp;
     public BufferedImage up1, up2, up3, up4, up5, up6, down1, down2, down3, down4, down5, down6, left1, left2, left3, left4, left5, left6, right1, right2, right3, right4, right5, right6;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
+    public BufferedImage attackUp1, attackUp2, attackUp3, attackUp4,attackUp5, attackUp6,attackDown1, attackDown2, attackDown3, attackDown4,attackDown5, attackDown6, attackLeft1, attackLeft2, attackLeft3, attackLeft4,attackLeft5, attackLeft6, attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6 ;
     public BufferedImage image;
     public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
-    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+    public Rectangle attackArea = new Rectangle(0, 0, 32, 32);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = true;
     String dialogues[] = new String[20];
@@ -41,12 +41,12 @@ public abstract class Entity {
     // COUNTER 
     public int spriteCounter = 0;
     public int actionLockCounter = 0;
-    public int invincibleCounter = 0;
+    public int invincibleCounter = 60;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
     // CHARACTER ATRIBUTES
-    public int type; // 0 = npc, 1 = monster. 
+    public int type; // 0 = npc, 1 = monster.
     public String name; // Bedanya sama atas apa cug
     private int speed;
     // private int maxHp;

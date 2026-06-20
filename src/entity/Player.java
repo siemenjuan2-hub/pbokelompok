@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Player extends Entity {
-    KeyHandler keyH; 
+    KeyHandler keyH;
     
     public int ScreenX;
     public int ScreenY;
@@ -29,7 +29,7 @@ public class Player extends Entity {
         super(gp);
         this.keyH = keyH;
 
-        // 1: Hitbox 
+        // 1: Hitbox
         solidArea = new Rectangle();
         solidArea.x = 90;                 // Jarak aman dari sisi kiri karakter
         solidArea.y = 120;                // Jarak aman dari kepala (hitbox melindungi area perut ke kaki)
@@ -102,20 +102,36 @@ public class Player extends Entity {
 
     public void getPlayerAttackImage() {
         //W
-        attackUp1 = setUp("/assets/Player/Tiles/TileR4C7", gp.tileSize, gp.tileSize);
-        attackUp2 = setUp("/assets/Player/Tiles/TileR4C8", gp.tileSize, gp.tileSize);
+        attackUp1 = setUp("/assets/Player/Tiles2/TileR4C2", gp.tileSize, gp.tileSize);
+        attackUp2 = setUp("/assets/Player/Tiles2/TileR4C3", gp.tileSize, gp.tileSize);
+        attackUp3 = setUp("/assets/Player/Tiles2/TileR4C4", gp.tileSize, gp.tileSize);
+        attackUp4 = setUp("/assets/Player/Tiles2/TileR4C5", gp.tileSize, gp.tileSize);
+        attackUp5 = setUp("/assets/Player/Tiles2/TileR4C6", gp.tileSize, gp.tileSize);
+        attackUp6 = setUp("/assets/Player/Tiles2/TileR4C7", gp.tileSize, gp.tileSize);
 
         //S
-        attackDown1 = setUp("/assets/Player/Tiles/TileR1C7", gp.tileSize, gp.tileSize);
-        attackDown2 = setUp("/assets/Player/Tiles/TileR1C8", gp.tileSize, gp.tileSize);
+        attackDown1 = setUp("/assets/Player/Tiles2/TileR1C2", gp.tileSize, gp.tileSize);
+        attackDown2 = setUp("/assets/Player/Tiles2/TileR1C3", gp.tileSize, gp.tileSize);
+        attackDown3 = setUp("/assets/Player/Tiles2/TileR1C4", gp.tileSize, gp.tileSize);
+        attackDown4 = setUp("/assets/Player/Tiles2/TileR1C5", gp.tileSize, gp.tileSize);
+        attackDown5 = setUp("/assets/Player/Tiles2/TileR1C6", gp.tileSize, gp.tileSize);
+        attackDown6 = setUp("/assets/Player/Tiles2/TileR1C7", gp.tileSize, gp.tileSize);
 
         //A
-        attackLeft1 = setUp("/assets/Player/Tiles/TileR2C7", gp.tileSize, gp.tileSize);
-        attackLeft2 = setUp("/assets/Player/Tiles/TileR2C8", gp.tileSize, gp.tileSize);
+        attackLeft1 = setUp("/assets/Player/Tiles2/TileR2C2", gp.tileSize, gp.tileSize);
+        attackLeft2 = setUp("/assets/Player/Tiles2/TileR2C3", gp.tileSize, gp.tileSize);
+        attackLeft3 = setUp("/assets/Player/Tiles2/TileR2C4", gp.tileSize, gp.tileSize);
+        attackLeft4 = setUp("/assets/Player/Tiles2/TileR2C5", gp.tileSize, gp.tileSize);
+        attackLeft5 = setUp("/assets/Player/Tiles2/TileR2C6", gp.tileSize, gp.tileSize);
+        attackLeft6 = setUp("/assets/Player/Tiles2/TileR2C7", gp.tileSize, gp.tileSize);
 
         //D
-        attackRight1 = setUp("/assets/Player/Tiles/TileR3C7", gp.tileSize, gp.tileSize);
-        attackRight2 = setUp("/assets/Player/Tiles/TileR3C8", gp.tileSize, gp.tileSize);
+        attackRight1 = setUp("/assets/Player/Tiles2/TileR3C2", gp.tileSize, gp.tileSize);
+        attackRight2 = setUp("/assets/Player/Tiles2/TileR3C3", gp.tileSize, gp.tileSize);
+        attackRight3 = setUp("/assets/Player/Tiles2/TileR3C4", gp.tileSize, gp.tileSize);
+        attackRight4 = setUp("/assets/Player/Tiles2/TileR3C5", gp.tileSize, gp.tileSize);
+        attackRight5 = setUp("/assets/Player/Tiles2/TileR3C6", gp.tileSize, gp.tileSize);
+        attackRight6 = setUp("/assets/Player/Tiles2/TileR3C7", gp.tileSize, gp.tileSize);
     }
 
     
@@ -123,7 +139,7 @@ public class Player extends Entity {
         ScreenX = gp.getWidth()/2 - entitySize/2;
         ScreenY = gp.getHeight()/2 - entitySize/2;
         
-        if (attack == true) {
+        if (attack == true && stamina > 2) {
             attack();
         } else {
             // Jika enter ditekan (dari KeyHandler), ubah status menjadi menyerang
@@ -160,8 +176,9 @@ public class Player extends Entity {
         invincibleCounter++;
         if (invincibleCounter > 60) {
                 if (invincible == true) {
-                invincible = false;
-                invincibleCounter = 0;
+                    this.setHp(this.getHp() - 1);
+                    invincible = false;
+                    invincibleCounter = 0;
             }
         }
 
@@ -201,8 +218,8 @@ public class Player extends Entity {
         chargeCounter++;
         
         if(spriteCounter > 10){
-            if(this.getSpeed() == 10){ 
-                stamina -= 1; 
+            if(this.getSpeed() == 10){
+                stamina -= 1;
             }
             if(spriteNum == 1){ spriteNum = 2; }
             else if(spriteNum == 2){ spriteNum = 3; }
@@ -242,9 +259,16 @@ public class Player extends Entity {
 
         if(attackCounter <= 5){
             spriteNum = 1;
-        }
-        if(attackCounter > 5 && attackCounter <= 25){
+        }else if(attackCounter <= 10){
             spriteNum = 2;
+        }else if(attackCounter <= 15){
+            spriteNum = 3;
+        }else if(attackCounter <= 20){
+            spriteNum = 4;
+        }else if(attackCounter <= 25){
+            spriteNum = 5;
+        }else if(attackCounter <= 30){
+            spriteNum = 6;
 
             //Nyimpan Posisi saat ini
             int currentWorldX = WorldX;
@@ -253,36 +277,43 @@ public class Player extends Entity {
             int solidAreaHeight = solidArea.height;
 
             //Adjust posisi player untuk area serangan
-            switch(direction){
-                case "up":
-                    WorldY -= attackArea.height;
-                    break;
-                case "down":
-                    WorldY += attackArea.height;
-                    break;
-                case "left":
-                    WorldX -= attackArea.width;
-                    break;
-                case "right":
-                    WorldX += attackArea.width;
-                    break;
-            }
+        switch(direction){
+        case "up":
+            solidArea.y -= attackArea.height;
+            break;
+
+        case "down":
+            solidArea.y += attackArea.height;
+            break;
+
+        case "left":
+            solidArea.x -= attackArea.width;
+            break;
+
+        case "right":
+            solidArea.x += attackArea.width;
+            break;
+    }
 
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
 
             int monsterIndex = gp.cCheker.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
+            solidArea.x = solidAreaDefaultX;
+            solidArea.y = solidAreaDefaultY;
 
             WorldX = currentWorldX;
             WorldY = currentWorldY;
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
+
         }
-        if(attackCounter > 25){
+        if(attackCounter > 30){
             spriteNum = 1;
             spriteCounter = 0;
             attack = false;
+            stamina-=2;
         }
 
         // simpan
@@ -318,17 +349,10 @@ public class Player extends Entity {
     }
     
     public void interactNpc(int i){
-        if(gp.keyH.enterPressed == true){
+        if(gp.keyH.spacePressed == true){
             if(i != 999){
                 gp.gameState = gp.dialogState;
                 gp.npc[i].speak();
-            }
-            else{
-                if(attack == false){
-                    attack = true;
-                    spriteNum = 1;
-                    spriteCounter = 0;
-                }
             }
         }
     }
@@ -336,7 +360,6 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i != 999){
             if(invincible == false){
-                this.setHp(this.getHp() - 1);
                 invincible = true;
             }
         }
@@ -344,6 +367,7 @@ public class Player extends Entity {
     }
 
     public void damageMonster(int i){
+        boolean hit = false;
         if (i != 999) {
             // if (invincible == false ) {
             //     System.out.println("Monster Hit!");
@@ -355,15 +379,18 @@ public class Player extends Entity {
                 System.out.println("Monster Hit!");
                 gp.monster[i].hp -= 1;
                 gp.monster[i].invincible = true;
+                hit = true;
 
                 if(gp.monster[i].hp <= 0)
                 {
                     gp.monster[i].dying = true;
+
                 }
-            } else {
+            }
+            if(gp.monster[i].invincible == false && hit == false){
                 System.out.println("Miss!");
 
-            }        
+            }
         }
     }
 
@@ -376,17 +403,20 @@ public class Player extends Entity {
         switch(direction) {
             case "up":
                 if (attack == false) {
-                    if (spriteNum == 1){ image = up1; } 
+                    if (spriteNum == 1){ image = up1; }
                     else if (spriteNum == 2){ image = up2; }
-                    else if (spriteNum == 3){ image = up3; } 
-                    else if (spriteNum == 4){ image = up4; } 
-                    else if (spriteNum == 5){ image = up5; } 
+                    else if (spriteNum == 3){ image = up3; }
+                    else if (spriteNum == 4){ image = up4; }
+                    else if (spriteNum == 5){ image = up5; }
                     else if (spriteNum == 6){ image = up6; } 
                 }
                 if (attack == true) {
-                    tempScreenY = ScreenY - gp.tileSize;    // Geser gambar serangan ke atas
-                    if (spriteNum == 1){ image = attackUp1; } 
-                    else if (spriteNum == 2){ image = attackUp2; } 
+                    if (spriteNum == 1){ image = attackUp1; }
+                    else if (spriteNum == 2){ image = attackUp2; }
+                    else if (spriteNum == 3){ image = attackUp3; }
+                    else if (spriteNum == 4){ image = attackUp4; }
+                    else if (spriteNum == 5){ image = attackUp5; }
+                    else if (spriteNum == 6){ image = attackUp6; }
                 }
                 break;
 
@@ -402,7 +432,12 @@ public class Player extends Entity {
                 }
                 if (attack == true) {
                     if (spriteNum == 1){ image = attackDown1; } 
-                    else if (spriteNum == 2){ image = attackDown2; } 
+                    else if (spriteNum == 2){ image = attackDown2; }  
+                    else if (spriteNum == 3){ image = attackDown3; }  
+                    else if (spriteNum == 4){ image = attackDown4; }  
+                    else if (spriteNum == 5){ image = attackDown5; }  
+                    else if (spriteNum == 6){ image = attackDown6; } 
+                    
                 }
                 break;
 
@@ -417,9 +452,12 @@ public class Player extends Entity {
                     else if (spriteNum == 6){ image = left6; }
                 }
                 if (attack == true) {
-                    tempScreenX = ScreenX - gp.tileSize;    // Geser gambar serangan ke kiri
-                    if (spriteNum == 1){ image = attackLeft1; } 
-                    else if (spriteNum == 2){ image = attackLeft2; } 
+                    if (spriteNum == 1){ image = attackLeft1; }
+                    else if (spriteNum == 2){ image = attackLeft2; }
+                    else if (spriteNum == 3){ image = attackLeft3; }
+                    else if (spriteNum == 4){ image = attackLeft4; }
+                    else if (spriteNum == 5){ image = attackLeft5; }
+                    else if (spriteNum == 6){ image = attackLeft6; }
                 }
                 break;
 
@@ -434,9 +472,13 @@ public class Player extends Entity {
                     else if (spriteNum == 6){ image = right6; }
                 }
                 if (attack == true) {
-                    tempScreenX = ScreenX + gp.tileSize;    // Geser gambar serangan ke kanan
                     if (spriteNum == 1){ image = attackRight1; } 
                     else if (spriteNum == 2){ image = attackRight2; } 
+                    else if (spriteNum == 3){ image = attackRight3; } 
+                    else if (spriteNum == 4){ image = attackRight4; } 
+                    else if (spriteNum == 5){ image = attackRight5; } 
+                    else if (spriteNum == 6){ image = attackRight6; } 
+                    
                 }
                 break;
         }
