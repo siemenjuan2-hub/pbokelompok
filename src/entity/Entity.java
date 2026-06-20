@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -31,18 +33,30 @@ public abstract class Entity {
     public boolean collisionON = false;
     public boolean invincible = false;
     boolean attack = false;
+    public boolean alive = true;
+    public boolean dying = false;
+
+    boolean hpBarOn = false;
 
     // COUNTER 
     public int spriteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    int dyingCounter = 0;
+    int hpBarCounter = 0;
 
     // CHARACTER ATRIBUTES
     public int type; // 0 = npc, 1 = monster. 
     public String name; // Bedanya sama atas apa cug
     private int speed;
-    private int maxHp;
-    private int hp;
+    // private int maxHp;
+    // private int hp;
+    public int maxHp;
+    public int hp;
+
+    // CHARACTER STATUS
+    // public int maxLife;
+    // public int life;
 
     
 
@@ -117,6 +131,14 @@ public abstract class Entity {
             else if (spriteNum == 6){ spriteNum = 1; }
             spriteCounter = 0;
         }
+
+        if (invincible == true) {
+            invincibleCounter++;
+            if (invincibleCounter > 40) { // Angka 40 = seberapa lama monster berkedip (bisa diubah)
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }        
     }
 
     public BufferedImage setUp (String ImagePath, int width, int height) {
@@ -150,41 +172,74 @@ public abstract class Entity {
         {
 
             switch(direction) {
-            case "up":
-                if (spriteNum == 1){ image = up1; } 
-                else if (spriteNum == 2){ image = up2; } 
-                else if (spriteNum == 3){ image = up1; } 
-                else if (spriteNum == 4){ image = up2; } 
-                else if (spriteNum == 5){ image = up1; } 
-                else if (spriteNum == 6){ image = up2; }
-                break;
-            case "down":
-                if (spriteNum == 1){ image = down1; } 
-                else if (spriteNum == 2){ image = down2; } 
-                else if (spriteNum == 3){ image = down1; } 
-                else if (spriteNum == 4){ image = down2; } 
-                else if (spriteNum == 5){ image = down1; } 
-                else if (spriteNum == 6){ image = down2; }
-                break;
-            case "left":
-                if (spriteNum == 1){ image = left1; } 
-                else if (spriteNum == 2){ image = left2; } 
-                else if (spriteNum == 3){ image = left1; } 
-                else if (spriteNum == 4){ image = left2; } 
-                else if (spriteNum == 5){ image = left1; } 
-                else if (spriteNum == 6){ image = left2; }
-                break;
-            case "right":
-                if (spriteNum == 1){ image = right1; } 
-                else if (spriteNum == 2){ image = right2; } 
-                else if (spriteNum == 3){ image = right1; } 
-                else if (spriteNum == 4){ image = right2; } 
-                else if (spriteNum == 5){ image = right1; } 
-                else if (spriteNum == 6){ image = right2; }
-                break;
-        }
-            
+                case "up":
+                    if (spriteNum == 1){ image = up1; } 
+                    else if (spriteNum == 2){ image = up2; } 
+                    else if (spriteNum == 3){ image = up1; } 
+                    else if (spriteNum == 4){ image = up2; } 
+                    else if (spriteNum == 5){ image = up1; } 
+                    else if (spriteNum == 6){ image = up2; }
+                    break;
+                case "down":
+                    if (spriteNum == 1){ image = down1; } 
+                    else if (spriteNum == 2){ image = down2; } 
+                    else if (spriteNum == 3){ image = down1; } 
+                    else if (spriteNum == 4){ image = down2; } 
+                    else if (spriteNum == 5){ image = down1; } 
+                    else if (spriteNum == 6){ image = down2; }
+                    break;
+                case "left":
+                    if (spriteNum == 1){ image = left1; } 
+                    else if (spriteNum == 2){ image = left2; } 
+                    else if (spriteNum == 3){ image = left1; } 
+                    else if (spriteNum == 4){ image = left2; } 
+                    else if (spriteNum == 5){ image = left1; } 
+                    else if (spriteNum == 6){ image = left2; }
+                    break;
+                case "right":
+                    if (spriteNum == 1){ image = right1; } 
+                    else if (spriteNum == 2){ image = right2; } 
+                    else if (spriteNum == 3){ image = right1; } 
+                    else if (spriteNum == 4){ image = right2; } 
+                    else if (spriteNum == 5){ image = right1; } 
+                    else if (spriteNum == 6){ image = right2; }
+                    break;
+            }
+
+            // HP BAR MONSTER SLIME IJO
+            if(type == 1 && hpBarOn == true)
+            {
+                double oneScale = (double) entitySize/maxHp;
+                double hpBarValue = oneScale * hp;
+                
+                g2.setColor(new Color(35,35,35));
+                g2.fillRect(screenX-1, screenY-16, entitySize + 2, 12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX, screenY-15, (int)hpBarValue, 10);
+
+                hpBarCounter++;
+
+                if(hpBarCounter > 600)
+                {
+                    hpBarCounter = 0;
+                    hpBarOn = false;
+                }
+            }
+
+            if(invincible == true)
+            {
+                hpBarOn = true;
+                hpBarCounter = 0;
+                changeAlpha(g2, 0.4f);
+            }
+            if(dying == true)
+            {
+                dyingAnimation(g2); 
+            }
+
             g2.drawImage(image, screenX, screenY, entitySize, entitySize, null);
+            changeAlpha(g2, 1f);            
 
             // DEBUG HITBOX
             g2.setColor(java.awt.Color.PINK);
@@ -197,6 +252,54 @@ public abstract class Entity {
         }
     }
 
+    public void dyingAnimation(Graphics2D g2)
+    {
+        dyingCounter++;
+        int i =5;
+
+        if(dyingCounter <= i)
+        {
+            changeAlpha(g2, 0);
+        }
+        if(dyingCounter > i && dyingCounter <= i*2)
+        {
+            changeAlpha(g2, 1);        
+        }
+        if(dyingCounter > i*2 && dyingCounter <= i*3)
+        {
+            changeAlpha(g2, 0);        
+        }
+        if(dyingCounter > i*3 && dyingCounter <= i*4)
+        {
+            changeAlpha(g2, 1);
+        }
+        if(dyingCounter > i*4 && dyingCounter <= i*5)
+        {
+            changeAlpha(g2, 0);        
+        }
+        if(dyingCounter > i*5 && dyingCounter <= i*6)
+        {
+            changeAlpha(g2, 1);
+        }
+        if(dyingCounter > i*6 && dyingCounter <= i*7)
+        {
+            changeAlpha(g2, 0);
+        }  
+        if(dyingCounter > i*7 && dyingCounter <= i*8)
+        {
+            changeAlpha(g2, 1);
+        }
+        if(dyingCounter > i*8)
+        {
+            dying = false;
+            alive = false;
+        }
+    }
+
+    public void changeAlpha(Graphics2D g2, float alphaValue)
+    {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
 
     public int getSpeed() {
         return speed;
