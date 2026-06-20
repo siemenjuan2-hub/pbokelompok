@@ -98,20 +98,20 @@ public class Player extends Entity {
 
     public void getPlayerAttackImage() {
         //W
-        attackUp1 = setUp("/assets/Monster/AssetList/orc_attack_down_1", gp.tileSize, gp.tileSize);
-        attackUp2 = setUp("/assets/Monster/AssetList/orc_attack_down_2", gp.tileSize, gp.tileSize);
+        attackUp1 = setUp("/assets/Player/Tiles/TileR4C7", gp.tileSize, gp.tileSize);
+        attackUp2 = setUp("/assets/Player/Tiles/TileR4C8", gp.tileSize, gp.tileSize);
 
         //S
-        attackDown1 = setUp("/assets/Monster/AssetList/orc_attack_down_1", gp.tileSize, gp.tileSize );
-        attackDown2 = setUp("/assets/Monster/AssetList/orc_attack_down_2", gp.tileSize, gp.tileSize);
+        attackDown1 = setUp("/assets/Player/Tiles/TileR1C7", gp.tileSize, gp.tileSize);
+        attackDown2 = setUp("/assets/Player/Tiles/TileR1C8", gp.tileSize, gp.tileSize);
 
         //A
-        attackLeft1 = setUp("/assets/Monster/AssetList/orc_attack_down_1", gp.tileSize, gp.tileSize);
-        attackLeft2 = setUp("/assets/Monster/AssetList/orc_attack_down_2", gp.tileSize, gp.tileSize);
+        attackLeft1 = setUp("/assets/Player/Tiles/TileR2C7", gp.tileSize, gp.tileSize);
+        attackLeft2 = setUp("/assets/Player/Tiles/TileR2C8", gp.tileSize, gp.tileSize);
 
         //D
-        attackRight1 = setUp("/assets/Monster/AssetList/orc_attack_down_1", gp.tileSize, gp.tileSize);
-        attackRight2 = setUp("/assets/Monster/AssetList/orc_attack_down_2", gp.tileSize, gp.tileSize);
+        attackRight1 = setUp("/assets/Player/Tiles/TileR3C7", gp.tileSize, gp.tileSize);
+        attackRight2 = setUp("/assets/Player/Tiles/TileR3C8", gp.tileSize, gp.tileSize);
     }
 
     
