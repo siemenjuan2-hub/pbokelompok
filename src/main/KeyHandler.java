@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPressed,enterPressed,ePressed,atkPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPressed,enterPressed,ePressed,atkPressed, spacePressed;
 
 
     //DEBUG 
@@ -68,6 +68,9 @@ public class KeyHandler implements KeyListener{
             if(key == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
+            if(key == KeyEvent.VK_SPACE){
+                spacePressed = true;
+            }
     
             if(key == KeyEvent.VK_SHIFT) {
                 shiftPressed = true;
@@ -103,7 +106,7 @@ public class KeyHandler implements KeyListener{
         }
         //dialog state
         else if(gp.gameState == gp.dialogState) {
-            if(key == KeyEvent.VK_ENTER) {
+            if(key == KeyEvent.VK_SPACE) {
                 gp.gameState = gp.playState;
             }
         }
@@ -141,6 +144,9 @@ public class KeyHandler implements KeyListener{
         }
         if(key == KeyEvent.VK_Q){
             atkPressed = false;
+        }
+        if(key == KeyEvent.VK_SPACE){
+            spacePressed = false;
         }
     }
 
