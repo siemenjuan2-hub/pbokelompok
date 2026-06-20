@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 public class UI {
@@ -18,6 +19,8 @@ public class UI {
     DecimalFormat dFormat = new DecimalFormat("#0"); // formating playtime
     public String currentDialogue = "";
     public int commandNum = 0; // menu
+
+    // BufferedImage heart_full, heart_half, heart_blank;
 
     public UI(GamePanel gp) {
         this.gp = gp;

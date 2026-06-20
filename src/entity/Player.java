@@ -60,6 +60,10 @@ public class Player extends Entity {
         this.setSpeed(6);
         direction = "down";
         spriteNum = 1;
+
+        // PLAYER STATUS
+        // maxLife = 6;
+        // life = maxLife;
     }
 
     public void getPlayerImage() {
@@ -341,11 +345,25 @@ public class Player extends Entity {
 
     public void damageMonster(int i){
         if (i != 999) {
-            if (invincible == false ) {
+            // if (invincible == false ) {
+            //     System.out.println("Monster Hit!");
+                
+            // } else {
+            //     System.out.println("Miss!");
+            // }
+            if (gp.monster[i].invincible == false ) {
                 System.out.println("Monster Hit!");
+                gp.monster[i].hp -= 1;
+                gp.monster[i].invincible = true;
+
+                if(gp.monster[i].hp <= 0)
+                {
+                    gp.monster[i].dying = true;
+                }
             } else {
                 System.out.println("Miss!");
-            }
+
+            }        
         }
     }
 
