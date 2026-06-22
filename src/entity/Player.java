@@ -3,6 +3,8 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Armor_Normal;
+import object.OBJ_Sword_Normal;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -52,18 +54,26 @@ public class Player extends Entity {
     public void setDefaultValues() {
         WorldX = gp.tileSize * 23;
         WorldY = gp.tileSize * 21;
+        isiStamina = false;
+        direction = "down";
+        spriteNum = 1;
+        
+        // PLAYER STATUS
+
         maxStamina = 20;
         stamina = maxStamina;
         this.setMaxHp(100);
         this.setHp(this.getMaxHp());
-        isiStamina = false;
         this.setSpeed(6);
-        direction = "down";
-        spriteNum = 1;
-
-        // PLAYER STATUS
-        // maxLife = 6;
-        // life = maxLife;
+        this.setStrength(1);
+        this.setDef(1);
+        this.setExp(0);
+        this.setNextLevelExp(5);
+        this.setCoin(0);
+        currentArmor = new OBJ_Armor_Normal(gp);
+        currentSword = new OBJ_Sword_Normal(gp);
+        setAtk(this.getStrength() + currentSword.attackValue);
+        setDefense(this.getDef() + currentArmor.defenseValue);
     }
 
     public void getPlayerImage() {
@@ -170,7 +180,7 @@ public class Player extends Entity {
 
         if(getHp() <= 0){
             setHp(0);
-            gp.gameState = gp.gameOverState;
+            gp.gameState = gp.titleState;
         }
 
         invincibleCounter++;
@@ -377,11 +387,11 @@ public class Player extends Entity {
             // }
             if (gp.monster[i].invincible == false ) {
                 System.out.println("Monster Hit!");
-                gp.monster[i].hp -= 1;
+                gp.monster[i].setHp(gp.monster[i].getHp() - 1);
                 gp.monster[i].invincible = true;
                 hit = true;
 
-                if(gp.monster[i].hp <= 0)
+                if(gp.monster[i].getHp() <= 0)
                 {
                     gp.monster[i].dying = true;
 

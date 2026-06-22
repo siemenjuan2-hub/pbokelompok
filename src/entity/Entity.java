@@ -23,7 +23,7 @@ public abstract class Entity {
     public boolean collision = true;
     String dialogues[] = new String[20];
     public int entitySize;
-    public String names; // bedanya sama bawah apa cug
+    public String names; // bedanya sama bawah apa cug // ga ada bedanya, bisa di hapus hahahah (Stevanus)
     
     // STATE
     public int WorldX, WorldY;
@@ -38,21 +38,35 @@ public abstract class Entity {
 
     boolean hpBarOn = false;
 
-    // COUNTER 
+    // COUNTER
     public int spriteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 60;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
-    // CHARACTER ATRIBUTES
+    // ENITTY ATRIBUTES
     public int type; // 0 = npc, 1 = monster.
     public String name; // Bedanya sama atas apa cug
     private int speed;
-    // private int maxHp;
-    // private int hp;
-    public int maxHp;
-    public int hp;
+    private int maxHp;
+    private int hp;
+    private int level;
+    private int atk;
+    private int strength;
+    private int defense;
+    private int def; // defense awal player (tidak di hitung atribute armor)
+    private int exp;
+    private int nextLevelExp;
+    private int coin;
+
+    // ENTITY ITEM
+    public Entity currentSword;
+    public Entity currentArmor;
+
+    // ITEM ATTRIBUTE
+    public int attackValue;
+    public int defenseValue;
 
     // CHARACTER STATUS
     // public int maxLife;
@@ -301,24 +315,94 @@ public abstract class Entity {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
+    //  GETTER SETTER
+
     public int getSpeed() {
         return speed;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
     public int getMaxHp() {
         return maxHp;
     }
+
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
+
     public int getHp() {
         return hp;
     }
+
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public void setAtk(int atk) {
+        this.atk = atk;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getNextLevelExp() {
+        return nextLevelExp;
+    }
+
+    public void setNextLevelExp(int nextLevelExp) {
+        this.nextLevelExp = nextLevelExp;
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
+    }
     
+    public int getDef() {
+        return def;
+    }
+
+    public void setDef(int def) {
+        this.def = def;
+    }
 
 }

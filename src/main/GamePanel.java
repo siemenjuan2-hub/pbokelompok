@@ -58,9 +58,9 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
-    public final int pauseState = 2;        
+    public final int pauseState = 2;
     public final int dialogState = 3;
-    public final int gameOverState = 4;
+    public final int characterState = 4;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame()
-    {   
+    {
         aSetter.setObject();
         // playMusic(0);
         aSetter.setNpc();
@@ -143,9 +143,8 @@ public class GamePanel extends JPanel implements Runnable {
         else if(gameState == pauseState){
             // nothing
         }
-        else if(gameState == gameOverState){
-            this.player.setDefaultValues();
-            gameState = titleState;
+        else if(gameState == characterState){
+
         }
 
     }
@@ -159,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Debug buat Liat Cetak Berapa Tile dalam nano seccond
         long drawStart = 0;
         if (keyH.checkDrawTime == true) {
-            drawStart = System.nanoTime();    
+            drawStart = System.nanoTime();
         }
         
         //TITLE SCREEN
@@ -224,7 +223,7 @@ public class GamePanel extends JPanel implements Runnable {
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);
             g2.drawString("Draw Time: " + passed , 10 , 400);
-            System.out.println("Draw Time: " + passed);       
+            System.out.println("Draw Time: " + passed);
         }
         g2.dispose();
 
