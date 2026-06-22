@@ -3,14 +3,18 @@ package main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.text.DecimalFormat;
+
+import javax.sound.sampled.Line;
+import javax.swing.*;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
+    private Image titleBackground;
     public boolean massageOn = false;
     public String massage = "";
     int massageCounter = 0; // waktu notifikasi terlihat
@@ -27,6 +31,7 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
+        titleBackground = new ImageIcon("src/assets/MainMenu/mainmenu.png").getImage();
     }
 
     public void showMassage(String text){
@@ -54,9 +59,13 @@ public class UI {
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
         }
-        //dialog state
+        // dialog state
         if(gp.gameState == gp.dialogState){
             drawDialogScreen();
+        }
+        // character status
+        if(gp.gameState == gp.characterState){
+            drawCharacterScreen();
         }
 
     }
@@ -64,8 +73,7 @@ public class UI {
     public void drawTitleScreen() {
 
         //BACKGROUND COLOR
-        g2.setColor(new Color(0, 0, 0));
-        g2.fillRect(0, 0, gp.getWidth(), gp.getHeight());
+        g2.drawImage(titleBackground, 0, 0, gp.getWidth(), gp.getHeight(), gp);
 
         //TITLE NAME
         String text = "Is it Wrong to Save a Girl in a Dungeon";
@@ -81,10 +89,10 @@ public class UI {
         g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        //Display Apapun lah yang ada dilayar utama 
+        //Display Apapun lah yang ada dilayar utama
         x = gp.getWidth() / 2 - gp.player.entitySize / 2;
-        y = gp.getHeight() / 3;
-        g2.drawImage(gp.player.down1, x, y, gp.player.entitySize, gp.player.entitySize, null);
+        y = gp.getHeight()/ 2 + 100;
+        g2.drawImage(gp.player.up1, x, y, gp.player.entitySize, gp.player.entitySize, null);
 
         //MENU 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
@@ -128,13 +136,86 @@ public class UI {
         x += gp.tileSize;
         y += gp.tileSize;
         g2.drawString(currentDialogue, x, y);
-
+        
         for(String line : currentDialogue.split("\n")) {
             g2.drawString(line, x, y);
             y += 40; // jarak antar baris
         }
     }
     
+    public void drawCharacterScreen(){
+
+        // BUAT FRAME
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize;
+        final int frameWidth = gp.tileSize*3;
+        final int frameHeight = gp.tileSize*6;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // TEXT
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int textX = frameX + 20;
+        int textY = frameY + 50;
+        int buttomText = frameHeight+frameY;
+        final int LineHeight = 50;
+
+        // NAMES
+        g2.drawString("Level", textX, textY);
+        textY += LineHeight;
+        g2.drawString("Hp", textX, textY);
+        textY += LineHeight;
+        g2.drawString("Attack", textX, textY);
+        textY += LineHeight;
+        g2.drawString("Defense", textX, textY);
+        textY += LineHeight;
+
+        // Item Player (di Bawah)
+        g2.drawString("Armor", textX, buttomText-LineHeight*3);
+        g2.drawString("Sword", textX, buttomText-LineHeight);
+
+        // ISI (RATA KANAN)
+        int tailX = (frameX + frameWidth) - 30;
+
+        // reset TextY
+        textY = frameY + 50;
+        String value;
+
+        value = String.valueOf(gp.player.getLevel() + "/" + gp.player.getNextLevelExp());
+        textX = getXforRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += LineHeight;
+
+        value = String.valueOf(gp.player.getHp() + "/" + gp.player.getMaxHp());
+        textX = getXforRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += LineHeight;
+
+        value = String.valueOf(gp.player.getAtk() + "(+" + gp.player.getStrength() + ")");
+        textX = getXforRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += LineHeight;
+
+        value = String.valueOf(gp.player.getDefense() + "(+" + gp.player.getDef() + ")");
+        textX = getXforRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += gp.tileSize*3;
+
+        g2.drawImage(gp.player.currentArmor.down1, textX, buttomText-LineHeight*4, null);
+        textY += gp.tileSize*3;
+        g2.drawImage(gp.player.currentSword.down1, textX, buttomText-LineHeight*2, null);
+
+    }
+
+    public void drawPauseScreen(){
+        String text = "PAUSED";
+        int x = getXforCenteredText(text);
+
+        int y = gp.screenHeight / 2;
+        g2.drawString(text, x, y);
+    }
+
     public void drawSubWindow(int x, int y, int width, int height){
         Color c = new Color(0, 0, 0, 150);
         g2.setColor(c);
@@ -146,16 +227,16 @@ public class UI {
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
 
-    public void drawPauseScreen(){
-        String text = "PAUSED";
-        int x = getXforCenteredText(text);
-
-        int y = gp.screenHeight / 2;
-        g2.drawString(text, x, y);
-    }
 
     public int getXforCenteredText(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.getWidth() / 2 - length / 2;
     }
+
+    public int getXforRightText(String text, int tailX){
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = tailX - length;
+        return x;
+    }
+
 }

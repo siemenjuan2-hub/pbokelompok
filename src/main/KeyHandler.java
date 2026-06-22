@@ -92,6 +92,11 @@ public class KeyHandler implements KeyListener{
             if(key == KeyEvent.VK_Q){
                 atkPressed = true;
             }
+
+            // Tampilkan Status Player
+            if(key == KeyEvent.VK_C){
+                gp.gameState = gp.characterState;
+            }
         }
         //pause state
         else if(gp.gameState == gp.pauseState) {
@@ -107,6 +112,12 @@ public class KeyHandler implements KeyListener{
         //dialog state
         else if(gp.gameState == gp.dialogState) {
             if(key == KeyEvent.VK_SPACE) {
+                gp.gameState = gp.playState;
+            }
+        }
+        //character state
+        else if(gp.gameState == gp.characterState){
+            if(key == KeyEvent.VK_C){
                 gp.gameState = gp.playState;
             }
         }
