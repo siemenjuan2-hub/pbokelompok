@@ -14,7 +14,6 @@ public class Ayam extends Entity{
         entitySize = 64;
         solidArea = new Rectangle(0, 0, entitySize, entitySize);
         this.setSpeed(3);
-
         getImage();
 
         setDialogues();

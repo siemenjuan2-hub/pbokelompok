@@ -51,13 +51,13 @@ public abstract class Entity {
     private int speed;
     private int maxHp;
     private int hp;
-    private int level;
+    private int level=1;
     private int atk;
     private int strength;
     private int defense;
     private int def; // defense awal player (tidak di hitung atribute armor)
     private int exp;
-    private int nextLevelExp;
+    private int nextLevelExp = 5;
     private int coin;
 
     // ENTITY ITEM
@@ -121,8 +121,14 @@ public abstract class Entity {
         boolean contactPlayer = gp.cCheker.checkPlayer(this);
             if(this.type == 1 && contactPlayer == true){
                 if(gp.player.invincible == false){
-                    gp.player.setHp(gp.player.getHp() - 1);
+                int damage = getAtk() - gp.player.getDefense();
+                if(damage<0){
+                    damage=0;
+                }
+                gp.player.setHp(gp.player.getHp()-damage);
                     gp.player.invincible = true;
+                    // System.out.println(damage);
+                    System.out.println(gp.player.getDefense());
                 }
             }
 

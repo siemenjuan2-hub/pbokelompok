@@ -94,7 +94,7 @@ public class KeyHandler implements KeyListener{
             }
 
             // Tampilkan Status Player
-            if(key == KeyEvent.VK_C){
+            if(key == KeyEvent.VK_M){
                 gp.gameState = gp.characterState;
             }
         }
@@ -117,7 +117,7 @@ public class KeyHandler implements KeyListener{
         }
         //character state
         else if(gp.gameState == gp.characterState){
-            if(key == KeyEvent.VK_C){
+            if(key == KeyEvent.VK_M || key == KeyEvent.VK_ENTER){
                 gp.gameState = gp.playState;
             }
         }

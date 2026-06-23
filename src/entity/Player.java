@@ -60,7 +60,7 @@ public class Player extends Entity {
         
         // PLAYER STATUS
 
-        maxStamina = 20;
+        maxStamina=20;
         stamina = maxStamina;
         this.setMaxHp(100);
         this.setHp(this.getMaxHp());
@@ -173,9 +173,9 @@ public class Player extends Entity {
         }
         
         
-        if (stamina >= 20) {
+        if (stamina >= maxStamina) {
             isiStamina = false;
-            stamina = 20;
+            stamina = maxStamina;
         }
 
         if(getHp() <= 0){
@@ -370,6 +370,11 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i != 999){
             if(invincible == false){
+                int damage = gp.monster[i].getAtk() - getDefense();
+                if(damage<0){
+                    damage=0;
+                }
+                setHp(getHp()-damage);
                 invincible = true;
             }
         }
@@ -386,14 +391,26 @@ public class Player extends Entity {
             //     System.out.println("Miss!");
             // }
             if (gp.monster[i].invincible == false ) {
-                System.out.println("Monster Hit!");
-                gp.monster[i].setHp(gp.monster[i].getHp() - 1);
+
+                // System.out.println("Monster Hit!");
+                int damage = getAtk() - gp.monster[i].getDefense();
+                if(damage<0){
+                    damage=0;
+                }
+                
+                gp.monster[i].setHp(gp.monster[i].getHp() - damage);
+                gp.ui.showMassage(damage+" damage!");
                 gp.monster[i].invincible = true;
                 hit = true;
 
                 if(gp.monster[i].getHp() <= 0)
                 {
                     gp.monster[i].dying = true;
+                    gp.ui.showMassage("killed the "+ gp.monster[i].name +"!");
+                    gp.ui.showMassage("Exp "+ gp.monster[i].getExp() +"!");
+
+                    setExp(getExp()+gp.monster[i].getExp());
+                    checkLevelUp();
 
                 }
             }
@@ -401,9 +418,24 @@ public class Player extends Entity {
                 System.out.println("Miss!");
 
             }
+
+            
         }
     }
+    public void checkLevelUp(){
+        if(getExp()>= getNextLevelExp()){
+            int temp = maxStamina+5;
 
+            setLevel(getLevel()+1);
+            setNextLevelExp(getNextLevelExp()*2);
+            setExp(0);
+            setMaxHp(getMaxHp()+10);
+            setHp(getMaxHp());
+            maxStamina=temp;
+            stamina=temp;
+            
+        }
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 

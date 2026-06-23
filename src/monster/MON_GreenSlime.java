@@ -12,6 +12,10 @@ public class MON_GreenSlime extends Entity {
         this.setSpeed(1);
         this.setMaxHp(10);
         this.setHp(this.getMaxHp());
+        this.setExp(3);
+        this.setAtk(5);
+        this.setDef(0);
+
 
         solidArea.x = 3;
         solidArea.y = 18;
