@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.sound.sampled.Line;
 import javax.swing.*;
@@ -16,8 +17,10 @@ public class UI {
     Font arial_40, arial_80B;
     private Image titleBackground;
     public boolean massageOn = false;
-    public String massage = "";
-    int massageCounter = 0; // waktu notifikasi terlihat
+    // public String massage = "";
+    // int massageCounter = 0; // waktu notifikasi terlihat
+    ArrayList<String>message = new ArrayList<>();
+    ArrayList<Integer>messageCounter = new ArrayList<>();
     public boolean gameFinished = false;
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0"); // formating playtime
@@ -35,8 +38,9 @@ public class UI {
     }
 
     public void showMassage(String text){
-        massage = text;
-        massageOn = true;
+
+        message.add(text);
+        messageCounter.add(0);
     }
 
     public void draw(Graphics2D g2){
@@ -54,6 +58,7 @@ public class UI {
             g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
             g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
             g2.drawString("Potion: " + gp.player.hasPotion, gp.tileSize*4, gp.tileSize*8);
+            showMassage();
         }
         // pause state
         if(gp.gameState == gp.pauseState){
@@ -69,7 +74,30 @@ public class UI {
         }
 
     }
+    public void showMassage(){
+        int messageX=gp.tileSize;
+        int messageY=gp.tileSize*4;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,37F));
 
+        for(int i = 0; i< message.size();i++){
+            if(message.get(i)!=null){
+                g2.setColor(Color.black);
+                g2.drawString(message.get(i), messageX+2, messageY+2);
+                g2.setColor(Color.red);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1; //message coutner
+                messageCounter.set(i,counter);//set the counter to the array
+                messageY+=50;
+                
+                if(messageCounter.get(i)>180){
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+
+    }
     public void drawTitleScreen() {
 
         //BACKGROUND COLOR
@@ -164,6 +192,8 @@ public class UI {
         // NAMES
         g2.drawString("Level", textX, textY);
         textY += LineHeight;
+        g2.drawString("Exp", textX, textY);
+        textY += LineHeight;
         g2.drawString("Hp", textX, textY);
         textY += LineHeight;
         g2.drawString("Attack", textX, textY);
@@ -182,7 +212,12 @@ public class UI {
         textY = frameY + 50;
         String value;
 
-        value = String.valueOf(gp.player.getLevel() + "/" + gp.player.getNextLevelExp());
+        value = String.valueOf(gp.player.getLevel());
+        textX = getXforRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += LineHeight;
+
+        value = String.valueOf(gp.player.getExp() + "/" + gp.player.getNextLevelExp());
         textX = getXforRightText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += LineHeight;

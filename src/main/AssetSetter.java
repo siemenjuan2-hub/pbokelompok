@@ -58,34 +58,24 @@ public class AssetSetter {
         gp.obj[5] = new KananAtas(gp);
         gp.obj[5].WorldX = 37 * gp.tileSize;
         gp.obj[5].WorldY = 20 * gp.tileSize;
-        gp.obj[5].collision = false;
 
         gp.obj[6] = new KananBawah(gp);
         gp.obj[6].WorldX = 37 * gp.tileSize;
         gp.obj[6].WorldY = 21 * gp.tileSize;
-        gp.obj[6].collision = true;
 
         gp.obj[7] = new KiriAtas(gp);
         gp.obj[7].WorldX = 36 * gp.tileSize;
         gp.obj[7].WorldY = 20 * gp.tileSize;
-        gp.obj[7].collision = false;
 
         gp.obj[8] = new Kiribawah(gp);
         gp.obj[8].WorldX = 36 * gp.tileSize;
         gp.obj[8].WorldY = 21 * gp.tileSize;
-        gp.obj[8].collision = true;
         
     }
 
     public void setNpc(){
 
         // PASUKAN KAKEK
-        gp.npc[0] = new Npc_OldMan(gp);
-        gp.npc[0].WorldX = gp.tileSize*21;
-        gp.npc[0].WorldY = gp.tileSize*31;
-        gp.npc[0].direction = "right";
-
-
         gp.npc[1] = new Npc_OldMan(gp);
         gp.npc[1].WorldX = gp.tileSize*21;
         gp.npc[1].WorldY = gp.tileSize*41;
@@ -226,19 +216,23 @@ public class AssetSetter {
 
     public void setMonster() {
         gp.monster[0] = new monster.MON_GreenSlime(gp);
-        gp.monster[0].WorldX = gp.tileSize*23;
-        gp.monster[0].WorldY = gp.tileSize*37;
+        gp.monster[0].WorldX = gp.tileSize * 23;
+        gp.monster[0].WorldY = gp.tileSize * 40;
 
         gp.monster[1] = new monster.MON_GreenSlime(gp);
-        gp.monster[1].WorldX = gp.tileSize*26;
-        gp.monster[1].WorldY = gp.tileSize*42;
+        gp.monster[1].WorldX = gp.tileSize * 26;
+        gp.monster[1].WorldY = gp.tileSize * 42;
 
         gp.monster[2] = new monster.MON_GreenSlime(gp);
-        gp.monster[2].WorldX = gp.tileSize*29;
-        gp.monster[2].WorldY = gp.tileSize*39;
+        gp.monster[2].WorldX = gp.tileSize * 28;
+        gp.monster[2].WorldY = gp.tileSize * 38;
 
         gp.monster[3] = new monster.MON_GreenSlime(gp);
-        gp.monster[3].WorldX = gp.tileSize*32;
-        gp.monster[3].WorldY = gp.tileSize*36;
+        gp.monster[3].WorldX = gp.tileSize * 32;
+        gp.monster[3].WorldY = gp.tileSize * 36;
+
+        gp.monster[4] = new monster.MON_GreenSlime(gp);
+        gp.monster[4].WorldX = gp.tileSize * 35;
+        gp.monster[4].WorldY = gp.tileSize * 34;
     }
 }

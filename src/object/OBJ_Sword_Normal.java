@@ -9,8 +9,8 @@ public class OBJ_Sword_Normal extends Entity{
         super(gp);
 
         name = "Normal Sword";
-        attackValue = 1;
         down1 = setUp("/assets/Pedang/item1", 32, 32);
+        attackValue = 10;
 
     }
 

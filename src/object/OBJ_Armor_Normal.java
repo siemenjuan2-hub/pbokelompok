@@ -9,8 +9,8 @@ public class OBJ_Armor_Normal extends Entity{
         super(gp);
 
         name = "Normal Armor";
-        defenseValue = 1;
         down1 = setUp("/assets/Armor/item220", 32, 32);
+        defenseValue = 2;
         entitySize = 0;
 
     }
