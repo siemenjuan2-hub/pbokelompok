@@ -117,7 +117,19 @@ public abstract class Entity {
     {
         
     }
+    public void checkDrop(){
 
+    }
+    public void dropItem(Entity droppedItem){
+        for(int i = 0;i<gp.obj.length;i++){
+            if(gp.obj[i]==null){
+                gp.obj[i]=droppedItem;
+                gp.obj[i].WorldX = WorldX;
+                gp.obj[i].WorldY = WorldY;
+                break;
+            }
+        }
+    }
     public void update(){
 
         setAction();
