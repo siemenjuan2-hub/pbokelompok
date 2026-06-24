@@ -310,38 +310,45 @@ public class Player extends Entity {
             int solidAreaHeight = solidArea.height;
 
             //Adjust posisi player untuk area serangan
-        switch(direction){
-        case "up":
-            solidArea.y -= attackArea.height;
-            break;
+            // switch(direction){
+            // case "up":
+            //     solidArea.y -= attackArea.height;
+            //     break;
 
-        case "down":
-            solidArea.y += attackArea.height;
-            break;
+            // case "down":
+            //     solidArea.y += attackArea.height;
+            //     break;
 
-        case "left":
-            solidArea.x -= attackArea.width;
-            break;
+            // case "left":
+            //     solidArea.x -= attackArea.width;
+            //     break;
 
-        case "right":
-            solidArea.x += attackArea.width;
-            break;
-    }
+            // case "right":
+            //     solidArea.x += attackArea.width;
+            //     break;
+            // }
+            switch (direction) {
+                case "up": WorldY -= attackArea.height; break;
+                case "down": WorldY += attackArea.height; break;
+                case "left": WorldX -= attackArea.width; break;
+                case "right": WorldX += attackArea.width; break;
+            }            
 
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
 
             int monsterIndex = gp.cCheker.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
-            solidArea.x = solidAreaDefaultX;
-            solidArea.y = solidAreaDefaultY;
+
+            // solidArea.x = solidAreaDefaultX;
+            // solidArea.y = solidAreaDefaultY;
 
             WorldX = currentWorldX;
             WorldY = currentWorldY;
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
-
         }
+
         if(attackCounter > 30){
             spriteNum = 1;
             spriteCounter = 0;
@@ -350,22 +357,22 @@ public class Player extends Entity {
         }
 
         // simpan
-        int oldX = WorldX;
-        int oldY = WorldY;
+        // int oldX = WorldX;
+        // int oldY = WorldY;
 
 
-        int oldW = solidArea.width;
-        int oldH = solidArea.height;
+        // int oldW = solidArea.width;
+        // int oldH = solidArea.height;
 
-        solidArea.width = attackArea.width;
-        solidArea.height = attackArea.height;
+        // solidArea.width = attackArea.width;
+        // solidArea.height = attackArea.height;
 
-        // restore
-        WorldX = oldX;
-        WorldY = oldY;
+        // // restore
+        // WorldX = oldX;
+        // WorldY = oldY;
 
-        solidArea.width = oldW;
-        solidArea.height = oldH;
+        // solidArea.width = oldW;
+        // solidArea.height = oldH;
     }
 
     public void pickUpObject(int i) {
