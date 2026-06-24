@@ -10,6 +10,7 @@ public class OBJ_BurnedTree extends Entity {
         entitySize = 128;
         name = "BurnedTree";
         down1 = setUp("/assets/Objects/Burned_tree1", gp.tileSize, gp.tileSize);
+        pickupable = false;
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;

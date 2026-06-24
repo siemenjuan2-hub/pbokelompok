@@ -6,7 +6,7 @@ import main.GamePanel;
 public class MON_GreenSlime extends Entity {
     public MON_GreenSlime(GamePanel gp) {
         super(gp);
-        type = 1;
+        type = type_monster;
         entitySize = 64;
         name = "Green Slime";
         this.setSpeed(1);

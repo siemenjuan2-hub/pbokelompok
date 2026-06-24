@@ -12,12 +12,13 @@ import object.OBJ_AutumnBush;
 import object.OBJ_BurnedTree;
 import object.OBJ_Bush1;
 import object.OBJ_Bush2;
+import object.OBJ_Potion_Health;
+import object.OBJ_Sword_Copper;
 import object.KananAtas;
 import object.KananBawah;
 import object.KiriAtas;
 import object.Kiribawah;
-
-
+import object.OBJ_Armor_Better;
 import monster.MON_GreenSlime;
 
 public class AssetSetter {
@@ -30,47 +31,59 @@ public class AssetSetter {
 
     public void setObject()
     {
-        gp.obj[0] = new OBJ_AutumnBush(gp);
-        gp.obj[0].WorldX = 22 * gp.tileSize;
-        gp.obj[0].WorldY = 20 * gp.tileSize;
-        gp.obj[0].collision = false;
-
-        gp.obj[1] = new OBJ_Bush1(gp);
-        gp.obj[1].WorldX = 30 * gp.tileSize;
-        gp.obj[1].WorldY = 21 * gp.tileSize;    
-        gp.obj[1].collision = false;  
-
-        gp.obj[2] = new OBJ_Bush2(gp);
-        gp.obj[2].WorldX = 37 * gp.tileSize;
-        gp.obj[2].WorldY = 41 * gp.tileSize;  
-        gp.obj[2].collision = false;
-
-        gp.obj[3] = new OBJ_AutumnBush(gp);
-        gp.obj[3].WorldX = 25 * gp.tileSize;
-        gp.obj[3].WorldY = 20 * gp.tileSize;
-        gp.obj[3].collision = false;
-        
-        gp.obj[4] = new OBJ_BurnedTree(gp);
-        gp.obj[4].WorldX = 25 * gp.tileSize;
-        gp.obj[4].WorldY = 21 * gp.tileSize;
-        gp.obj[4].collision = false;
-
-        gp.obj[5] = new KananAtas(gp);
-        gp.obj[5].WorldX = 37 * gp.tileSize;
-        gp.obj[5].WorldY = 20 * gp.tileSize;
-
-        gp.obj[6] = new KananBawah(gp);
-        gp.obj[6].WorldX = 37 * gp.tileSize;
-        gp.obj[6].WorldY = 21 * gp.tileSize;
-
-        gp.obj[7] = new KiriAtas(gp);
-        gp.obj[7].WorldX = 36 * gp.tileSize;
-        gp.obj[7].WorldY = 20 * gp.tileSize;
-
-        gp.obj[8] = new Kiribawah(gp);
-        gp.obj[8].WorldX = 36 * gp.tileSize;
-        gp.obj[8].WorldY = 21 * gp.tileSize;
-        
+        int i = 0;
+        gp.obj[i] = new OBJ_AutumnBush(gp);
+        gp.obj[i].WorldX = 22 * gp.tileSize;
+        gp.obj[i].WorldY = 20 * gp.tileSize;
+        gp.obj[i].collision = false;
+        i++;
+        gp.obj[i] = new OBJ_Bush1(gp);
+        gp.obj[i].WorldX = 30 * gp.tileSize;
+        gp.obj[i].WorldY = 21 * gp.tileSize;    
+        gp.obj[i].collision = false;  
+        i++;
+        gp.obj[i] = new OBJ_Bush2(gp);
+        gp.obj[i].WorldX = 37 * gp.tileSize;
+        gp.obj[i].WorldY = 41 * gp.tileSize;  
+        gp.obj[i].collision = false;
+        i++;
+        gp.obj[i] = new OBJ_AutumnBush(gp);
+        gp.obj[i].WorldX = 25 * gp.tileSize;
+        gp.obj[i].WorldY = 20 * gp.tileSize;
+        gp.obj[i].collision = false;
+        i++;        
+        gp.obj[i] = new OBJ_BurnedTree(gp);
+        gp.obj[i].WorldX = 25 * gp.tileSize;
+        gp.obj[i].WorldY = 21 * gp.tileSize;
+        gp.obj[i].collision = false;
+        i++;
+        gp.obj[i] = new KananAtas(gp);
+        gp.obj[i].WorldX = 37 * gp.tileSize;
+        gp.obj[i].WorldY = 20 * gp.tileSize;
+        i++;
+        gp.obj[i] = new KananBawah(gp);
+        gp.obj[i].WorldX = 37 * gp.tileSize;
+        gp.obj[i].WorldY = 21 * gp.tileSize;
+        i++;
+        gp.obj[i] = new KiriAtas(gp);
+        gp.obj[i].WorldX = 36 * gp.tileSize;
+        gp.obj[i].WorldY = 20 * gp.tileSize;
+        i++;
+        gp.obj[i] = new Kiribawah(gp);
+        gp.obj[i].WorldX = 36 * gp.tileSize;
+        gp.obj[i].WorldY = 21 * gp.tileSize;
+        i++;        
+        gp.obj[i] = new OBJ_Sword_Copper(gp);
+        gp.obj[i].WorldX = 25 * gp.tileSize;
+        gp.obj[i].WorldY = 22 * gp.tileSize;
+        i++;        
+        gp.obj[i] = new OBJ_Armor_Better(gp);
+        gp.obj[i].WorldX = 26 * gp.tileSize;
+        gp.obj[i].WorldY = 22 * gp.tileSize;
+        i++;        
+        gp.obj[i] = new OBJ_Potion_Health(gp);
+        gp.obj[i].WorldX = 27 * gp.tileSize;
+        gp.obj[i].WorldY = 22 * gp.tileSize;        
     }
 
     public void setNpc(){

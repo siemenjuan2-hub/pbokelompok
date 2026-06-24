@@ -174,10 +174,8 @@ public class CollisonChecker {
                                 index = i;
                             }
                         }                                             
-                        break;    
-                
+                        break;     
                 }
-
                 if(entity.solidArea.intersects(gp.obj[i].solidArea))
                 {
                     if(gp.obj[i].collision == true)
@@ -186,6 +184,11 @@ public class CollisonChecker {
                         index = i;
                     }
                 }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
         }
         return index;
