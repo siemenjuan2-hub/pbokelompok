@@ -13,8 +13,6 @@ import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
-import monster.MON_GreenSlime;
-
 public class GamePanel extends JPanel implements Runnable {
     // screen settings
     final int originalTileSize = 64;
