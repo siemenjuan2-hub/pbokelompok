@@ -76,10 +76,12 @@ public class AssetSetter {
         gp.obj[i] = new OBJ_Sword_Copper(gp);
         gp.obj[i].WorldX = 25 * gp.tileSize;
         gp.obj[i].WorldY = 22 * gp.tileSize;
+        gp.obj[i].collision=false;
         i++;        
         gp.obj[i] = new OBJ_Armor_Better(gp);
         gp.obj[i].WorldX = 26 * gp.tileSize;
         gp.obj[i].WorldY = 22 * gp.tileSize;
+        gp.obj[i].collision=false;
         i++;        
         gp.obj[i] = new OBJ_Potion_Health(gp);
         gp.obj[i].WorldX = 27 * gp.tileSize;

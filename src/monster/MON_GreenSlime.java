@@ -1,7 +1,12 @@
 package monster;
 
+import java.util.Random;
+
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Armor_Better;
+import object.OBJ_Sword_Copper;
+import object.OBJ_Sword_Normal;
 
 public class MON_GreenSlime extends Entity {
     public MON_GreenSlime(GamePanel gp) {
@@ -59,6 +64,16 @@ public class MON_GreenSlime extends Entity {
             }
 
             actionLockCounter = 0;
+        }
+    }
+    public void checkDrop(){
+        // cast a die
+        int i = new Random().nextInt(100)+1;
+        if(i<50){
+            dropItem(new OBJ_Armor_Better(gp));
+        }
+        if(i>50&&i<100){
+            dropItem(new OBJ_Sword_Copper(gp));
         }
     }
 }
