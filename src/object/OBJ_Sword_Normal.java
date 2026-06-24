@@ -11,6 +11,7 @@ public class OBJ_Sword_Normal extends Entity{
         name = "Normal Sword";
         down1 = setUp("/assets/Pedang/item1", 32, 32);
         attackValue = 10;
+        description ="["+name+"]\na old sword";
 
     }
 

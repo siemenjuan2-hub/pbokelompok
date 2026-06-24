@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.text.DecimalFormat;
@@ -26,6 +27,9 @@ public class UI {
     DecimalFormat dFormat = new DecimalFormat("#0"); // formating playtime
     public String currentDialogue = "";
     public int commandNum = 0; // menu
+    public int slotCol=0;
+    public int slotRow=0;
+
 
     // BufferedImage heart_full, heart_half, heart_blank;
 
@@ -71,6 +75,7 @@ public class UI {
         // character status
         if(gp.gameState == gp.characterState){
             drawCharacterScreen();
+            drawInventory();
         }
 
     }
@@ -242,6 +247,94 @@ public class UI {
         g2.drawImage(gp.player.currentSword.down1, textX, buttomText-LineHeight*2, null);
 
     }
+
+    public void drawInventory(){
+
+    int frameX = gp.tileSize * 6;
+    int frameY = gp.tileSize;
+    int frameWidth = gp.tileSize * 6;
+    int frameHeight = gp.tileSize * 5;
+
+    drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+    final int slotXstart = frameX + 30;
+    final int slotYstart = frameY + 30;
+
+    int slotX = slotXstart;
+    int slotY = slotYstart;
+    int slotsize =gp.tileSize+3;
+
+
+    // DRAW ITEMS
+    for(int i = 0; i < gp.player.inventory.size(); i++){
+
+        g2.drawImage(
+            gp.player.inventory.get(i).down1,
+            slotX,
+            slotY,
+            gp.tileSize,
+            gp.tileSize,
+            null
+        );
+
+        slotX += slotsize;
+
+        if(i == 4 || i==9 || i ==16){
+        
+            slotX = slotXstart;
+            slotY += slotsize;
+        }
+    }
+
+    // CURSOR (SELECTION)
+    int cursorX = slotXstart + (slotsize * slotCol);
+    int cursorY = slotYstart + (slotsize * slotRow);
+
+    int cursorWidth = gp.tileSize;
+    int cursorHeight = gp.tileSize;
+
+    g2.setColor(Color.WHITE);
+    g2.setStroke(new java.awt.BasicStroke(5));
+
+    g2.drawRoundRect(
+        cursorX,
+        cursorY,
+        cursorWidth,
+        cursorHeight,
+        10,
+        10
+    );
+
+    //description frame
+
+    int dframeX=frameX;
+    int dframeY=frameY+frameHeight;
+    int dframeWidth=frameWidth;
+    int dframeHeight=gp.tileSize*3;
+    drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
+
+    //text
+
+    int textX = dframeX+20;
+
+    int textY = dframeY+gp.tileSize;
+    g2.setFont(g2.getFont().deriveFont(28F));
+
+    int itemIndex = getItemIndex();
+    if(itemIndex<gp.player.inventory.size()){
+        for(String line:gp.player.inventory.get(itemIndex).description.split("\n")){
+
+            g2.drawString(line,textX,textY);
+            textY+=32;
+            
+        }
+    }
+}
+
+public int getItemIndex(){
+    int itemIndex = slotCol + (slotRow * 5);
+    return itemIndex;
+}
 
     public void drawPauseScreen(){
         String text = "PAUSED";

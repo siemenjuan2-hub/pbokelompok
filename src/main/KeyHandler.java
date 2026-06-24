@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener{
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, shiftPressed,enterPressed,ePressed,atkPressed, spacePressed;
-
+    public boolean inventory = false;
 
     //DEBUG 
     boolean checkDrawTime = false;
@@ -96,7 +96,9 @@ public class KeyHandler implements KeyListener{
             // Tampilkan Status Player
             if(key == KeyEvent.VK_M){
                 gp.gameState = gp.characterState;
+                inventory=true;
             }
+           
         }
         //pause state
         else if(gp.gameState == gp.pauseState) {
@@ -119,6 +121,29 @@ public class KeyHandler implements KeyListener{
         else if(gp.gameState == gp.characterState){
             if(key == KeyEvent.VK_M || key == KeyEvent.VK_ENTER){
                 gp.gameState = gp.playState;
+            }
+             if(key == KeyEvent.VK_W){
+                if(gp.ui.slotRow > 0){
+                    gp.ui.slotRow--;
+                }
+            }
+
+            if(key == KeyEvent.VK_S){
+                if(gp.ui.slotRow < 3){ // contoh 4 row
+                    gp.ui.slotRow++;
+                }
+            }
+
+            if(key == KeyEvent.VK_A){
+                if(gp.ui.slotCol > 0){
+                    gp.ui.slotCol--;
+                }
+            }
+
+            if(key == KeyEvent.VK_D){
+                if(gp.ui.slotCol < 4){ // 5 column
+                    gp.ui.slotCol++;
+                }
             }
         }
         

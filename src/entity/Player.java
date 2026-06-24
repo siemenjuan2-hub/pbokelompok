@@ -9,6 +9,8 @@ import object.OBJ_Sword_Normal;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class Player extends Entity {
@@ -26,6 +28,10 @@ public class Player extends Entity {
     public int hasPotion = 0;
     public int entitySize = 256;
     public boolean atkDelay = false;
+    
+    
+    public ArrayList <Entity> inventory = new ArrayList<>();
+    public final int inventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -49,6 +55,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
     
     public void setDefaultValues() {
@@ -75,6 +82,15 @@ public class Player extends Entity {
         setAtk(this.getStrength() + currentSword.attackValue);
         setDefense(this.getDef() + currentArmor.defenseValue);
     }
+
+    public void setItems(){
+
+    inventory.clear(); // penting agar tidak duplicate
+
+        inventory.add(currentArmor);
+        inventory.add(currentSword);
+    
+}
 
     public void getPlayerImage() {
         //W
