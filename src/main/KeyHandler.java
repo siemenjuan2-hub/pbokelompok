@@ -113,7 +113,7 @@ public class KeyHandler implements KeyListener{
         }
         //dialog state
         else if(gp.gameState == gp.dialogState) {
-            if(key == KeyEvent.VK_SPACE) {
+            if(key == KeyEvent.VK_SPACE||key == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;
             }
         }
@@ -149,8 +149,6 @@ public class KeyHandler implements KeyListener{
             if(key == KeyEvent.VK_ENTER){
                 gp.player.selectItem();
             }
-
-            
         }
         
     }
