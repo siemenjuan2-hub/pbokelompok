@@ -199,18 +199,25 @@ public class Player extends Entity {
             gp.gameState = gp.titleState;
         }
 
-        invincibleCounter++;
-        if (invincibleCounter > 60) {
-                if (invincible == true) {
-                    this.setHp(this.getHp() - 1);
-                    invincible = false;
-                    invincibleCounter = 0;
+        // invincibleCounter++;
+        // if (invincibleCounter > 60) {
+        //     if (invincible == true) {
+        //         this.setHp(this.getHp() - 1);
+        //         invincible = false;
+        //         invincibleCounter = 0;
+        //     }
+        // }
+
+        if (invincible == true) {
+            invincibleCounter++;
+            
+            if (invincibleCounter > 60) { // Angka 60 = 1 detik pas (karena FPS 60)
+                invincible = false;
+                invincibleCounter = 0;
             }
         }
 
 
-        
-        
         if(keyH.upPressed == true){ direction = "up"; }
         if(keyH.downPressed == true){ direction = "down"; }
         if(keyH.rightPressed == true){ direction = "right"; }

@@ -269,7 +269,7 @@ public class CollisonChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionON = true;
-                    return true;
+                    contactPlayer = true;
                 }
                 break;
             case "down":
@@ -277,7 +277,7 @@ public class CollisonChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionON = true;
-                    return true;
+                    contactPlayer = true;
                 }                                              
                 break;
             case "left":
@@ -285,7 +285,7 @@ public class CollisonChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionON = true;
-                    return true;
+                    contactPlayer = true;
                 }                                             
                 break;                                                
             case "right":
@@ -293,7 +293,7 @@ public class CollisonChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionON = true;
-                    return true;
+                    contactPlayer = true;
                 }                                             
                 break;                        
             }
