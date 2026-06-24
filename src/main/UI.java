@@ -250,91 +250,108 @@ public class UI {
 
     public void drawInventory(){
 
-    int frameX = gp.tileSize * 6;
-    int frameY = gp.tileSize;
-    int frameWidth = gp.tileSize * 6;
-    int frameHeight = gp.tileSize * 5;
+        // int frameX = gp.tileSize * 6;
+        // int frameY = gp.tileSize;
+        // int frameWidth = gp.tileSize * 6;
+        // int frameHeight = gp.tileSize * 5;
 
-    drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        // perbaiki biar fleksibel
+        int frameWidth = (gp.tileSize * 5) + 40; 
+        int frameHeight = gp.tileSize * 5;
+        int frameX = gp.screenWidth - frameWidth - (gp.tileSize / 2);
+        int frameY = gp.tileSize;        
 
-    final int slotXstart = frameX + 30;
-    final int slotYstart = frameY + 30;
+        // int frameX = gp.getWidth() / 2 - gp.tileSize;
+        // int frameY = gp.getHeight() / 8;
+        // int frameWidth = gp.tileSize * 6;
+        // int frameHeight= gp.tileSize * 5;
 
-    int slotX = slotXstart;
-    int slotY = slotYstart;
-    int slotsize =gp.tileSize+3;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        final int slotXstart = frameX + 30;
+        final int slotYstart = frameY + 30;
+
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        int slotsize =gp.tileSize+3;
 
 
-    // DRAW ITEMS
-    for(int i = 0; i < gp.player.inventory.size(); i++){
+        // DRAW ITEMS
+        for(int i = 0; i < gp.player.inventory.size(); i++){
 
-        g2.drawImage(
-            gp.player.inventory.get(i).down1,
-            slotX,
-            slotY,
-            gp.tileSize,
-            gp.tileSize,
-            null
+            g2.drawImage(
+                gp.player.inventory.get(i).down1,
+                slotX,
+                slotY,
+                gp.tileSize,
+                gp.tileSize,
+                null
+            );
+
+            slotX += slotsize;
+
+            //sebelum
+            // if(i == 4 || i==9 || i ==16){
+            //     slotX = slotXstart;
+            //     slotY += slotsize;
+            // } 
+
+            //sesudah
+            if ((i + 1) % 5 == 0) {
+                slotX = slotXstart;
+                slotY += slotsize;
+            }            
+        }
+
+        // CURSOR (SELECTION)
+        int cursorX = slotXstart + (slotsize * slotCol);
+        int cursorY = slotYstart + (slotsize * slotRow);
+
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
+
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new java.awt.BasicStroke(5));
+
+        g2.drawRoundRect(
+            cursorX,
+            cursorY,
+            cursorWidth,
+            cursorHeight,
+            10,
+            10
         );
 
-        slotX += slotsize;
+        //description frame
 
-        if(i == 4 || i==9 || i ==16){
-        
-            slotX = slotXstart;
-            slotY += slotsize;
+        int dframeX=frameX;
+        int dframeY=frameY+frameHeight;
+        int dframeWidth=frameWidth;
+        int dframeHeight=gp.tileSize*3;
+        drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
+
+        //text
+
+        int textX = dframeX+20;
+
+        int textY = dframeY+gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(28F));
+
+        int itemIndex = getItemIndex();
+        if(itemIndex<gp.player.inventory.size()){
+            for(String line:gp.player.inventory.get(itemIndex).description.split("\n")){
+
+                g2.drawString(line,textX,textY);
+                textY+=32;
+                
+            }
         }
     }
 
-    // CURSOR (SELECTION)
-    int cursorX = slotXstart + (slotsize * slotCol);
-    int cursorY = slotYstart + (slotsize * slotRow);
-
-    int cursorWidth = gp.tileSize;
-    int cursorHeight = gp.tileSize;
-
-    g2.setColor(Color.WHITE);
-    g2.setStroke(new java.awt.BasicStroke(5));
-
-    g2.drawRoundRect(
-        cursorX,
-        cursorY,
-        cursorWidth,
-        cursorHeight,
-        10,
-        10
-    );
-
-    //description frame
-
-    int dframeX=frameX;
-    int dframeY=frameY+frameHeight;
-    int dframeWidth=frameWidth;
-    int dframeHeight=gp.tileSize*3;
-    drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
-
-    //text
-
-    int textX = dframeX+20;
-
-    int textY = dframeY+gp.tileSize;
-    g2.setFont(g2.getFont().deriveFont(28F));
-
-    int itemIndex = getItemIndex();
-    if(itemIndex<gp.player.inventory.size()){
-        for(String line:gp.player.inventory.get(itemIndex).description.split("\n")){
-
-            g2.drawString(line,textX,textY);
-            textY+=32;
-            
-        }
+    public int getItemIndex(){
+        int itemIndex = slotCol + (slotRow * 5);
+        return itemIndex;
     }
-}
-
-public int getItemIndex(){
-    int itemIndex = slotCol + (slotRow * 5);
-    return itemIndex;
-}
 
     public void drawPauseScreen(){
         String text = "PAUSED";
