@@ -168,7 +168,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString(currentDialogue, x, y);
+        // g2.drawString(currentDialogue, x, y);
         
         for(String line : currentDialogue.split("\n")) {
             g2.drawString(line, x, y);
@@ -278,6 +278,14 @@ public class UI {
 
         // DRAW ITEMS
         for(int i = 0; i < gp.player.inventory.size(); i++){
+
+            // EQUIP CURSOR
+            if(gp.player.inventory.get(i) == gp.player.currentSword || 
+            gp.player.inventory.get(i) == gp.player.currentArmor)
+            {
+                g2.setColor(new Color(240, 190, 90));
+                g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+            }
 
             g2.drawImage(
                 gp.player.inventory.get(i).down1,

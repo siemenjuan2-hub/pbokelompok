@@ -339,9 +339,9 @@ public class Player extends Entity {
 
             int monsterIndex = gp.cCheker.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
-
-            // solidArea.x = solidAreaDefaultX;
-            // solidArea.y = solidAreaDefaultY;
+            
+            solidArea.x = solidAreaDefaultX;
+            solidArea.y = solidAreaDefaultY;
 
             WorldX = currentWorldX;
             WorldY = currentWorldY;
@@ -357,34 +357,49 @@ public class Player extends Entity {
         }
 
         // simpan
-        // int oldX = WorldX;
-        // int oldY = WorldY;
+        int oldX = WorldX;
+        int oldY = WorldY;
 
 
-        // int oldW = solidArea.width;
-        // int oldH = solidArea.height;
+        int oldW = solidArea.width;
+        int oldH = solidArea.height;
 
-        // solidArea.width = attackArea.width;
-        // solidArea.height = attackArea.height;
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
 
-        // // restore
-        // WorldX = oldX;
-        // WorldY = oldY;
+        // restore
+        WorldX = oldX;
+        WorldY = oldY;
 
-        // solidArea.width = oldW;
-        // solidArea.height = oldH;
+        solidArea.width = oldW;
+        solidArea.height = oldH;
     }
 
     public void pickUpObject(int i) {
         if(i != 999) {
-            String ObjectName = gp.obj[i].name;
-            switch(ObjectName) {
-                case "AutumnBush":
-                    hasPotion++;
-                    gp.obj[i] = null;
-                    gp.ui.showMassage("You Got A Autumn Bush!");
-                    break;
+            // String ObjectName = gp.obj[i].name;
+            // switch(ObjectName) {
+            //     case "AutumnBush":
+            //         hasPotion++;
+            //         gp.obj[i] = null;
+            //         gp.ui.showMassage("You Got A Autumn Bush!");
+            //         break;
+            // }
+            String text; 
+            if(gp.obj[i].pickupable)
+            {
+                if(inventory.size() != inventorySize)
+                {
+                    inventory.add(gp.obj[i]);
+                    text = "Got a " + gp.obj[i].name + "!";
+                }
+                else
+                {
+                    text = "You cannot carry any more!";
+                }
+                gp.obj[i] = null;
             }
+
         }
     }
     
@@ -466,6 +481,37 @@ public class Player extends Entity {
             
         }
     }
+
+    public void selectItem()
+    {
+        int itemIndex = gp.ui.getItemIndex();
+
+        if(itemIndex < inventory.size())
+        {
+            Entity selectedItem = inventory.get(itemIndex);
+
+            if(selectedItem.type == type_sword)
+            {
+                currentSword = selectedItem;
+                // di tutorial: 
+                // attack (kodingan kita nama var. attackValue) = getAttack() sudah kucoba tidak work jadi buat method baru
+                updateStats();
+            }
+            if(selectedItem.type == type_armor)
+            {
+                currentArmor = selectedItem;
+                updateStats();            
+            }        
+            if(selectedItem.type == type_consumable)
+            {
+                // sementara sprite potion pakai sprite emas lootdrop (item 567)
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
+            }
+
+        }
+    }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -612,4 +658,10 @@ public class Player extends Entity {
 	public void setAction() {
 		//empty
 	}
+
+    public void updateStats()
+    {
+        setAtk(getStrength() + currentSword.attackValue);
+        setDefense(getDef() + currentArmor.defenseValue);
+    }
 }

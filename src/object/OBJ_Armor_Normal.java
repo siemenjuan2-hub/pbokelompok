@@ -12,8 +12,8 @@ public class OBJ_Armor_Normal extends Entity{
         down1 = setUp("/assets/Armor/item220", 32, 32);
         defenseValue = 2;
         entitySize = 0;
-        description ="["+name+"]\na old armor";
-
+        description ="["+name+"]\nan old armor";
+        type = type_armor;
     }
 
     @Override

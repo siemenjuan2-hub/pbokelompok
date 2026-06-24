@@ -119,10 +119,10 @@ public class KeyHandler implements KeyListener{
         }
         //character state
         else if(gp.gameState == gp.characterState){
-            if(key == KeyEvent.VK_M || key == KeyEvent.VK_ENTER){
+            if(key == KeyEvent.VK_M){
                 gp.gameState = gp.playState;
             }
-             if(key == KeyEvent.VK_W){
+            if(key == KeyEvent.VK_W){
                 if(gp.ui.slotRow > 0){
                     gp.ui.slotRow--;
                 }
@@ -145,6 +145,12 @@ public class KeyHandler implements KeyListener{
                     gp.ui.slotCol++;
                 }
             }
+
+            if(key == KeyEvent.VK_ENTER){
+                gp.player.selectItem();
+            }
+
+            
         }
         
     }

@@ -21,7 +21,10 @@ public abstract class Entity {
     public Rectangle solidArea = new Rectangle(0, 0, 64, 64);
     public Rectangle attackArea = new Rectangle(0, 0, 32, 32);
     public int solidAreaDefaultX, solidAreaDefaultY;
+
     public boolean collision = true;
+    public boolean pickupable = false;
+
     String dialogues[] = new String[20];
     public int entitySize;
     public String names; // bedanya sama bawah apa cug // ga ada bedanya, bisa di hapus hahahah (Stevanus)
@@ -47,8 +50,8 @@ public abstract class Entity {
     int hpBarCounter = 0;
 
     // ENITTY ATRIBUTES
-    public int type; // 0 = npc, 1 = monster.
     public String name; // Bedanya sama atas apa cug
+    public int value;
     private int speed;
     private int maxHp;
     private int hp;
@@ -73,6 +76,13 @@ public abstract class Entity {
     // public int maxLife;
     // public int life;
 
+    // TYPE
+    public int type; // 0 = npc, 1 = monster.
+    public final int type_npc = 0;
+    public final int type_monster = 1;
+    public final int type_sword = 2;    
+    public final int type_armor = 3;    
+    public final int type_consumable = 4;    
     
 
     public Entity(GamePanel gp){
@@ -102,6 +112,12 @@ public abstract class Entity {
         }
 
     }
+
+    public void use(Entity entity)
+    {
+        
+    }
+
     public void update(){
 
         setAction();
@@ -120,7 +136,7 @@ public abstract class Entity {
     
         // CEK COLLISON PLAYER    
         boolean contactPlayer = gp.cCheker.checkPlayer(this);
-            if(this.type == 1 && contactPlayer == true){
+            if(this.type == type_monster && contactPlayer == true){
                 if(gp.player.invincible == false){
                 int damage = getAtk() - gp.player.getDefense();
                 if(damage<0){
@@ -228,7 +244,7 @@ public abstract class Entity {
             }
 
             // HP BAR MONSTER SLIME IJO
-            if(type == 1 && hpBarOn == true)
+            if(type == type_monster && hpBarOn == true)
             {
                 double oneScale = (double) entitySize/maxHp;
                 double hpBarValue = oneScale * hp;
