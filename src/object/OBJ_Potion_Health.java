@@ -17,7 +17,7 @@ public class OBJ_Potion_Health extends Entity{
         description ="["+name+"]\nregenerate some of your health (25)";
         pickupable = true;
         type = type_consumable;
-
+        
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;
@@ -32,8 +32,8 @@ public class OBJ_Potion_Health extends Entity{
         gp.gameState = gp.dialogState;
         gp.ui.currentDialogue = "You drink the " + name + "!"
         + "\nYour health has been recovered by " + value + ".";
-
-        if(gp.player.getHp() > gp.player.getMaxHp())
+        int temp=gp.player.getHp()+value;
+        if(temp > gp.player.getMaxHp())
         {
             gp.player.setHp(gp.player.getMaxHp());
         }

@@ -25,7 +25,7 @@ public class Player extends Entity {
     boolean isiStamina;
     int chargeCounter = 0;
     int attackCounter = 0;
-    public int hasPotion = 0;
+    // public int hasPotion = 0;
     public int entitySize = 256;
     public boolean atkDelay = false;
     
@@ -278,10 +278,10 @@ public class Player extends Entity {
                     stamina+=0.5;
                 }
             }
-            if(keyH.ePressed && this.getHp() < this.getMaxHp() && hasPotion > 0){
-                this.setHp(this.getHp() + 10);
-                hasPotion--;
-            }
+            // if(keyH.ePressed && this.getHp() < this.getMaxHp() && hasPotion > 0){
+            //     this.setHp(this.getHp() + 10);
+            //     hasPotion--;
+            // }
             chargeCounter = 0;
         }
     }
