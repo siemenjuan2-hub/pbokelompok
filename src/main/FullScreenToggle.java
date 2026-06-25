@@ -46,4 +46,26 @@ public class FullScreenToggle extends JFrame {
             }
         });
     }
+
+
+    public void toggleFullscreen() {
+
+        fullscreen = !fullscreen;
+
+        if(fullscreen){
+
+            dispose();
+            setUndecorated(true);
+            device.setFullScreenWindow(this);
+            setVisible(true);
+
+        } else {
+
+            device.setFullScreenWindow(null);
+
+            dispose();
+            setUndecorated(false);
+            setVisible(true);
+        }
+    }
 }

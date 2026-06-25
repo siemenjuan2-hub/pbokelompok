@@ -43,9 +43,9 @@ public class KeyHandler implements KeyListener{
                     // QUIT
                     System.exit(0);
                 }
-            }       
+            }
         }
-        //play state  
+        //play state
         else if(gp.gameState == gp.playState) {
             if(key == KeyEvent.VK_W) {
                 upPressed = true;
@@ -98,7 +98,11 @@ public class KeyHandler implements KeyListener{
                 gp.gameState = gp.characterState;
                 inventory=true;
             }
-           
+
+            if(key == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.optionState;
+            }
+
         }
         //pause state
         else if(gp.gameState == gp.pauseState) {
@@ -150,7 +154,35 @@ public class KeyHandler implements KeyListener{
                 gp.player.selectItem();
             }
         }
-        
+        // Option State
+        else if(gp.gameState == gp.optionState){
+            if(key == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.playState;
+            }
+            if(key == KeyEvent.VK_ENTER){
+                enterPressed = true;
+            }
+
+            int maxCommandNum = 0;
+
+            switch (gp.ui.subState) {
+                case 0: maxCommandNum = 5;
+            }
+            if(key == KeyEvent.VK_W){
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum < 0){
+                    gp.ui.commandNum = maxCommandNum;
+                }
+            }
+
+            if(key == KeyEvent.VK_S){
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum >  maxCommandNum){
+                    gp.ui.commandNum = 0;
+                }
+                System.out.println("After S = " + gp.ui.commandNum);
+            }
+        }
     }
 
     @Override

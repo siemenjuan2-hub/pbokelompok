@@ -15,9 +15,9 @@ public class MON_GreenSlime extends Entity {
         entitySize = 64;
         name = "Green Slime";
         this.setSpeed(1);
-        this.setMaxHp(10);
+        this.setMaxHp(100);
         this.setHp(this.getMaxHp());
-        this.setExp(3);
+        this.setExp(10);
         this.setAtk(5);
         this.setDef(0);
 

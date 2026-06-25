@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
     public int maxScreenRow = 8;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels kesamping
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels kebawah
+    public int screenWidth2;
+    public int screenHeight2;
     
     //World Settings
     public final int maxWorldCol = 50; //Tergantung nanti ukuran map kita seberapa
@@ -50,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity monster[] = new Entity[100];
     ArrayList<Entity> entityList = new ArrayList<>();
     public EventHandler eHandler = new EventHandler(this);
+    public boolean fullScreenOn = false;
     
     
     //game state
@@ -59,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogState = 3;
     public final int characterState = 4;
+    public final int optionState = 5;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -75,6 +81,17 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNpc();
         aSetter.setMonster();
         gameState = titleState;
+    }
+
+    public void setFullScreen(){
+        // GTE LOCAL SCREEN DEVICE
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+
+        // GET FULL SCREEN WIDHT AND HEIGHT
+        screenWidth2 = Main.window.getWidth();
+        screenHeight2 = Main.window.getHeight();
     }
 
     public void startGameThread() {
