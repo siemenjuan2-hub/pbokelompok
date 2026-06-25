@@ -144,7 +144,7 @@ public class KeyHandler implements KeyListener{
                         gp.music.checkVolume();
                         gp.playSE(9);
                     }
-                    // PERBAIKAN: Menggunakan gp.se
+
                     if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
                         gp.se.volumeScale--;
                         gp.playSE(9);
@@ -153,13 +153,11 @@ public class KeyHandler implements KeyListener{
 
                 // Tombol D (Besarkan Volume)
                 if (key == KeyEvent.VK_D) {
-                    // PERBAIKAN: Menggunakan gp.music
                     if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
                         gp.music.volumeScale++;
                         gp.music.checkVolume();
                         gp.playSE(9);
                     }
-                    // PERBAIKAN: Menggunakan gp.se
                     if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
                         gp.se.volumeScale++;
                         gp.playSE(9);
@@ -167,6 +165,27 @@ public class KeyHandler implements KeyListener{
                 }
             }
         }
+
+        //GAME OVER STATE
+        else if (gp.gameState == gp.gameOverState) {
+            if (key == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 1;
+                }
+                gp.playSE(9);
+            }
+            if (key == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1) {
+                    gp.ui.commandNum = 0;
+                }
+                gp.playSE(9);
+            }
+        }
+
+
+
     }
     @Override
     public void keyReleased(KeyEvent e) {
