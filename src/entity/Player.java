@@ -216,6 +216,9 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
+        if (hpBarCounter <= 0) {
+            gp.gameState = gp.gameOverState;
+        }
 
 
         if(keyH.upPressed == true){ direction = "up"; }
