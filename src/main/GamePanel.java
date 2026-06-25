@@ -40,13 +40,14 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     public KeyHandler keyH = new KeyHandler(this);
     public CollisonChecker cCheker = new CollisonChecker(this);
-    public Sound sound = new Sound();
+    // PERBAIKAN: Memisahkan Sound menjadi music dan se
+    public Sound music = new Sound();
+    public Sound se = new Sound();
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     TileManager tileM = new TileManager(this);
     Thread gameThread;
 
-    
     // ENTITY & OBJECT
     public Player player = new Player(this, keyH);
     public Entity obj[] = new Entity[100];
@@ -55,7 +56,6 @@ public class GamePanel extends JPanel implements Runnable {
     ArrayList<Entity> entityList = new ArrayList<>();
     public EventHandler eHandler = new EventHandler(this);
     public boolean fullScreenOn = false;
-    
     
     //game state
     public int gameState;
@@ -99,8 +99,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-
-
     @Override
     public void run() {
         double drawInterval = 1000000000/FPS;
@@ -111,7 +109,6 @@ public class GamePanel extends JPanel implements Runnable {
             update();
 
             repaint();
-
             
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
@@ -139,11 +136,9 @@ public class GamePanel extends JPanel implements Runnable {
                 if(npc[i] != null){
                     npc[i].update();
                 }
-                
             }
             // MONSTER
             for(int i = 0; i < monster.length; i++) {
-
                 if(monster[i] == null) {
                     continue;
                 }
@@ -171,7 +166,6 @@ public class GamePanel extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g; // ada beberapa function yang tidak ada di graphic biasa, jadi pakai 2d
-
         
         //Debug buat Liat Cetak Berapa Tile dalam nano seccond
         long drawStart = 0;
@@ -215,26 +209,24 @@ public class GamePanel extends JPanel implements Runnable {
                 @Override
                 public int compare(Entity e1, Entity e2) {
                     int result = Integer.compare(e1.WorldY, e2.WorldY);
-                    
                     return result;
                 }
-            }
-        );
+            });
         
-        //draw entity
-        for(int i = 0; i<entityList.size();i++){
-            entityList.get(i).draw(g2);
+            //draw entity
+            for(int i = 0; i<entityList.size();i++){
+                entityList.get(i).draw(g2);
+            }
+            
+            //empty list
+            entityList.clear();
+            
+            //UI
+            ui.draw(g2);
+            eHandler.drawDebug(g2);
+            g2.setColor(Color.RED);
         }
         
-        //empty list
-        entityList.clear();
-        
-        //UI
-        ui.draw(g2);
-        eHandler.drawDebug(g2);
-        g2.setColor(Color.RED);
-    }
-    
         //Debug buat Liat Cetak Berapa Tile dalam nano seccond
         if (keyH.checkDrawTime == true) {
             long drawEnd = System.nanoTime();
@@ -244,27 +236,25 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println("Draw Time: " + passed);
         }
         g2.dispose();
-
-    
     }
 
+    // PERBAIKAN: Method suara menggunakan objek music dan se yang baru
     public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
 
     public void stopMusic() {
-        sound.stop();
+        music.stop();
     }
     
     public void playSE(int i) {
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
 
     public void drawTileGrid(Graphics2D g2){
-
         g2.setColor(Color.RED);
 
         for(int row = 0; row < maxWorldRow; row++){
