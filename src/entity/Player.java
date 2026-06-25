@@ -83,14 +83,26 @@ public class Player extends Entity {
         setDefense(this.getDef() + currentArmor.defenseValue);
     }
 
+    public void setDefaultPosition(){
+        WorldX = gp.tileSize * 23;
+        WorldY = gp.tileSize * 21;
+        direction = "down";
+    }
+
+    public void restoredLifeAndMan(){
+
+        this.setHp(this.getMaxHp());
+        invincible = false;
+    }
+
     public void setItems(){
 
-    inventory.clear(); // penting agar tidak duplicate
+        inventory.clear(); // penting agar tidak duplicate
 
         inventory.add(currentArmor);
         inventory.add(currentSword);
     
-}
+    }
 
     public void getPlayerImage() {
         //W
@@ -194,11 +206,6 @@ public class Player extends Entity {
             stamina = maxStamina;
         }
 
-        if(getHp() <= 0){
-            setHp(0);
-            gp.gameState = gp.titleState;
-        }
-
         // invincibleCounter++;
         // if (invincibleCounter > 60) {
         //     if (invincible == true) {
@@ -216,8 +223,10 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
-        if (hpBarCounter <= 0) {
+        if (this.getHp() <= 0) {
             gp.gameState = gp.gameOverState;
+            gp.ui.commandNum = -1;
+            gp.stopMusic();
         }
 
 
@@ -335,7 +344,7 @@ public class Player extends Entity {
                 case "down": WorldY += attackArea.height; break;
                 case "left": WorldX -= attackArea.width; break;
                 case "right": WorldX += attackArea.width; break;
-            }            
+            }
 
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
@@ -388,19 +397,19 @@ public class Player extends Entity {
             //         gp.ui.showMassage("You Got A Autumn Bush!");
             //         break;
             // }
-            String text; 
-            if(gp.obj[i].pickupable)
+            String text;
+            if(gp.obj[gp.currentMap][i].pickupable)
             {
                 if(inventory.size() != inventorySize)
                 {
-                    inventory.add(gp.obj[i]);
-                    text = "Got a " + gp.obj[i].name + "!";
+                    inventory.add(gp.obj[gp.currentMap][i]);
+                    text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
                 }
                 else
                 {
                     text = "You cannot carry any more!";
                 }
-                gp.obj[i] = null;
+                gp.obj[gp.currentMap][i] = null;
             }
 
         }
@@ -410,7 +419,7 @@ public class Player extends Entity {
         if(gp.keyH.spacePressed == true){
             if(i != 999){
                 gp.gameState = gp.dialogState;
-                gp.npc[i].speak();
+                gp.npc[gp.currentMap][i].speak();
             }
         }
     }
@@ -418,7 +427,7 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i != 999){
             if(invincible == false){
-                int damage = gp.monster[i].getAtk() - getDefense();
+                int damage = gp.monster[gp.currentMap][i].getAtk() - getDefense();
                 if(damage<0){
                     damage=0;
                 }
@@ -438,31 +447,31 @@ public class Player extends Entity {
             // } else {
             //     System.out.println("Miss!");
             // }
-            if (gp.monster[i].invincible == false ) {
+            if (gp.monster[gp.currentMap][i].invincible == false ) {
 
                 // System.out.println("Monster Hit!");
-                int damage = getAtk() - gp.monster[i].getDefense();
+                int damage = getAtk() - gp.monster[gp.currentMap][i].getDefense();
                 if(damage<0){
                     damage=0;
                 }
                 
-                gp.monster[i].setHp(gp.monster[i].getHp() - damage);
+                gp.monster[gp.currentMap][i].setHp(gp.monster[gp.currentMap][i].getHp() - damage);
                 gp.ui.showMassage(damage+" damage!");
-                gp.monster[i].invincible = true;
+                gp.monster[gp.currentMap][i].invincible = true;
                 hit = true;
 
-                if(gp.monster[i].getHp() <= 0)
+                if(gp.monster[gp.currentMap][i].getHp() <= 0)
                 {
-                    gp.monster[i].dying = true;
-                    gp.ui.showMassage("killed the "+ gp.monster[i].name +"!");
-                    gp.ui.showMassage("Exp "+ gp.monster[i].getExp() +"!");
+                    gp.monster[gp.currentMap][i].dying = true;
+                    gp.ui.showMassage("killed the "+ gp.monster[gp.currentMap][i].name +"!");
+                    gp.ui.showMassage("Exp "+ gp.monster[gp.currentMap][i].getExp() +"!");
 
-                    setExp(getExp()+gp.monster[i].getExp());
+                    setExp(getExp()+gp.monster[gp.currentMap][i].getExp());
                     checkLevelUp();
 
                 }
             }
-            if(gp.monster[i].invincible == false && hit == false){
+            if(gp.monster[gp.currentMap][i].invincible == false && hit == false){
                 System.out.println("Miss!");
 
             }
@@ -481,8 +490,9 @@ public class Player extends Entity {
             setMaxHp(getMaxHp()+10);
             setAtk(getAtk()+3);
             setDef(getDef()+3);
+            setHp(getMaxHp());
             maxStamina=temp;
-            stamina=temp;
+            stamina=maxStamina;
             
         }
     }

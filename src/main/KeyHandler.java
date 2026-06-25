@@ -60,7 +60,7 @@ public class KeyHandler implements KeyListener{
                 gp.gameState = gp.pauseState;
             }
             if(key == KeyEvent.VK_T) {
-                checkDrawTime = !checkDrawTime; 
+                checkDrawTime = !checkDrawTime;
             }
             if(key == KeyEvent.VK_M) {
                 gp.gameState = gp.characterState;
@@ -68,6 +68,15 @@ public class KeyHandler implements KeyListener{
             }
             if(key == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.optionState;
+            }
+            if(key == KeyEvent.VK_R){
+                switch (gp.currentMap) {
+                    case 0:
+                        gp.tileM.loadMap("/assets/Maps/Maps1.txt", 0);
+                        break;
+                    case 1:
+                        gp.tileM.loadMap("/assets/Maps/Maps2.txt", 1);
+                }
             }
         }
         
@@ -142,12 +151,10 @@ public class KeyHandler implements KeyListener{
                     if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
                         gp.music.volumeScale--;
                         gp.music.checkVolume();
-                        gp.playSE(9);
                     }
 
                     if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
                         gp.se.volumeScale--;
-                        gp.playSE(9);
                     }
                 }
 
@@ -156,11 +163,9 @@ public class KeyHandler implements KeyListener{
                     if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
                         gp.music.volumeScale++;
                         gp.music.checkVolume();
-                        gp.playSE(9);
                     }
                     if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
                         gp.se.volumeScale++;
-                        gp.playSE(9);
                     }
                 }
             }
@@ -173,14 +178,23 @@ public class KeyHandler implements KeyListener{
                 if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = 1;
                 }
-                gp.playSE(9);
             }
             if (key == KeyEvent.VK_S) {
                 gp.ui.commandNum++;
                 if (gp.ui.commandNum > 1) {
                     gp.ui.commandNum = 0;
                 }
-                gp.playSE(9);
+            }
+
+            if(key == KeyEvent.VK_ENTER){
+                if(gp.ui.commandNum == 0){
+                    gp.gameState = gp.playState;
+                    gp.retry();
+                    gp.playMusic(0);
+                }else if(gp.ui.commandNum == 1){
+                    gp.gameState = gp.titleState;
+                    gp.restart();
+                }
             }
         }
 

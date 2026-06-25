@@ -80,9 +80,9 @@ public abstract class Entity {
     public int type; // 0 = npc, 1 = monster.
     public final int type_npc = 0;
     public final int type_monster = 1;
-    public final int type_sword = 2;    
-    public final int type_armor = 3;    
-    public final int type_consumable = 4;    
+    public final int type_sword = 2;
+    public final int type_armor = 3;
+    public final int type_consumable = 4;
     
 
     public Entity(GamePanel gp){
@@ -121,11 +121,11 @@ public abstract class Entity {
 
     }
     public void dropItem(Entity droppedItem){
-        for(int i = 0;i<gp.obj.length;i++){
-            if(gp.obj[i]==null){
-                gp.obj[i]=droppedItem;
-                gp.obj[i].WorldX = WorldX;
-                gp.obj[i].WorldY = WorldY;
+        for(int i = 0;i<gp.obj[1].length;i++){
+            if(gp.obj[gp.currentMap][i]==null){
+                gp.obj[gp.currentMap][i]=droppedItem;
+                gp.obj[gp.currentMap][i].WorldX = WorldX;
+                gp.obj[gp.currentMap][i].WorldY = WorldY;
                 break;
             }
         }
@@ -146,7 +146,7 @@ public abstract class Entity {
         //CEK COLLISON MONSTER
         gp.cCheker.checkEntity(this, gp.monster);
     
-        // CEK COLLISON PLAYER    
+        // CEK COLLISON PLAYER
         boolean contactPlayer = gp.cCheker.checkPlayer(this);
             if(this.type == type_monster && contactPlayer == true){
                 if(gp.player.invincible == false){
