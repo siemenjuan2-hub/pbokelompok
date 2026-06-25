@@ -90,7 +90,11 @@ public class UI {
 
     public void drawGameOverScreen() {
         g2.setColor(new Color (0,0,0,150));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        if(!gp.fullScreenOn){
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        }else{
+            g2.fillRect(0, 0, gp.screenWidth2, gp.screenHeight2);
+        }
 
         int x;
         int y;
@@ -247,6 +251,8 @@ public class UI {
         g2.drawRect(textX, textY, 200, 30);
         volumeWidth = 40 * gp.se.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
+
+        gp.config.saveConfig();
     }
 
     public void showMassage(){

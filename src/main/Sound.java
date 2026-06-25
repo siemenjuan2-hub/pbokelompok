@@ -12,7 +12,7 @@ public class Sound {
     FloatControl fc;
     
     // RyiSnow hanya menggunakan SATU variabel volumeScale di dalam kelas ini
-    public int volumeScale = 3; 
+    public int volumeScale = 3;
     float volume;
 
     public Sound() {

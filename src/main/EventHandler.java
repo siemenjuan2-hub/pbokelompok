@@ -82,8 +82,16 @@ public class EventHandler {
     public void Teleport1(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Teleported!!";
-        gp.player.WorldX = gp.tileSize * 37;
-        gp.player.WorldY = gp.tileSize * 41;
+
+        if(gp.currentMap == 0){
+            gp.currentMap = 1;
+        }else if(gp.currentMap == 1){
+            gp.currentMap = 0;
+        }
+        
+        gp.tileM.loadMap("/assets/Maps/Maps2", gp.currentMap);
+        // gp.player.WorldX = gp.tileSize * 37;
+        // gp.player.WorldY = gp.tileSize * 41;
     }
 
     // event 3: Teleport
