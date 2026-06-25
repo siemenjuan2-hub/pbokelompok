@@ -467,6 +467,7 @@ public class Player extends Entity {
             
         }
     }
+    // CEK JIKA PLAYER LEVEL UP
     public void checkLevelUp(){
         if(getExp()>= getNextLevelExp()){
             int temp = maxStamina+5;
@@ -475,7 +476,8 @@ public class Player extends Entity {
             setNextLevelExp(getNextLevelExp()*2);
             setExp(0);
             setMaxHp(getMaxHp()+10);
-            setHp(getMaxHp());
+            setAtk(getAtk()+3);
+            setDef(getDef()+3);
             maxStamina=temp;
             stamina=temp;
             
@@ -500,8 +502,8 @@ public class Player extends Entity {
             if(selectedItem.type == type_armor)
             {
                 currentArmor = selectedItem;
-                updateStats();            
-            }        
+                updateStats();
+            }
             if(selectedItem.type == type_consumable)
             {
                 // sementara sprite potion pakai sprite emas lootdrop (item 567)
