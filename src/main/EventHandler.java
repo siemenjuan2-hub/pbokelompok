@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import entity.Entity;
+
 public class EventHandler {
     
     GamePanel gp;
@@ -43,6 +45,8 @@ public class EventHandler {
                 Teleport2(gp.dialogState);
             }
         }
+        
+
     }
 
     public boolean hit(int eventCol, int eventRow) {
@@ -100,6 +104,15 @@ public class EventHandler {
         gp.ui.currentDialogue = "You Teleported!!";
         gp.player.WorldX = gp.tileSize * 30;
         gp.player.WorldY = gp.tileSize * 21;
+    }
+
+    public void speak(Entity entity)
+    {
+        if(gp.keyH.enterPressed == true)
+        {
+            gp.gameState = gp.dialogState;
+            entity.speak();     
+        }
     }
 
     public void drawDebug(Graphics2D g2) {

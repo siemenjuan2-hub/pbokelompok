@@ -29,9 +29,8 @@ public class Player extends Entity {
     public int entitySize = 256;
     public boolean atkDelay = false;
     
-    
-    public ArrayList <Entity> inventory = new ArrayList<>();
-    public final int inventorySize = 20;
+    // coin
+    public int coin=500;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -499,7 +498,7 @@ public class Player extends Entity {
 
     public void selectItem()
     {
-        int itemIndex = gp.ui.getItemIndex();
+        int itemIndex = gp.ui.getItemIndex(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
         if(itemIndex < inventory.size())
         {
