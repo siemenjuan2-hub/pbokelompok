@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JPanel;
+
+import AI.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -47,8 +49,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Sound se = new Sound();
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
-    TileManager tileM = new TileManager(this);
+    public TileManager tileM = new TileManager(this);
     Config config = new Config(this);
+    public PathFinder pFinder = new PathFinder(this);
     Thread gameThread;
 
     // ENTITY & OBJECT
@@ -76,8 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 4;
     public final int optionState = 5;
     public final int gameOverState = 6;
-    public final int transitionState = 7; // belum dibuat video part #39 soalnya method teleportnya beda (class: EventHandler)
-    public final int tradeState = 8;
+    // public final int transitionState = 7; untuk transition state di video 39 tidak di pake :D (Stevanus)
+    public final int tradeState = 7;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -257,7 +260,15 @@ public class GamePanel extends JPanel implements Runnable {
             
             //UI
             ui.draw(g2);
-            eHandler.drawDebug(g2);
+            switch (currentMap) {
+
+                case 0:
+                    eHandler.drawDebugMap1(g2);
+                    break;
+                case 1:
+                    eHandler.drawDebugMap2(g2);
+                    break;
+            }
             g2.setColor(Color.RED);
         }
         

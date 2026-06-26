@@ -91,15 +91,9 @@ public class AssetSetter {
     }
 
     public void setNpc(){
+        // SPAWN ENTITY UNTUK  MAP 1 (mapNum = 0)
         int mapNum = 0;
         int i = 0;
-
-        // Merchant: Sprite masih pake yg kakek, letak merchant di map yang sama
-        gp.npc[mapNum][i] = new Npc_Merchant(gp);
-        gp.npc[mapNum][i].WorldX = gp.tileSize*22;
-        gp.npc[mapNum][i].WorldY = gp.tileSize*22;
-        gp.npc[mapNum][i].direction = "down";
-        i++;
 
         // PASUKAN KAKEK
         gp.npc[mapNum][i] = new Npc_OldMan(gp);
@@ -258,6 +252,16 @@ public class AssetSetter {
         gp.npc[mapNum][i].WorldX = gp.tileSize*12;
         gp.npc[mapNum][i].WorldY = gp.tileSize*9;
         gp.npc[mapNum][i].direction = "right";
+        i++;
+
+        // SPAWN ENTITY UNTUK  MAP 2 (mapNum = 1)
+        mapNum++;
+        
+        // Merchant: Sprite masih pake yg kakek, letak merchant di map yang sama
+        gp.npc[mapNum][i] = new Npc_Merchant(gp);
+        gp.npc[mapNum][i].WorldX = gp.tileSize*24;
+        gp.npc[mapNum][i].WorldY = gp.tileSize*24;
+        gp.npc[mapNum][i].direction = "down";
         i++;
 
     }
