@@ -14,12 +14,14 @@ public class MON_GreenSlime extends Entity {
         type = type_monster;
         entitySize = 64;
         name = "Green Slime";
-        this.setSpeed(1);
+        defaultSpeed=1;
+        this.setSpeed(defaultSpeed);
         this.setMaxHp(100);
         this.setHp(this.getMaxHp());
         this.setExp(10);
         this.setAtk(5);
         this.setDef(0);
+        knockBackPower=5;
 
         solidArea.x = 3;
         solidArea.y = 18;
