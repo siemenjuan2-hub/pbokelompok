@@ -21,7 +21,6 @@ public class MON_GreenSlime extends Entity {
         this.setAtk(5);
         this.setDef(0);
 
-
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 42;
@@ -42,37 +41,52 @@ public class MON_GreenSlime extends Entity {
         right2 = setUp("/assets/Monster/greenSlime/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
-
-
     public void setAction() {
-        actionLockCounter++;
+        int xDistance = Math.abs(WorldX - gp.player.WorldX);
+        int yDistance = Math.abs(WorldY - gp.player.WorldY);
 
-        if(actionLockCounter == 120) {
-            int i = new java.util.Random().nextInt(100) + 1; // 1 - 100
+        if (xDistance < gp.tileSize * 5 && yDistance < gp.tileSize * 5) {
+            onPath = true;
+        } else {
+            onPath = false;
+        }
+        if (onPath) {
+            int playerCenterX = gp.player.WorldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
+            int playerCenterY = gp.player.WorldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
 
-            if(i <= 25) {
-                direction = "up";
-            }
-            else if(i > 25 && i <= 50) {
-                direction = "down";
-            }
-            else if(i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if(i > 75 && i <= 100) {
-                direction = "right";
-            }
+            int goalCol = playerCenterX / gp.tileSize;
+            int goalRow = playerCenterY / gp.tileSize;
 
-            actionLockCounter = 0;
+            searchPath(goalCol, goalRow);
+        } else {
+
+            actionLockCounter++;
+
+            if (actionLockCounter == 120) {
+                int i = new java.util.Random().nextInt(100) + 1; // 1 - 100
+
+                if (i <= 25) {
+                    direction = "up";
+                } else if (i > 25 && i <= 50) {
+                    direction = "down";
+                } else if (i > 50 && i <= 75) {
+                    direction = "left";
+                } else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+
+                actionLockCounter = 0;
+            }
         }
     }
-    public void checkDrop(){
+
+    public void checkDrop() {
         // cast a die
-        int i = new Random().nextInt(100)+1;
-        if(i<50){
+        int i = new Random().nextInt(100) + 1;
+        if (i < 50) {
             dropItem(new OBJ_Armor_Better(gp));
         }
-        if(i>50&&i<100){
+        if (i > 50 && i < 100) {
             dropItem(new OBJ_Sword_Copper(gp));
         }
     }

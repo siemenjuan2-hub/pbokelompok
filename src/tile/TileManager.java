@@ -1,5 +1,6 @@
 package tile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][][];
+    
 
     public TileManager(GamePanel gp){
         this.gp = gp;
@@ -61,6 +63,8 @@ public class TileManager {
 
         // World 2 (bisa ubah asset sesuaikan dengan dungeon atau dalam rumah)
         setup(22, "T603", false);
+        setup(23, "/Rumah/floor01", false);
+        setup(24, "/Rumah/wall01", true);
 
         
     }

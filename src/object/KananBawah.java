@@ -16,6 +16,7 @@ public class KananBawah extends Entity {
         solidArea.height = entitySize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        collision = false;
     }
 
     @Override

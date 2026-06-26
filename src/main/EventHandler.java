@@ -4,13 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import entity.Entity;
-
 public class EventHandler {
     
     GamePanel gp;
     Rectangle eventRect;
-    int eventRectDefaultX, eventRectDefaultY;
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
@@ -20,33 +17,42 @@ public class EventHandler {
         eventRect.y = gp.tileSize / 4;
         eventRect.width = gp.tileSize / 2;
         eventRect.height = gp.tileSize / 2;
-        eventRectDefaultX = eventRect.x;
-        eventRectDefaultY = eventRect.y;
     }
 
     public void checkEvent() {
         //jika ingin menampilkan objek buat di AssetSetter dengan cordinat yang sama dengan event
 
+        switch (gp.currentMap) {
+
+            case 0:
+                eventMap1();
+                break;
+            case 1:
+                eventMap2();
+        }
+
+        
+    }
+
+    // EVENT MAP 1
+    public void eventMap1(){
         // event 1: Burned Tree
         if(hit(25, 21)) {
             damagePit(gp.dialogState);
         }
 
-        // event 2: Teleport (kanan bawah)
-        if(hit(30, 21)) {
-            if(gp.keyH.enterPressed) {
-                Teleport1(gp.dialogState);
-            }
+        // event 2: Teleport (Masuk Rumah Trader)
+        if(hit(37, 21) && gp.player.direction == "up") {
+            TeleportRumahTrader(gp.dialogState);
         }
+    }
 
-        // event 3: Teleport (kanan atas)
-        if(hit(37, 41)) {
-            if(gp.keyH.enterPressed) {
-                Teleport2(gp.dialogState);
-            }
+    // EVENT MAP 2
+    public void eventMap2(){
+        // event 1: Teleport OverWolrd
+        if(hit(24, 28) && gp.player.direction == "down") {
+            TeleportOverWorld(gp.dialogState);
         }
-        
-
     }
 
     public boolean hit(int eventCol, int eventRow) {
@@ -61,8 +67,8 @@ public class EventHandler {
 
         // hitbox event
         Rectangle eventArea = new Rectangle(
-            eventCol * gp.tileSize + eventRectDefaultX,
-            eventRow * gp.tileSize + eventRectDefaultY,
+            eventCol * gp.tileSize + eventRect.x,
+            eventRow * gp.tileSize + eventRect.y,
             eventRect.width,
             eventRect.height
         );
@@ -75,73 +81,78 @@ public class EventHandler {
         return false;
     }
 
-    // event 1: Burned Tree
+
+
+    // EVENT: BURNED TREE
     public void damagePit(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Burned By A BurnedTree!!";
         gp.player.setHp(gp.player.getHp() - 10);
     }
 
-    // event 2: Teleport
-    public void Teleport1(int gameState) {
+    // EVENT: TELEPORT
+
+    // teleport rumah trader
+    public void TeleportRumahTrader(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Teleported!!";
-
-        if(gp.currentMap == 0){
-            gp.currentMap = 1;
-        }else if(gp.currentMap == 1){
-            gp.currentMap = 0;
-        }
-        
+        // pindah map
+        gp.currentMap = 1;
         gp.tileM.loadMap("/assets/Maps/Maps2", gp.currentMap);
-        // gp.player.WorldX = gp.tileSize * 37;
-        // gp.player.WorldY = gp.tileSize * 41;
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 26 + gp.tileSize / 2;
+        gp.player.direction = "up";
     }
 
-    // event 3: Teleport
-    public void Teleport2(int gameState) {
+    // teleport OverWorld
+    public void TeleportOverWorld(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Teleported!!";
-        gp.player.WorldX = gp.tileSize * 30;
-        gp.player.WorldY = gp.tileSize * 21;
+        // pindah map
+        gp.currentMap = 0;
+        gp.tileM.loadMap("/assets/Maps/Maps1", gp.currentMap);
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 37 - gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 22 - gp.tileSize / 2;
+        gp.player.direction = "down";
     }
 
-    public void speak(Entity entity)
-    {
-        if(gp.keyH.enterPressed == true)
-        {
-            gp.gameState = gp.dialogState;
-            entity.speak();     
-        }
-    }
 
-    public void drawDebug(Graphics2D g2) {
+
+
+    public void drawDebugMap1(Graphics2D g2) {
         drawEventRect(g2, 25, 21); // Burned Tree
-        drawEventRect(g2, 30, 21); // Teleport 1
-        drawEventRect(g2, 37, 41); // Teleport 2
+        drawEventRect(g2, 37, 21); // Teleport Rumah Trader
+    }
+
+    public void drawDebugMap2(Graphics2D g2){
+        drawEventRect(g2, 24, 28); // Teleport Over Wolrd
     }
 
     private void drawEventRect(Graphics2D g2, int col, int row) {
 
-    int screenX =
-            col * gp.tileSize
-            - gp.player.WorldX
-            + gp.player.ScreenX
-            + eventRectDefaultX;
+        int screenX =
+                col * gp.tileSize
+                - gp.player.WorldX
+                + gp.player.ScreenX
+                + eventRect.x;
 
-    int screenY =
-            row * gp.tileSize
-            - gp.player.WorldY
-            + gp.player.ScreenY
-            + eventRectDefaultY;
+        int screenY =
+                row * gp.tileSize
+                - gp.player.WorldY
+                + gp.player.ScreenY
+                + eventRect.y;
 
-    g2.setColor(Color.YELLOW);
+        g2.setColor(Color.YELLOW);
 
-    g2.drawRect(
-            screenX,
-            screenY,
-            eventRect.width,
-            eventRect.height
-    );
-}
+        g2.drawRect(
+                screenX,
+                screenY,
+                eventRect.width,
+                eventRect.height
+        );
+    }
 }
