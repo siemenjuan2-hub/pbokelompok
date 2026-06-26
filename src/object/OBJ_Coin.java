@@ -3,21 +3,18 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Potion_Health extends Entity{
+public class OBJ_Coin extends Entity{
 
-    public OBJ_Potion_Health(GamePanel gp) {
+    public OBJ_Coin (GamePanel gp) {
         super(gp);
         entitySize = 128;
-        // int value = 25; HARUSNYA PAKE YG INI TAPI TIDAK BISA DIPAKAI DI METHOD use() entah kenapaaaa
         value = 25;
 
-        name = "Health Potion";
+        name = "Coin";
         down1 = setUp("/assets/LootDrop/item567", 32, 32);
-        attackValue = 14;
-        description ="["+name+"]\nregenerate some of your\nhealth (25)";
+        description ="["+name+"]\nYour currency!";
         pickupable = true;
         type = type_consumable;
-        price = 40;
         
         solidArea.x = 0;
         solidArea.y = 0;
@@ -30,18 +27,18 @@ public class OBJ_Potion_Health extends Entity{
 
     public void use(Entity entity)
     {
-        gp.gameState = gp.dialogState;
-        gp.ui.currentDialogue = "You drink the " + name + "!"
-        + "\nYour health has been recovered by " + value + ".";
-        int temp=gp.player.getHp()+value;
-        if(temp > gp.player.getMaxHp())
-        {
-            gp.player.setHp(gp.player.getMaxHp());
-        }
-        else
-        {
-            gp.player.setHp(gp.player.getHp() + value);
-        }
+        // gp.gameState = gp.dialogState;
+        // gp.ui.currentDialogue = "You drink the " + name + "!"
+        // + "\nYour health has been recovered by " + value + ".";
+        // int temp=gp.player.getHp()+value;
+        // if(temp > gp.player.getMaxHp())
+        // {
+        //     gp.player.setHp(gp.player.getMaxHp());
+        // }
+        // else
+        // {
+        //     gp.player.setHp(gp.player.getHp() + value);
+        // }
     }
     
 

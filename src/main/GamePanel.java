@@ -76,6 +76,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 4;
     public final int optionState = 5;
     public final int gameOverState = 6;
+    public final int transitionState = 7; // belum dibuat video part #39 soalnya method teleportnya beda (class: EventHandler)
+    public final int tradeState = 8;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

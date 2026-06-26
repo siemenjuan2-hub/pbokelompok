@@ -14,6 +14,7 @@ public class OBJ_Armor_Normal extends Entity{
         entitySize = 0;
         description ="["+name+"]\nan old armor";
         type = type_armor;
+        price = 75;
     }
 
     @Override

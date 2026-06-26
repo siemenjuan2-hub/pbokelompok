@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -64,14 +65,19 @@ public abstract class Entity {
     private int nextLevelExp = 5;
     private int coin;
 
+    
+
     // ENTITY ITEM
     public Entity currentSword;
     public Entity currentArmor;
 
     // ITEM ATTRIBUTE
+    public ArrayList <Entity> inventory = new ArrayList<>();
+    public final int inventorySize = 20;    
     public int attackValue;
     public int defenseValue;
     public String description="";
+    public int price;
         // CHARACTER STATUS
     // public int maxLife;
     // public int life;

@@ -15,6 +15,7 @@ public class OBJ_Sword_Copper extends Entity{
         description ="["+name+"]\na copper sword";
         pickupable = true;
         type = type_sword;
+        price = 100;
 
         solidArea.x = 0;
         solidArea.y = 0;

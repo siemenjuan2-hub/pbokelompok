@@ -15,6 +15,7 @@ public class OBJ_Armor_Better extends Entity{
         description ="["+name+"]\na better armor";
         pickupable = true;
         type = type_armor;
+        price = 120;
 
         solidArea.x = 0;
         solidArea.y = 0;

@@ -13,6 +13,7 @@ public class OBJ_Sword_Normal extends Entity{
         attackValue = 10;
         description ="["+name+"]\nan old sword";
         type = type_sword;
+        price = 50;
     }
 
     @Override

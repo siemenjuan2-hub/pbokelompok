@@ -6,6 +6,7 @@ import entity.Bebek;
 import entity.Domba;
 import entity.Kambing;
 import entity.Keledai;
+import entity.Npc_Merchant;
 import entity.Npc_OldMan;
 import entity.Sapi;
 import object.OBJ_AutumnBush;
@@ -93,11 +94,18 @@ public class AssetSetter {
         int mapNum = 0;
         int i = 0;
 
+        // Merchant: Sprite masih pake yg kakek, letak merchant di map yang sama
+        gp.npc[mapNum][i] = new Npc_Merchant(gp);
+        gp.npc[mapNum][i].WorldX = gp.tileSize*22;
+        gp.npc[mapNum][i].WorldY = gp.tileSize*22;
+        gp.npc[mapNum][i].direction = "down";
+        i++;
+
         // PASUKAN KAKEK
         gp.npc[mapNum][i] = new Npc_OldMan(gp);
         gp.npc[mapNum][i].WorldX = gp.tileSize*21;
         gp.npc[mapNum][i].WorldY = gp.tileSize*41;
-        gp.npc[mapNum][i].direction = " left";
+        gp.npc[mapNum][i].direction = "left";
         i++;
 
         gp.npc[mapNum][i] = new Npc_OldMan(gp);
