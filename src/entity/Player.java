@@ -69,7 +69,8 @@ public class Player extends Entity {
         stamina = maxStamina;
         this.setMaxHp(100);
         this.setHp(this.getMaxHp());
-        this.setSpeed(6);
+        this.setDefaultSpeed(6);
+        this.setSpeed(this.getDefaultSpeed());
         this.setStrength(1);
         this.setDef(1);
         this.setExp(0);
@@ -479,6 +480,7 @@ public class Player extends Entity {
             // }
             if (gp.monster[gp.currentMap][i].invincible == false) {
 
+                knockBack(gp.monster[gp.currentMap][i]);
                 // System.out.println("Monster Hit!");
                 int damage = getAtk() - gp.monster[gp.currentMap][i].getDefense();
                 if (damage < 0) {
@@ -506,6 +508,13 @@ public class Player extends Entity {
             }
 
         }
+    }
+
+
+    public void knockBack(Entity entity) {
+        entity.direction = direction;
+        entity.setSpeed(entity.getSpeed() + 10);
+        entity.knockBack = true;
     }
 
     // CEK JIKA PLAYER LEVEL UP

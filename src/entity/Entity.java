@@ -52,6 +52,8 @@ public abstract class Entity {
     boolean hpBarOn = false;
     public boolean onPath = false;
     boolean drawPath = true;
+    public boolean knockBack = false;
+
 
     // COUNTER
     public int spriteCounter = 0;
@@ -59,10 +61,12 @@ public abstract class Entity {
     public int invincibleCounter = 60;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    int knockBackCounter = 0;
 
     // ENITTY ATRIBUTES
-    public String name; // Bedanya sama atas apa cug
+    public String name;
     public int value;
+    private int defaultSpeed;
     private int speed;
     private int maxHp;
     private int hp;
@@ -86,6 +90,7 @@ public abstract class Entity {
     public int defenseValue;
     public String description = "";
     public int price;
+    public int knockBackPower =0;
     // CHARACTER STATUS
     // public int maxLife;
     // public int life;
@@ -148,28 +153,66 @@ public abstract class Entity {
 
     public void update() {
 
-        setAction();
-        checkCollision();
-        if (attackCooldown > 0) {
-            attackCooldown--;
-        }
 
-        if (collisionON == false) {
-            switch (direction) {
-                case "up":
-                    WorldY -= this.getSpeed();
-                    break;
-                case "down":
-                    WorldY += this.getSpeed();
-                    break;
-                case "left":
-                    WorldX -= this.getSpeed();
-                    break;
-                case "right":
-                    WorldX += this.getSpeed();
-                    break;
+        if (knockBack == true) {
+            checkCollision();
+
+            if (collisionON == true) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+
+            else if (collisionON == false) {
+                switch (gp.player.direction) {
+                    case "up":
+                        WorldY -= this.getSpeed();
+                        break;
+                    case "down":
+                        WorldY += this.getSpeed();
+                        break;
+                    case "left":
+                        WorldX -= this.getSpeed();
+                        break;
+                    case "right":
+                        WorldX += this.getSpeed();
+                        break;
+                }
+            }
+
+            knockBackCounter++;
+            if (knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+
+        }else {
+            setAction();
+            checkCollision();
+            if (attackCooldown > 0) {
+                attackCooldown--;
+            }
+    
+            if (collisionON == false) {
+                switch (direction) {
+                    case "up":
+                        WorldY -= this.getSpeed();
+                        break;
+                    case "down":
+                        WorldY += this.getSpeed();
+                        break;
+                    case "left":
+                        WorldX -= this.getSpeed();
+                        break;
+                    case "right":
+                        WorldX += this.getSpeed();
+                        break;
+                }
             }
         }
+
+
 
         spriteCounter++;
         if (spriteCounter > 10) {
@@ -384,6 +427,7 @@ public abstract class Entity {
         }
     }
 
+
     public void searchPath(int goalCol, int goalrow) {
 
         int startCol = (WorldX + solidArea.x) / gp.tileSize;
@@ -591,6 +635,14 @@ public abstract class Entity {
 
     public void setDef(int def) {
         this.def = def;
+    }
+
+    public int getDefaultSpeed() {
+        return defaultSpeed;
+    }
+
+    public void setDefaultSpeed(int defaultSpeed) {
+        this.defaultSpeed = defaultSpeed;
     }
 
 }
