@@ -69,7 +69,8 @@ public class Player extends Entity {
         stamina = maxStamina;
         this.setMaxHp(100);
         this.setHp(this.getMaxHp());
-        this.setSpeed(6);
+        defaultSpeed=6;
+        this.setSpeed(defaultSpeed);
         this.setStrength(1);
         this.setDef(1);
         this.setExp(0);
@@ -169,10 +170,60 @@ public class Player extends Entity {
         attackRight5 = setUp("/assets/Player/Tiles2/TileR3C6", gp.tileSize, gp.tileSize);
         attackRight6 = setUp("/assets/Player/Tiles2/TileR3C7", gp.tileSize, gp.tileSize);
     }
+    public void knockback(Entity entity ,int knockBackPower){
+        entity.direction=direction;
+        entity.setSpeed(entity.getSpeed()+knockBackPower);
+        entity.knockBack=true;
+    }
 
     public void update() {
         ScreenX = gp.getWidth() / 2 - entitySize / 2;
         ScreenY = gp.getHeight() / 2 - entitySize / 2;
+
+        if(knockBack){
+
+            collisionON = false;
+
+            gp.cCheker.checkTile(this);
+            gp.cCheker.checkObject(this, false);
+
+            if(!collisionON){
+
+                switch(direction){
+
+                    case "up":
+                        WorldY -= getSpeed();
+                        break;
+
+                    case "down":
+                        WorldY += getSpeed();
+                        break;
+
+                    case "left":
+                        WorldX -= getSpeed();
+                        break;
+
+                    case "right":
+                        WorldX += getSpeed();
+                        break;
+                }
+            }
+            else{
+                knockBack = false;
+                knockBackCounter = 0;
+                setSpeed(defaultSpeed);
+            }
+
+            knockBackCounter++;
+
+            if(knockBackCounter > 10){
+                knockBack = false;
+                knockBackCounter = 0;
+                setSpeed(defaultSpeed);
+            }
+
+            return;
+        }
 
         if (attack == true && stamina > 2) {
             attack();
@@ -382,7 +433,7 @@ public class Player extends Entity {
             solidArea.height = attackArea.height;
 
             int monsterIndex = gp.cCheker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex,currentSword.knockBackPower);
 
             solidArea.x = solidAreaDefaultX;
             solidArea.y = solidAreaDefaultY;
@@ -468,16 +519,19 @@ public class Player extends Entity {
         monster.attackCooldown = monster.attackInterval;
     }
 
-    public void damageMonster(int i) {
+    public void damageMonster(int i,int knockBackPower ) {
         boolean hit = false;
         if (i != 999) {
-            // if (invincible == false ) {
-            // System.out.println("Monster Hit!");
+        // if (invincible == false ) {// System.out.println("Monster Hit!");// } else {// System.out.println("Miss!");// }
 
-            // } else {
-            // System.out.println("Miss!");
-            // }
             if (gp.monster[gp.currentMap][i].invincible == false) {
+                
+                if(knockBackPower>0){
+                    
+                }
+                knockback(gp.monster[gp.currentMap][i],knockBackPower);
+
+                
 
                 // System.out.println("Monster Hit!");
                 int damage = getAtk() - gp.monster[gp.currentMap][i].getDefense();
@@ -507,6 +561,7 @@ public class Player extends Entity {
 
         }
     }
+
 
     // CEK JIKA PLAYER LEVEL UP
     public void checkLevelUp() {

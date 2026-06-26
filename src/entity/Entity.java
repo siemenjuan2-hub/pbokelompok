@@ -52,6 +52,7 @@ public abstract class Entity {
     boolean hpBarOn = false;
     public boolean onPath = false;
     boolean drawPath = true;
+    public boolean knockBack=false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -59,9 +60,12 @@ public abstract class Entity {
     public int invincibleCounter = 60;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    public int knockBackCounter=0;
+    public int knockBackDirectionTime = 0;
 
     // ENITTY ATRIBUTES
     public String name; // Bedanya sama atas apa cug
+    public int defaultSpeed;
     public int value;
     private int speed;
     private int maxHp;
@@ -86,6 +90,7 @@ public abstract class Entity {
     public int defenseValue;
     public String description = "";
     public int price;
+    public int knockBackPower=0;
     // CHARACTER STATUS
     // public int maxLife;
     // public int life;
@@ -147,28 +152,69 @@ public abstract class Entity {
     }
 
     public void update() {
+        if(knockBack){
 
-        setAction();
-        checkCollision();
-        if (attackCooldown > 0) {
-            attackCooldown--;
-        }
+            collisionON = false;
 
-        if (collisionON == false) {
-            switch (direction) {
-                case "up":
-                    WorldY -= this.getSpeed();
-                    break;
-                case "down":
-                    WorldY += this.getSpeed();
-                    break;
-                case "left":
-                    WorldX -= this.getSpeed();
-                    break;
-                case "right":
-                    WorldX += this.getSpeed();
-                    break;
+            gp.cCheker.checkTile(this);
+
+            if(!collisionON){
+
+                switch(direction){
+
+                    case "up":
+                        WorldY -= getSpeed();
+                        break;
+
+                    case "down":
+                        WorldY += getSpeed();
+                        break;
+
+                    case "left":
+                        WorldX -= getSpeed();
+                        break;
+
+                    case "right":
+                        WorldX += getSpeed();
+                        break;
+                }
             }
+
+            knockBackCounter++;
+
+            if(knockBackCounter > 8){
+
+                knockBack = false;
+                knockBackCounter = 0;
+                setSpeed(defaultSpeed);
+            }
+
+            return;
+        }
+        else{
+            setAction();
+            checkCollision();
+            if (attackCooldown > 0) {
+                attackCooldown--;
+            }
+    
+            if (collisionON == false) {
+                switch (direction) {
+                    case "up":
+                        WorldY -= this.getSpeed();
+                        break;
+                    case "down":
+                        WorldY += this.getSpeed();
+                        break;
+                    case "left":
+                        WorldX -= this.getSpeed();
+                        break;
+                    case "right":
+                        WorldX += this.getSpeed();
+                        break;
+                }
+            }
+
         }
 
         spriteCounter++;
@@ -217,11 +263,36 @@ public abstract class Entity {
         // CEK COLLISION PLAYER
         boolean contactPlayer = gp.cCheker.checkPlayer(this);
         if (type == type_monster && contactPlayer == true) {
-            collisionON = true;
             damagePlayer(atk);
             gp.player.invincible = true;
         }
 
+    }
+
+    public void knockbackPlayer(int power){
+
+        gp.player.knockBack = true;
+
+        switch(direction){
+
+            case "up":
+                gp.player.direction = "up";
+                break;
+
+            case "down":
+                gp.player.direction = "down";
+                break;
+
+            case "left":
+                gp.player.direction = "left";
+                break;
+
+            case "right":
+                gp.player.direction = "right";
+                break;
+        }
+
+        gp.player.setSpeed(power);
     }
 
     public void damagePlayer(int atk) {
@@ -234,6 +305,10 @@ public abstract class Entity {
 
         gp.player.setHp(gp.player.getHp() - damage);
 
+        gp.player.knockBack = true;
+        gp.player.direction = direction;
+        gp.player.setSpeed(knockBackPower + 5);
+        
         attackCooldown = attackInterval;
     }
 
