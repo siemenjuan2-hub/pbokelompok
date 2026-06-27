@@ -16,6 +16,7 @@ public class OBJ_Armor_Better extends Entity{
         pickupable = true;
         type = type_armor;
         price = 120;
+        stackable = true;
 
         solidArea.x = 0;
         solidArea.y = 0;

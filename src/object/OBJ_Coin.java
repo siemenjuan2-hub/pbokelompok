@@ -23,6 +23,7 @@ public class OBJ_Coin extends Entity{
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         // bisa tambah attack area kalo mau
+        stackable = true;
     }
 
     public void use(Entity entity)

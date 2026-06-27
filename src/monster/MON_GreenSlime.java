@@ -47,12 +47,32 @@ public class MON_GreenSlime extends Entity {
         int xDistance = Math.abs(WorldX - gp.player.WorldX);
         int yDistance = Math.abs(WorldY - gp.player.WorldY);
 
+        // CEK JARAK AGGRO (Apakah player dalam radius 5 tile?)
         if (xDistance < gp.tileSize * 5 && yDistance < gp.tileSize * 5) {
-            onPath = true;
+            
+            // Jika sudah sangat dekat (kurang dari 1 Tile)
+            if (xDistance < gp.tileSize && yDistance < gp.tileSize) {
+                onPath = false; // Matikan pencarian rute kotak agar tidak nyangkut/jitter
+                
+                // --- DIRECT TRACKING ---
+                if (gp.player.WorldY < WorldY) direction = "up";
+                if (gp.player.WorldY > WorldY) direction = "down";
+                if (gp.player.WorldX < WorldX) direction = "left";
+                if (gp.player.WorldX > WorldX) direction = "right";
+                
+            } else {
+                // Jika masih dalam radius sedang, gunakan A* Pathfinding
+                onPath = true; 
+            }
         } else {
+            // Player di luar radius, matikan pengejaran
             onPath = false;
         }
-        if (onPath) {
+
+
+        // EKSEKUSI PERGERAKAN BERDASARKAN STATUS onPath
+        if (onPath == true) {
+            // Kalkulasi titik tengah hitbox player untuk tujuan (pusat tile player injak)
             int playerCenterX = gp.player.WorldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
             int playerCenterY = gp.player.WorldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
 
@@ -60,8 +80,9 @@ public class MON_GreenSlime extends Entity {
             int goalRow = playerCenterY / gp.tileSize;
 
             searchPath(goalCol, goalRow);
-        } else {
-
+            
+        } else if (xDistance >= gp.tileSize * 5 || yDistance >= gp.tileSize * 5) {
+            // (Hanya jalan acak jika player benar-benar jauh)
             actionLockCounter++;
 
             if (actionLockCounter == 120) {

@@ -17,6 +17,7 @@ public class OBJ_Sword_Copper extends Entity{
         type = type_sword;
         price = 100;
         knockBackPower=29;
+        stackable = true;
 
         solidArea.x = 0;
         solidArea.y = 0;
