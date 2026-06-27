@@ -29,8 +29,13 @@ public class EventHandler {
                 break;
             case 1:
                 eventMap2();
+                break;
             case 2:
                 eventMap3();
+                break;
+            case 3:
+                eventMap4();
+                break;
         }
 
         
@@ -57,13 +62,25 @@ public class EventHandler {
     public void eventMap2(){
         // event 1: Teleport OverWolrd
         if(hit(24, 28) && gp.player.direction == "down") {
-            TeleportOverWorld(gp.dialogState);
+            TeleportOverWorldRumah(gp.dialogState);
         }
     }
 
     public void eventMap3(){
-        if(hit(24, 40) && gp.player.direction == "down" && gp.aSetter.monsterCounterDungeon == 0){
-            TeleportDungeon(gp.dialogState);
+        if(hit(24, 9) && gp.player.direction == "up" && gp.aSetter.monsterCounterDungeon == 0){
+            if(gp.player.getDungeonLevel() == 10){
+                TeleportDungeonBoss(gp.dialogState);
+                gp.player.setDungeonLevel(1);
+
+            }else{
+                TeleportNextLevel(gp.dialogState);
+            }
+        }
+    }
+
+    public void eventMap4(){
+        if(gp.aSetter.monsterCounterDungeon == 0){
+            TeleportOverWorldDungeon(gp.dialogState);
         }
     }
 
@@ -130,11 +147,36 @@ public class EventHandler {
         gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
         gp.player.direction = "up";
+    }
+
+    public void TeleportNextLevel(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Teleported To Next Level";
+        gp.tileM.loadMap("/assets/Maps/Maps3", gp.currentMap);
+        gp.aSetter.setMonsterDungeon();
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
+        gp.player.direction = "up";
         gp.player.setDungeonLevel(gp.player.getDungeonLevel()+1);
     }
 
+    public void TeleportDungeonBoss(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Teleported To Boss Level!!";
+        gp.currentMap = 3;
+        gp.tileM.loadMap("/assets/Maps/Maps4", gp.currentMap);
+        gp.aSetter.setMonsterDungeonBoss();
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 22 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 37 + gp.tileSize / 2;
+        gp.player.direction = "up";
+    }
+
     // teleport OverWorld
-    public void TeleportOverWorld(int gameState) {
+    public void TeleportOverWorldRumah(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Teleported!!";
         // pindah map
@@ -147,7 +189,18 @@ public class EventHandler {
         gp.player.direction = "down";
     }
 
+    public void TeleportOverWorldDungeon(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Teleported to OverWorld!!";
+        // pindah map
+        gp.currentMap = 0;
+        gp.tileM.loadMap("/assets/Maps/Maps1", gp.currentMap);
 
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 20 - gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 22 - gp.tileSize / 2;
+        gp.player.direction = "down";
+    }
 
 
     public void drawDebugMap1(Graphics2D g2) {
