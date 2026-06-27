@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import AI.PathFinder;
 import Environment.EnvironmentManager;
 import Environment.Lighting;
+import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -55,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
     EnvironmentManager eManager = new EnvironmentManager(this);
+    SaveLoad saveLoad = new SaveLoad(this);
     Thread gameThread;
 
 
@@ -85,7 +87,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 6;
     // public final int transitionState = 7; untuk transition state di video 39 tidak di pake :D (Stevanus)
     public final int tradeState = 7;
-    public int[] curentMap;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -110,21 +111,16 @@ public class GamePanel extends JPanel implements Runnable {
         eManager.setup();
     }
 
-    public void retry(){
+    public void resetGame(boolean restart){
         player.restoredLifeAndMan();
         player.setDefaultPosition();
         aSetter.setNpc();
         aSetter.setMonster();
-    }
 
-    public void restart(){
-        player.setDefaultPosition();
-        player.setDefaultValues();
-        player.restoredLifeAndMan();
-        player.setItems();
-        aSetter.setObject();
-        aSetter.setNpc();
-        aSetter.setMonster();
+        if(restart == true){
+            player.setDefaultValues();
+            aSetter.setObject();
+        }
     }
 
     public void setFullScreen(){
