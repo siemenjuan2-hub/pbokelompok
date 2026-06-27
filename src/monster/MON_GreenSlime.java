@@ -26,7 +26,7 @@ public class MON_GreenSlime extends Entity {
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 42;
-        solidArea.height = 30;
+        solidArea.height = 42;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();
@@ -47,42 +47,21 @@ public class MON_GreenSlime extends Entity {
         int xDistance = Math.abs(WorldX - gp.player.WorldX);
         int yDistance = Math.abs(WorldY - gp.player.WorldY);
 
-        // CEK JARAK AGGRO (Apakah player dalam radius 5 tile?)
         if (xDistance < gp.tileSize * 5 && yDistance < gp.tileSize * 5) {
-            
-            // Jika sudah sangat dekat (kurang dari 1 Tile)
-            if (xDistance < gp.tileSize && yDistance < gp.tileSize) {
-                onPath = false; // Matikan pencarian rute kotak agar tidak nyangkut/jitter
-                
-                // --- DIRECT TRACKING ---
-                if (gp.player.WorldY < WorldY) direction = "up";
-                if (gp.player.WorldY > WorldY) direction = "down";
-                if (gp.player.WorldX < WorldX) direction = "left";
-                if (gp.player.WorldX > WorldX) direction = "right";
-                
-            } else {
-                // Jika masih dalam radius sedang, gunakan A* Pathfinding
-                onPath = true;
-            }
+            onPath = true;
         } else {
-            // Player di luar radius, matikan pengejaran
             onPath = false;
         }
-
-
-        // EKSEKUSI PERGERAKAN BERDASARKAN STATUS onPath
-        if (onPath == true) {
-            // Kalkulasi titik tengah hitbox player untuk tujuan (pusat tile player injak)
+        if (onPath) {
             int playerCenterX = gp.player.WorldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
             int playerCenterY = gp.player.WorldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
-            
+
             int goalCol = playerCenterX / gp.tileSize;
             int goalRow = playerCenterY / gp.tileSize;
 
             searchPath(goalCol, goalRow);
-            
-        } else if (xDistance >= gp.tileSize * 5 || yDistance >= gp.tileSize * 5) {
-            // (Hanya jalan acak jika player benar-benar jauh)
+        } else {
+
             actionLockCounter++;
 
             if (actionLockCounter == 120) {

@@ -111,64 +111,68 @@ public class KeyHandler implements KeyListener{
         
         // OPTION STATE
         else if(gp.gameState == gp.optionState) {
-    if(key == KeyEvent.VK_ESCAPE) {
-        gp.gameState = gp.playState;
-    }
-    if(key == KeyEvent.VK_ENTER) {
-        enterPressed = true;
-    }
+            if(key == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.playState;
+            }
+            if(key == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            }
 
-    int maxCommandNum = 0;
-    switch (gp.ui.subState) {
-        case 0: maxCommandNum = 5; break;
-        case 3: maxCommandNum = 1; break;
-    }
-    
-    if(key == KeyEvent.VK_W) {
-        gp.ui.commandNum--;
-        if(gp.ui.commandNum < 0) {
-            gp.ui.commandNum = maxCommandNum;
-        }
-    }
-    if(key == KeyEvent.VK_S) {
-        gp.ui.commandNum++;
-        if(gp.ui.commandNum > maxCommandNum) {
-            gp.ui.commandNum = 0;
-        }
-    }
+            int maxCommandNum = 0;
+            switch (gp.ui.subState) {
+                case 0: maxCommandNum = 5; break;
+                case 3: maxCommandNum = 1; break;
+            }
+            
+            if(key == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = maxCommandNum;
+                }
+            }
+            if(key == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum > maxCommandNum) {
+                    gp.ui.commandNum = 0;
+                }
+            }
 
-    if (gp.ui.subState == 0) {
-        // Tombol A (Kiri)
-        if (key == KeyEvent.VK_A) {
-            if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
-                gp.music.volumeScale--;
-                gp.music.checkVolume();
-            }
-            if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
-                gp.se.volumeScale--;
-            }
-            // Tombol (A) akan memilih "Save"
-            if (gp.ui.commandNum == 4) {
-                gp.ui.saveGameOn = true; 
-            }
-        }
+            if (gp.ui.subState == 0) {
+                // Tombol A (Kiri)
+                if (key == KeyEvent.VK_A) {
+                    if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
+                        gp.music.volumeScale--;
+                        gp.music.checkVolume();
+                    }
+                    if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
+                        gp.se.volumeScale--;
+                    }
+                    // Tombol (A) akan memilih "Save"
+                    if (gp.ui.commandNum == 4 && !gp.ui.saveGameOn) {
+                        gp.ui.saveGameOn = true;
+                    }else if(gp.ui.commandNum == 4 && gp.ui.saveGameOn){
+                        gp.ui.saveGameOn = false;
+                    }
+                }
 
-        // Tombol D (Kanan)
-        if (key == KeyEvent.VK_D) {
-            if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
-                gp.music.volumeScale++;
-                gp.music.checkVolume();
-            }
-            if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
-                gp.se.volumeScale++;
-            }
-            // Tombol (D) akan memilih "Dont Save"6
-            if (gp.ui.commandNum == 4) {
-                gp.ui.saveGameOn = false; 
+                // Tombol D (Kanan)
+                if (key == KeyEvent.VK_D) {
+                    if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
+                        gp.music.volumeScale++;
+                        gp.music.checkVolume();
+                    }
+                    if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
+                        gp.se.volumeScale++;
+                    }
+                    // Tombol (D) akan memilih "Dont Save"6
+                    if (gp.ui.commandNum == 4 && !gp.ui.saveGameOn) {
+                        gp.ui.saveGameOn = true;
+                    }else if(gp.ui.commandNum == 4 && gp.ui.saveGameOn){
+                        gp.ui.saveGameOn = false;
+                    }
+                }
             }
         }
-    }
-}
 
         //GAME OVER STATE
         else if (gp.gameState == gp.gameOverState) {
