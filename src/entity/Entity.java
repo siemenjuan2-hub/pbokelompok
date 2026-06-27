@@ -91,6 +91,8 @@ public abstract class Entity {
     public String description = "";
     public int price;
     public int knockBackPower=0;
+    public boolean stackable = false;
+    public int amount = 1;
     // CHARACTER STATUS
     // public int maxLife;
     // public int life;
@@ -461,8 +463,8 @@ public abstract class Entity {
 
     public void searchPath(int goalCol, int goalrow) {
 
-        int startCol = (WorldX + solidArea.x) / gp.tileSize;
-        int startRow = (WorldY + solidArea.y) / gp.tileSize;
+        int startCol = (WorldX + solidArea.x + (solidArea.width / 2)) / gp.tileSize;
+        int startRow = (WorldY + solidArea.y + (solidArea.height / 2)) / gp.tileSize;
 
         gp.pFinder.setNodes(startCol, startRow, goalCol, goalrow);
 
@@ -534,7 +536,7 @@ public abstract class Entity {
             int nextCol = gp.pFinder.pathList.get(0).col;
             int nextRow = gp.pFinder.pathList.get(0).row;
             if (nextCol == goalCol && nextRow == goalrow) {
-                onPath = false;
+                // onPath = false;
             }
 
         }

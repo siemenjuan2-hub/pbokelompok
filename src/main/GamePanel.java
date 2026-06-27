@@ -13,6 +13,8 @@ import java.util.Comparator;
 import javax.swing.JPanel;
 
 import AI.PathFinder;
+import Environment.EnvironmentManager;
+import Environment.Lighting;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -52,7 +54,9 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tileM = new TileManager(this);
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
+
 
     // ENTITY & OBJECT
     public Player player = new Player(this, keyH);
@@ -97,11 +101,13 @@ public class GamePanel extends JPanel implements Runnable {
         // playMusic(0);
         aSetter.setNpc();
         aSetter.setMonster();
+        eManager.setup();
         gameState = titleState;
 
         if(fullScreenOn){
             setFullScreen();
         }
+        eManager.setup();
     }
 
     public void retry(){
@@ -165,9 +171,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update(){
+
         if(gameState == playState){
             // PLAYER
             player.update();
+
+            //LIGHTING
+            eManager.update();
 
             // NPC
             for(int i = 0 ; i < npc[1].length ; i++){
@@ -259,6 +269,9 @@ public class GamePanel extends JPanel implements Runnable {
             //empty list
             entityList.clear();
             
+            //ENVIRONMENT
+            eManager.draw(g2);
+
             //UI
             ui.draw(g2);
             switch (currentMap) {
@@ -284,7 +297,6 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    // PERBAIKAN: Method suara menggunakan objek music dan se yang baru
     public void playMusic(int i) {
         music.setFile(i);
         music.play();

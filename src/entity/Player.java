@@ -480,18 +480,22 @@ public class Player extends Entity {
             // break;
             // }
             String text;
-            if (gp.obj[gp.currentMap][i].pickupable) {
-                if (inventory.size() != inventorySize) {
-                    inventory.add(gp.obj[gp.currentMap][i]);
+                
+                // canObtainItem sudah otomatis mengurus penambahan item (baik stack maupun slot baru)
+                if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
+                    
+                    // gp.playSE(1); // (Aktifkan baris ini jika kamu punya efek suara)
                     text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
+                    
+                    // Hapus item dari map hanya jika berhasil diambil
+                    gp.obj[gp.currentMap][i] = null; 
+                    
                 } else {
+                    // Jika tas benar-benar penuh dan tidak bisa di-stack
                     text = "You cannot carry any more!";
                 }
-                gp.obj[gp.currentMap][i] = null;
             }
-
         }
-    }
 
     public void interactNpc(int i) {
         if (gp.keyH.spacePressed == true) {
@@ -606,6 +610,46 @@ public class Player extends Entity {
 
         }
     }
+
+    public int searchItemInInventory(String itemName) {
+        int itemIndex = 999;
+
+        for(int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).name.equals(itemName)) {
+                itemIndex = i;
+                break;
+            }
+        }
+        return itemIndex;
+    }
+
+    public boolean canObtainItem (Entity item) {
+
+        boolean canObtain = false;
+
+        //CEK STACKABLE ATAU NDA
+        if (item.stackable = true) {
+            int index = searchItemInInventory(item.name);
+
+            if (index != 999) {
+                inventory.get(index).amount++;
+                canObtain = true;
+            } else { // KALO NDA STACKABLE
+                if (inventory.size() != inventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+                }
+            }
+        }
+        else{
+            if (inventory.size() != inventorySize) {
+                inventory.add(item);
+                canObtain = true;
+            }
+        }
+        return canObtain;
+    }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;

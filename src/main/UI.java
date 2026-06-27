@@ -691,6 +691,25 @@ public class UI {
                 null
             );
 
+            //DISPLAY AMOUNT 
+            if (entity.inventory.get(i).amount > 1) {
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+
+                String s = "" + entity.inventory.get(i).amount;
+                amountX = getXforAlignToRightText(s, slotX + (gp.tileSize / 2));
+                amountY = slotY + (gp.tileSize) / 2;
+
+                //SHADOW
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s, amountX, amountY);
+
+                //NUMBER
+                g2.setColor(Color.white);
+                g2.drawString(s, amountX - 1, amountY - 1);
+            }
+
             slotX += slotsize;
 
             //sebelum
@@ -891,5 +910,11 @@ public class UI {
         int x = tailX - length;
         return x;
     }
+
+    public int getXforAlignToRightText(String text, int tailX) {
+    int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    int x = tailX - length;
+    return x;
+}
 
 }
