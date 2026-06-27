@@ -26,6 +26,7 @@ public class TileManager {
         getTileImage();
         loadMap("/assets/Maps/Maps1.txt", 0);
         loadMap("/assets/Maps/Maps2.txt", 1);
+        loadMap("/assets/Maps/Maps3.txt", 2);
     }
 
     public void getTileImage(){
@@ -66,6 +67,9 @@ public class TileManager {
         setup(23, "/Rumah/floor01", false);
         setup(24, "/Rumah/wall01", true);
 
+        // Dungeon (maps3.txt) 
+        setup(25, "/Dungeon/dungeon-door",false);
+        setup(26, "/Dungeon/dungeon-floor1", false);
         
     }
 

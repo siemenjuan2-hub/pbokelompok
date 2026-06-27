@@ -278,6 +278,9 @@ public class GamePanel extends JPanel implements Runnable {
                 case 1:
                     eHandler.drawDebugMap2(g2);
                     break;
+                case 2:
+                    eHandler.drawDebugMap3(g2);
+                    break;
             }
             g2.setColor(Color.RED);
         }

@@ -29,6 +29,8 @@ public class EventHandler {
                 break;
             case 1:
                 eventMap2();
+            case 2:
+                eventMap3();
         }
 
         
@@ -45,12 +47,22 @@ public class EventHandler {
         if(hit(37, 21) && gp.player.direction == "up") {
             TeleportRumahTrader(gp.dialogState);
         }
+
+        if(hit(20, 21) && gp.player.direction == "up") {
+            TeleportDungeon(gp.dialogState);
+        }
     }
 
     // EVENT MAP 2
     public void eventMap2(){
         // event 1: Teleport OverWolrd
         if(hit(24, 28) && gp.player.direction == "down") {
+            TeleportOverWorld(gp.dialogState);
+        }
+    }
+
+    public void eventMap3(){
+        if(hit(24, 40) && gp.player.direction == "down"){
             TeleportOverWorld(gp.dialogState);
         }
     }
@@ -108,6 +120,19 @@ public class EventHandler {
         gp.player.direction = "up";
     }
 
+    // teleport dungeon
+    public void TeleportDungeon(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Teleported!!";
+        gp.currentMap = 2;
+        gp.tileM.loadMap("/assets/Maps/Maps3", gp.currentMap);
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
+        gp.player.direction = "up";
+    }
+
     // teleport OverWorld
     public void TeleportOverWorld(int gameState) {
         gp.gameState = gameState;
@@ -128,10 +153,15 @@ public class EventHandler {
     public void drawDebugMap1(Graphics2D g2) {
         drawEventRect(g2, 25, 21); // Burned Tree
         drawEventRect(g2, 37, 21); // Teleport Rumah Trader
+        drawEventRect(g2, 20, 21); // Teleport Dungeon
     }
 
     public void drawDebugMap2(Graphics2D g2){
         drawEventRect(g2, 24, 28); // Teleport Over Wolrd
+    }
+
+    public void drawDebugMap3(Graphics2D g2){
+        drawEventRect(g2, 24, 40); // Teleport balik overworld
     }
 
     private void drawEventRect(Graphics2D g2, int col, int row) {
