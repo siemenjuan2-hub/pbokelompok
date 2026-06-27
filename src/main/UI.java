@@ -417,7 +417,6 @@ public boolean saveGameOn = false; // Ini default nda save
             g2.drawString(">", textX - 35, textY);
             if (gp.keyH.enterPressed == true) {
                 subState = 3;
-                commandNum = 0;
             }
         }
 

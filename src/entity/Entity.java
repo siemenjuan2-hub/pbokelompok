@@ -472,7 +472,7 @@ public abstract class Entity {
 
             pathList = new ArrayList<>(gp.pFinder.pathList);
 
-            // next WorldX & WorldY target path
+            // next WorldX & WorldY
             int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
 
@@ -482,45 +482,52 @@ public abstract class Entity {
             int enTopY = WorldY + solidArea.y;
             int enBottomY = WorldY + solidArea.y + solidArea.height;
 
-            // Cari selisih jarak untuk menentukan arah prioritas
-            int distX = Math.abs(enLeftX - nextX);
-            int distY = Math.abs(enTopY - nextY);
-
-            // Jika jarak vertikal lebih dominan, utamakan bergerak ke atas/bawah
-            if (distY > distX) {
-                if (enTopY > nextY) {
-                    direction = "up";
-                } else {
-                    direction = "down";
-                }
+            if (enTopY > nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
+                direction = "up";
                 checkCollision();
-
-                // Jika terbentur saat bergerak vertikal, coba bergerak horizontal
-                if (collisionON) {
-                    if (enLeftX > nextX) {
-                        direction = "left";
-                    } else {
-                        direction = "right";
-                    }
-                    checkCollision();
-                }
-            } 
-            // Jika jarak horizontal lebih dominan, utamakan bergerak ke kiri/kanan
-            else {
+            } else if (enTopY < nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
+                direction = "down";
+                checkCollision();
+            } else if (enTopY >= nextY && enBottomY <= nextY + gp.tileSize) {
+                // left or right
                 if (enLeftX > nextX) {
                     direction = "left";
-                } else {
-                    direction = "right";
+                    checkCollision();
                 }
+                if (enRightX < nextX + gp.tileSize) {
+                    direction = "right";
+                    checkCollision();
+                }
+            } else if (enTopY > nextY && enLeftX > nextX) {
+                // up or left
+                direction = "up";
                 checkCollision();
-
-                // Jika terbentur saat bergerak horizontal, coba bergerak vertikal
                 if (collisionON) {
-                    if (enTopY > nextY) {
-                        direction = "up";
-                    } else {
-                        direction = "down";
-                    }
+                    direction = "left";
+                    checkCollision();
+                }
+            } else if (enTopY > nextY && enLeftX < nextX) {
+                // up or right
+                direction = "up";
+                checkCollision();
+                if (collisionON) {
+                    direction = "right";
+                    checkCollision();
+                }
+            } else if (enTopY < nextY && enLeftX > nextX) {
+                // down or left
+                direction = "down";
+                checkCollision();
+                if (collisionON) {
+                    direction = "left";
+                    checkCollision();
+                }
+            } else if (enTopY < nextY && enLeftX < nextX) {
+                // down or right
+                direction = "down";
+                checkCollision();
+                if (collisionON) {
+                    direction = "right";
                     checkCollision();
                 }
             }
@@ -529,10 +536,10 @@ public abstract class Entity {
             int nextCol = gp.pFinder.pathList.get(0).col;
             int nextRow = gp.pFinder.pathList.get(0).row;
             if (nextCol == goalCol && nextRow == goalrow) {
-                // onPath = false;
+                onPath = false;
             }
+
         }
-        
     }
 
     public void dyingAnimation(Graphics2D g2) {
