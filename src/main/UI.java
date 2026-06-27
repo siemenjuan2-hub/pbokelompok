@@ -35,6 +35,8 @@ public class UI {
     public int playerSlotCol=0;
     public int playerSlotRow=0;
 
+public boolean saveGameOn = false; // Ini default nda save
+
     // BufferedImage coin;
     // // for icon (NGEBUG ND JELAS)
     // Entity iconcoin = new OBJ_Coin(gp);
@@ -76,6 +78,9 @@ public class UI {
         }
         // play state
         if(gp.gameState == gp.playState){
+            if(gp.currentMap == 2){
+                g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
+            }
             g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
             g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
             // g2.drawString("Potion: " + gp.player.hasPotion, gp.tileSize*4, gp.tileSize*8);
@@ -104,7 +109,7 @@ public class UI {
         // trade state
         if(gp.gameState == gp.tradeState){
             drawTradeScreen();
-        }        
+        }
     }
 
     public void drawGameOverScreen() {
@@ -156,10 +161,10 @@ public class UI {
 
     public void drawOptionScreen(){
         g2.setColor(Color.WHITE);
-        g2.setFont(g2.getFont().deriveFont(32F)); 
+        g2.setFont(g2.getFont().deriveFont(32F));
 
         int frameWidth = gp.tileSize * 5;
-        int frameHeight = gp.tileSize * 6; 
+        int frameHeight = gp.tileSize * 6;
         int frameX = gp.getWidth() / 2 - frameWidth / 2;
         int frameY = gp.getHeight() / 2 - frameHeight / 2;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -205,7 +210,7 @@ public class UI {
 
         // DRAW TEXT
         int textX = x + 25;
-        int textY = y + 45; 
+        int textY = y + 45;
         int lineSpace = 45;
 
         g2.drawString("Buy", textX, textY);
@@ -222,19 +227,19 @@ public class UI {
             g2.drawString(">", textX-20, textY);
             if(gp.keyH.enterPressed == true){
                 subState = 2;
-            }            
-        }        
+            }
+        }
         textY += lineSpace;
 
-        g2.drawString("Leave", textX, textY);   
+        g2.drawString("Leave", textX, textY);
         if(commandNum == 2){
             g2.drawString(">", textX-20, textY);
             if(gp.keyH.enterPressed == true){
                 commandNum = 0;
                 gp.gameState = gp.dialogState;
-                currentDialogue = "Come again soon!";                
-            }            
-        }          
+                currentDialogue = "Come again soon!";
+            }
+        }
     }
 
     public void trade_buy()
@@ -350,16 +355,15 @@ public class UI {
                     gp.player.coin += price;
                 }
             }
-        }         
+        }
     }
 
     public void option_top(int frameX, int frameY){
 
-        int textY;
         int textX;
+        int textY;
 
         // TITLE
-
         String text = "Option";
         textX = getXforCenteredText(text);
         textY = frameY + gp.tileSize / 2;
@@ -408,7 +412,7 @@ public class UI {
 
         // END GAME
         textY+=gp.tileSize/2;
-        g2.drawString("End Game", textX, textY);
+        g2.drawString("Save Game", textX, textY);
         if(commandNum == 4){
             g2.drawString(">", textX - 35, textY);
             if (gp.keyH.enterPressed == true) {
@@ -449,6 +453,28 @@ public class UI {
         g2.drawRect(textX, textY, 200, 30);
         volumeWidth = 40 * gp.se.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
+
+        // SAVE / DONT SAVE
+        textY += (gp.tileSize / 2) * 2 + gp.tileSize / 4;
+        
+        String toggleText = "";
+        if(commandNum == 4){
+            if (saveGameOn == true) {
+                toggleText = "Save";
+                if(gp.keyH.enterPressed){
+                    gp.saveLoad.save();
+                    gp.gameState = gp.titleState;
+                }
+            } else {
+                toggleText = "Dont Save";
+                if(gp.keyH.enterPressed){
+                    gp.gameState = gp.titleState;
+                }
+            }
+            g2.drawString("< " + toggleText + " >", textX - 35, textY);
+        }else {
+            g2.drawString(toggleText, textX - 35, textY);
+        }
 
         gp.config.saveConfig();
     }
@@ -501,7 +527,7 @@ public class UI {
         y = gp.getHeight()/ 2 + 100;
         g2.drawImage(gp.player.up1, x, y, gp.player.entitySize, gp.player.entitySize, null);
 
-        //MENU 
+        //MENU
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
         int menuY = gp.getHeight() * 2 / 3;
         text = "NEW GAME";
@@ -631,12 +657,12 @@ public class UI {
         int slotRow = 0;
 
         if(entity == gp.player){
-            frameWidth = ((gp.tileSize/2)* 5) + 70; 
+            frameWidth = ((gp.tileSize/2)* 5) + 70;
             frameHeight = ((gp.tileSize/2)* 5);
             frameX = gp.screenWidth - frameWidth - gp.tileSize;
-            frameY = gp.tileSize;        
+            frameY = gp.tileSize;
             slotCol = playerSlotCol;
-            slotRow = playerSlotRow;           
+            slotRow = playerSlotRow;
         }
         else {
             frameWidth = ((gp.tileSize/2) * 5) + 70;

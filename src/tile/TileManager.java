@@ -67,7 +67,7 @@ public class TileManager {
         setup(23, "/Rumah/floor01", false);
         setup(24, "/Rumah/wall01", true);
 
-        // Dungeon (maps3.txt) 
+        // Dungeon (maps3.txt)
         setup(25, "/Dungeon/dungeon-door",false);
         setup(26, "/Dungeon/dungeon-floor1", false);
         

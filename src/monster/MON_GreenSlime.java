@@ -62,7 +62,7 @@ public class MON_GreenSlime extends Entity {
                 
             } else {
                 // Jika masih dalam radius sedang, gunakan A* Pathfinding
-                onPath = true; 
+                onPath = true;
             }
         } else {
             // Player di luar radius, matikan pengejaran
@@ -75,7 +75,7 @@ public class MON_GreenSlime extends Entity {
             // Kalkulasi titik tengah hitbox player untuk tujuan (pusat tile player injak)
             int playerCenterX = gp.player.WorldX + gp.player.solidArea.x + gp.player.solidArea.width / 2;
             int playerCenterY = gp.player.WorldY + gp.player.solidArea.y + gp.player.solidArea.height / 2;
-
+            
             int goalCol = playerCenterX / gp.tileSize;
             int goalRow = playerCenterY / gp.tileSize;
 
