@@ -101,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         // playMusic(0);
         aSetter.setNpc();
-        aSetter.setMonster();
+        aSetter.setMonsterMap1();
         eManager.setup();
         gameState = titleState;
 
@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.restoredLifeAndMan();
         player.setDefaultPosition();
         aSetter.setNpc();
-        aSetter.setMonster();
+        aSetter.setMonsterMap1();
 
         if(restart == true){
             player.setDefaultValues();
@@ -194,6 +194,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if(!monster[currentMap][i].alive) {
                     monster[currentMap][i].checkDrop();
                     monster[currentMap][i] = null;
+                    aSetter.monsterCounterDungeon--;
                 }
             }
         }

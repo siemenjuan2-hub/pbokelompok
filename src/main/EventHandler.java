@@ -62,8 +62,8 @@ public class EventHandler {
     }
 
     public void eventMap3(){
-        if(hit(24, 40) && gp.player.direction == "down"){
-            TeleportOverWorld(gp.dialogState);
+        if(hit(24, 40) && gp.player.direction == "down" && gp.aSetter.monsterCounterDungeon == 0){
+            TeleportDungeon(gp.dialogState);
         }
     }
 
@@ -100,8 +100,6 @@ public class EventHandler {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Burned By A BurnedTree!!";
         gp.player.setHp(gp.player.getHp() - 10);
-        
-        gp.saveLoad.save();
     }
 
     // EVENT: TELEPORT
@@ -126,11 +124,13 @@ public class EventHandler {
         gp.ui.currentDialogue = "You Teleported!!";
         gp.currentMap = 2;
         gp.tileM.loadMap("/assets/Maps/Maps3", gp.currentMap);
+        gp.aSetter.setMonsterDungeon();
 
         // atur lokasi player setelah teleport
         gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
         gp.player.direction = "up";
+        gp.player.setDungeonLevel(gp.player.getDungeonLevel()+1);
     }
 
     // teleport OverWorld

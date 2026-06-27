@@ -26,11 +26,12 @@ public class Player extends Entity {
     int chargeCounter = 0;
     int attackCounter = 0;
     // public int hasPotion = 0;
-    public int entitySize = 256;
+    public int entitySize = 300;
     public boolean atkDelay = false;
 
     // coin
     public int coin = 500;
+    private int dungeonLevel;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -38,17 +39,17 @@ public class Player extends Entity {
 
         // 1: Hitbox
         solidArea = new Rectangle();
-        solidArea.x = 90; // Jarak aman dari sisi kiri karakter
+        solidArea.x = 100; // Jarak aman dari sisi kiri karakter
         solidArea.y = 120; // Jarak aman dari kepala (hitbox melindungi area perut ke kaki)
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        solidArea.width = 64; // Lebar kotak tabrakan (48 - 8 - 8)
-        solidArea.height = 64; // Tinggi kotak tabrakan
+        solidArea.width = 90; // Lebar kotak tabrakan (48 - 8 - 8)
+        solidArea.height = 90; // Tinggi kotak tabrakan
 
-        attackArea.width = 64; // Lebar area serangan (sesuai dengan sprite serangan)
-        attackArea.height = 64; // Tinggi area serangan (sesuai dengan sprite serangan)
+        attackArea.width = 90; // Lebar area serangan (sesuai dengan sprite serangan)
+        attackArea.height = 90; // Tinggi area serangan (sesuai dengan sprite serangan)
 
         setDefaultValues();
     }
@@ -505,23 +506,28 @@ public class Player extends Entity {
             // gp.ui.showMassage("You Got A Autumn Bush!");
             // break;
             // }
+
+            // Ambil objek yang sedang disentuh
+            Entity item = gp.obj[gp.currentMap][i];
             String text;
                 
+            // Apakah objek ini boleh diambil?
+            if (item.pickupable == true) {
+                
                 // canObtainItem sudah otomatis mengurus penambahan item (baik stack maupun slot baru)
-                if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
-                    
-                    // gp.playSE(1); // (Aktifkan baris ini jika kamu punya efek suara)
-                    text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
-                    
+                if (canObtainItem(item) == true) {
+                    text = "Got a " + item.name + "!";
+                
                     // Hapus item dari map hanya jika berhasil diambil
                     gp.obj[gp.currentMap][i] = null; 
                     
                 } else {
-                    // Jika tas benar-benar penuh dan tidak bisa di-stack
+                    // Jika tas benar-benar penuh 
                     text = "You cannot carry any more!";
                 }
             }
         }
+    }
 
     public void interactNpc(int i) {
         if (gp.keyH.spacePressed == true) {
@@ -649,32 +655,30 @@ public class Player extends Entity {
         return itemIndex;
     }
 
-    public boolean canObtainItem (Entity item) {
+    public boolean canObtainItem(Entity item) {
+    boolean canObtain = false;
 
-        boolean canObtain = false;
+    // PERBAIKAN: Gunakan == atau langsung panggil boolean-nya
+    if (item.stackable == true) { 
+        int index = searchItemInInventory(item.name);
 
-        //CEK STACKABLE ATAU NDA
-        if (item.stackable = true) {
-            int index = searchItemInInventory(item.name);
-
-            if (index != 999) {
-                inventory.get(index).amount++;
-                canObtain = true;
-            } else { // KALO NDA STACKABLE
-                if (inventory.size() != inventorySize) {
-                    inventory.add(item);
-                    canObtain = true;
-                }
-            }
-        }
-        else{
+        if (index != 999) {
+            inventory.get(index).amount++;
+            canObtain = true;
+        } else { 
             if (inventory.size() != inventorySize) {
                 inventory.add(item);
                 canObtain = true;
             }
         }
-        return canObtain;
+    } else { // KALO NDA STACKABLE
+        if (inventory.size() != inventorySize) {
+            inventory.add(item);
+            canObtain = true;
+        }
     }
+    return canObtain;
+}
 
 
     public void draw(Graphics2D g2) {
@@ -829,13 +833,20 @@ public class Player extends Entity {
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1f));
 
         // HITBOX PLAYER
-        g2.setColor(java.awt.Color.GREEN);
+        g2.setColor(java.awt.Color.ORANGE);
 
         g2.drawRect(
-                tempScreenX + solidArea.x,
-                tempScreenY + solidArea.y,
+                (gp.player.WorldX + gp.player.solidArea.x) / gp.tileSize,
+                (gp.player.WorldY + gp.player.solidArea.y) / gp.tileSize,
                 solidArea.width,
                 solidArea.height);
+
+        // GOAL MONSTER PATHFINDING
+        g2.drawRect(
+        tempScreenX + solidArea.x,
+        tempScreenY + solidArea.y,
+        solidArea.width,
+        solidArea.height);
 
         // HITBOX ATTACK
         if (attack) {
@@ -880,5 +891,13 @@ public class Player extends Entity {
     public void updateStats() {
         setAtk(getStrength() + currentSword.attackValue);
         setDefense(getDef() + currentArmor.defenseValue);
+    }
+
+    public int getDungeonLevel(){
+        return dungeonLevel;
+    }
+
+    public void setDungeonLevel(int dungeonLevel){
+        this.dungeonLevel = dungeonLevel;
     }
 }

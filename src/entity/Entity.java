@@ -460,11 +460,11 @@ public abstract class Entity {
             }
         }
     }
-
+    
     public void searchPath(int goalCol, int goalrow) {
 
-        int startCol = (WorldX + solidArea.x + (solidArea.width / 2)) / gp.tileSize;
-        int startRow = (WorldY + solidArea.y + (solidArea.height / 2)) / gp.tileSize;
+        int startCol = (WorldX + solidArea.x) / gp.tileSize;
+        int startRow = (WorldY + solidArea.y) / gp.tileSize;
 
         gp.pFinder.setNodes(startCol, startRow, goalCol, goalrow);
 
@@ -472,7 +472,7 @@ public abstract class Entity {
 
             pathList = new ArrayList<>(gp.pFinder.pathList);
 
-            // next WorldX & WorldY
+            // next WorldX & WorldY target path
             int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
 
@@ -482,52 +482,45 @@ public abstract class Entity {
             int enTopY = WorldY + solidArea.y;
             int enBottomY = WorldY + solidArea.y + solidArea.height;
 
-            if (enTopY > nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
-                direction = "up";
+            // Cari selisih jarak untuk menentukan arah prioritas
+            int distX = Math.abs(enLeftX - nextX);
+            int distY = Math.abs(enTopY - nextY);
+
+            // Jika jarak vertikal lebih dominan, utamakan bergerak ke atas/bawah
+            if (distY > distX) {
+                if (enTopY > nextY) {
+                    direction = "up";
+                } else {
+                    direction = "down";
+                }
                 checkCollision();
-            } else if (enTopY < nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
-                direction = "down";
-                checkCollision();
-            } else if (enTopY >= nextY && enBottomY <= nextY + gp.tileSize) {
-                // left or right
+
+                // Jika terbentur saat bergerak vertikal, coba bergerak horizontal
+                if (collisionON) {
+                    if (enLeftX > nextX) {
+                        direction = "left";
+                    } else {
+                        direction = "right";
+                    }
+                    checkCollision();
+                }
+            } 
+            // Jika jarak horizontal lebih dominan, utamakan bergerak ke kiri/kanan
+            else {
                 if (enLeftX > nextX) {
                     direction = "left";
-                    checkCollision();
-                }
-                if (enRightX < nextX + gp.tileSize) {
+                } else {
                     direction = "right";
-                    checkCollision();
                 }
-            } else if (enTopY > nextY && enLeftX > nextX) {
-                // up or left
-                direction = "up";
                 checkCollision();
+
+                // Jika terbentur saat bergerak horizontal, coba bergerak vertikal
                 if (collisionON) {
-                    direction = "left";
-                    checkCollision();
-                }
-            } else if (enTopY > nextY && enLeftX < nextX) {
-                // up or right
-                direction = "up";
-                checkCollision();
-                if (collisionON) {
-                    direction = "right";
-                    checkCollision();
-                }
-            } else if (enTopY < nextY && enLeftX > nextX) {
-                // down or left
-                direction = "down";
-                checkCollision();
-                if (collisionON) {
-                    direction = "left";
-                    checkCollision();
-                }
-            } else if (enTopY < nextY && enLeftX < nextX) {
-                // down or right
-                direction = "down";
-                checkCollision();
-                if (collisionON) {
-                    direction = "right";
+                    if (enTopY > nextY) {
+                        direction = "up";
+                    } else {
+                        direction = "down";
+                    }
                     checkCollision();
                 }
             }
@@ -538,8 +531,8 @@ public abstract class Entity {
             if (nextCol == goalCol && nextRow == goalrow) {
                 // onPath = false;
             }
-
         }
+        
     }
 
     public void dyingAnimation(Graphics2D g2) {
