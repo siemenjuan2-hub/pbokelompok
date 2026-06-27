@@ -76,6 +76,8 @@ public class SaveLoad {
             ds.exp = gp.player.getExp();
             ds.nextLevelExp = gp.player.getNextLevelExp();
             ds.coin = gp.player.coin;
+            ds.dungeonLevel = gp.player.getDungeonLevel();
+            ds.dungeonStage = gp.player.getDungeonStage();
 
             // PLAYER INVENTORY
             for (int i = 0 ; i < gp.player.inventory.size() ; i++){
@@ -121,6 +123,9 @@ public class SaveLoad {
             // read DataStorage Object
             DataStorage ds = (DataStorage)ois.readObject();
 
+            // SET POSITION PALYER
+            gp.player.setDefaultPosition();
+
             // PLAYER STATS
             gp.player.setLevel(ds.level);
             gp.player.setMaxHp(ds.maxHp);
@@ -131,6 +136,8 @@ public class SaveLoad {
             gp.player.setExp(ds.exp);
             gp.player.setNextLevelExp(ds.nextLevelExp);
             gp.player.coin = ds.coin;
+            gp.player.setDungeonLevel(ds.dungeonLevel);
+            gp.player.setDungeonStage(ds.dungeonStage);
 
             // PLAYER INVENTORY
             gp.player.inventory.clear();

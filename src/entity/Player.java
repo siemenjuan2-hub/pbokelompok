@@ -32,6 +32,7 @@ public class Player extends Entity {
     // coin
     public int coin = 500;
     private int dungeonLevel;
+    private int dungeonStage;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -78,6 +79,8 @@ public class Player extends Entity {
         currentSword = new OBJ_Sword_Normal(gp);
         setAtk(this.getStrength() + currentSword.attackValue);
         setDefense(this.getDef() + currentArmor.defenseValue);
+        this.setDungeonLevel(1);
+        this.setDungeonStage(1);
 
         
         getPlayerImage();
@@ -110,6 +113,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultPosition() {
+        gp.currentMap = 0;
+        gp.tileM.loadMap("/assets/Maps/Maps1", gp.currentMap);
         WorldX = gp.tileSize * 23;
         WorldY = gp.tileSize * 21;
         direction = "down";
@@ -899,5 +904,13 @@ public class Player extends Entity {
 
     public void setDungeonLevel(int dungeonLevel){
         this.dungeonLevel = dungeonLevel;
+    }
+
+    public int getDungeonStage(){
+        return dungeonStage;
+    }
+
+    public void setDungeonStage(int dungeonStage){
+        this.dungeonStage = dungeonStage;
     }
 }

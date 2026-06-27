@@ -79,6 +79,7 @@ public boolean saveGameOn = false; // Ini default nda save
         // play state
         if(gp.gameState == gp.playState){
             if(gp.currentMap == 2){
+                g2.drawString("DungeonStage: " + gp.player.getDungeonStage(), gp.tileSize/8, gp.tileSize / 2);
                 g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
             }
             g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);

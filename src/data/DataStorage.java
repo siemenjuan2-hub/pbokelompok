@@ -16,6 +16,8 @@ public class DataStorage implements Serializable {
     int exp;
     int nextLevelExp;
     int coin;
+    int dungeonLevel;
+    int dungeonStage;
 
     // PLAYER INVENTORY
     ArrayList<String> itemNames = new ArrayList<>();
