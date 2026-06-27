@@ -51,9 +51,6 @@ public class Player extends Entity {
         attackArea.height = 64; // Tinggi area serangan (sesuai dengan sprite serangan)
 
         setDefaultValues();
-        getPlayerImage();
-        getPlayerAttackImage();
-        setItems();
     }
 
     public void setDefaultValues() {
@@ -80,6 +77,35 @@ public class Player extends Entity {
         currentSword = new OBJ_Sword_Normal(gp);
         setAtk(this.getStrength() + currentSword.attackValue);
         setDefense(this.getDef() + currentArmor.defenseValue);
+
+        
+        getPlayerImage();
+        getPlayerAttackImage();
+        setItems();
+    }
+
+    public int getCurrentSwordSlot(){
+        int currentSwordSlot = 0;
+
+        for(int i = 0 ; i < inventory.size() ; i++){
+            if(inventory.get(i) == currentSword){
+                currentSwordSlot = i;
+            }
+        }
+
+        return currentSwordSlot;
+    }
+
+    public int getCurrentArmorSlot(){
+        int currentArmorSlot = 0;
+
+        for(int i = 0 ; i < inventory.size() ; i++){
+            if(inventory.get(i) == currentArmor){
+                currentArmorSlot = i;
+            }
+        }
+
+        return currentArmorSlot;
     }
 
     public void setDefaultPosition() {

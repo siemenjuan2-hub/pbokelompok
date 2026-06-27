@@ -88,6 +88,8 @@ public class EventHandler {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You Burned By A BurnedTree!!";
         gp.player.setHp(gp.player.getHp() - 10);
+        
+        gp.saveLoad.save();
     }
 
     // EVENT: TELEPORT
