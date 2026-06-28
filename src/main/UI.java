@@ -14,7 +14,6 @@ import javax.sound.sampled.Line;
 import javax.swing.*;
 
 import entity.Entity;
-import object.OBJ_Coin;
 import object.OBJ_Potion_Health;
 
 public class UI {
@@ -289,15 +288,25 @@ public boolean saveGameOn = false; // Ini default nda save
                     currentDialogue = "You need more coins to buy that!";
                     drawDialogScreen();
                 }
-                else if(gp.player.inventory.size() == gp.player.inventorySize){
-                    subState = 0;
-                    gp.gameState = gp.dialogState;
-                    currentDialogue = "You cannot carry any more items!";
-                }
                 else{
-                    gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                    if(gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true){
+                        gp.player.coin -= npc.inventory.get(itemIndex).price;
+                    }
+                    else {
+                        subState = 0;
+                        gp.gameState = gp.dialogState;
+                        currentDialogue = "You cannot carry any more items!";
+                    }
                 }
+                // else if(gp.player.inventory.size() == gp.player.inventorySize){
+                //     subState = 0;
+                //     gp.gameState = gp.dialogState;
+                //     currentDialogue = "You cannot carry any more items!";
+                // }
+                // else{
+                //     gp.player.coin -= npc.inventory.get(itemIndex).price;
+                //     gp.player.inventory.add(npc.inventory.get(itemIndex));
+                // }
             }
         }
     }
@@ -352,7 +361,12 @@ public boolean saveGameOn = false; // Ini default nda save
                     currentDialogue = "You cannot sell an equipped item!";
                 }
                 else{
-                    gp.player.inventory.remove(itemIndex);
+                    if(gp.player.inventory.get(itemIndex).amount > 1){
+                        gp.player.inventory.get(itemIndex).amount--;
+                    }
+                    else{
+                        gp.player.inventory.remove(itemIndex);
+                    }
                     gp.player.coin += price;
                 }
             }
@@ -413,7 +427,7 @@ public boolean saveGameOn = false; // Ini default nda save
 
         // END GAME
         textY+=gp.tileSize/2;
-        g2.drawString("Save Game", textX, textY);
+        g2.drawString("Exit", textX, textY);
         if(commandNum == 4){
             g2.drawString(">", textX - 35, textY);
             if (gp.keyH.enterPressed == true) {
@@ -718,7 +732,7 @@ public boolean saveGameOn = false; // Ini default nda save
             );
 
             //DISPLAY AMOUNT 
-            if (entity.inventory.get(i).amount > 1) {
+            if (entity == gp.player && entity.inventory.get(i).amount > 1) {
                 g2.setFont(g2.getFont().deriveFont(32f));
                 int amountX;
                 int amountY;

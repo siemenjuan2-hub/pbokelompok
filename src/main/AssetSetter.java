@@ -90,6 +90,10 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Potion_Health(gp);
         gp.obj[mapNum][i].WorldX = 27 * gp.tileSize;
         gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Health(gp);
+        gp.obj[mapNum][i].WorldX = 28 * gp.tileSize;
+        gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;        
     }
 
     public void setNpc(){
