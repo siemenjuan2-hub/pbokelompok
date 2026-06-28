@@ -82,6 +82,8 @@ public abstract class Entity {
     // ENTITY ITEM
     public Entity currentSword;
     public Entity currentArmor;
+    public int upgradeLevel = 0;
+    public static final int max_upgrade = 5;
 
     // ITEM ATTRIBUTE
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -99,11 +101,11 @@ public abstract class Entity {
 
     // TYPE
     public int type; // 0 = npc, 1 = monster.
-    public final int type_npc = 0;
-    public final int type_monster = 1;
-    public final int type_sword = 2;
-    public final int type_armor = 3;
-    public final int type_consumable = 4;
+    public final static int type_npc = 0;
+    public final static int type_monster = 1;
+    public final static int type_sword = 2;
+    public final static int type_armor = 3;
+    public final static int type_consumable = 4;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

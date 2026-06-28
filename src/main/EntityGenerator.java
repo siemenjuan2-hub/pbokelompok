@@ -34,8 +34,8 @@ public class EntityGenerator {
             case OBJ_Potion_Health.objName: obj = new OBJ_Potion_Health(gp); break;
             case KananBawah.objName: obj = new KananBawah(gp); break;
             case KananAtas.objName: obj = new KananAtas(gp); break;
-            case Kiribawah.objName: obj = new KiriAtas(gp); break;
-            case KiriAtas.objName: obj = new Kiribawah(gp); break;
+            case Kiribawah.objName: obj = new Kiribawah(gp); break;
+            case KiriAtas.objName: obj = new KiriAtas(gp); break;
             case OBJ_AutumnBush.objName: obj = new OBJ_AutumnBush(gp); break;
             case OBJ_BurnedTree.objName: obj = new OBJ_BurnedTree(gp); break;
             case OBJ_Bush1.objName: obj = new OBJ_Bush1(gp); break;

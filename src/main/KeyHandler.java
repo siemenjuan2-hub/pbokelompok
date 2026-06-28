@@ -212,12 +212,12 @@ public class KeyHandler implements KeyListener{
                 if(key == KeyEvent.VK_W){
                     gp.ui.commandNum--;
                     if(gp.ui.commandNum < 0){
-                        gp.ui.commandNum = 2;
+                        gp.ui.commandNum = 3;
                     }
                 }
                 if(key == KeyEvent.VK_S){
                     gp.ui.commandNum++;
-                    if(gp.ui.commandNum > 2){
+                    if(gp.ui.commandNum > 3){
                         gp.ui.commandNum = 0;
                     }
                 }                
@@ -233,7 +233,13 @@ public class KeyHandler implements KeyListener{
                 if(key == KeyEvent.VK_ESCAPE){
                     gp.ui.subState = 0;
                 }
-            }            
+            }   
+            if(gp.ui.subState == 3){
+                playerInventory(key);
+                if(key == KeyEvent.VK_ESCAPE){
+                    gp.ui.subState = 0;
+                }
+            }                       
         }
 
         // DUNGEON OPTION

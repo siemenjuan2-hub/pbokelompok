@@ -697,6 +697,21 @@ public class Player extends Entity {
         return canObtain;
     }
 
+    // UPGRADE SENJATA/ARMOR
+    public int findUpgradeMaterial(Entity selectedItem){
+        for(int i=0; i<inventory.size(); i++){
+            Entity item = inventory.get(i);
+            if(item == selectedItem){
+                continue;
+            }
+
+            if(item.name.equals(selectedItem.name)){
+                return i;
+            }
+        }
+        return 999;
+    }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;

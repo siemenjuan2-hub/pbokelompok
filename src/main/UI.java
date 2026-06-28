@@ -264,6 +264,7 @@ public class UI {
             case 0: trade_select(); break;
             case 1: trade_buy(); break;
             case 2: trade_sell(); break;
+            case 3: trade_upgrade(); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -279,7 +280,7 @@ public class UI {
         int dialogHeight = gp.tileSize * 2;
 
         int width = 180;
-        int height = 170;
+        int height = 200;
         int x = dialogX + dialogWidth - width;
         int y = dialogY + dialogHeight + 10;
 
@@ -308,15 +309,24 @@ public class UI {
         }
         textY += lineSpace;
 
-        g2.drawString("Leave", textX, textY);
+        g2.drawString("Upgrade", textX, textY);
         if(commandNum == 2){
+            g2.drawString(">", textX-20, textY);
+            if(gp.keyH.enterPressed == true){
+                subState = 3;
+            }
+        }        
+        textY += lineSpace;
+
+        g2.drawString("Leave", textX, textY);
+        if(commandNum == 3){
             g2.drawString(">", textX-20, textY);
             if(gp.keyH.enterPressed == true){
                 commandNum = 0;
                 gp.gameState = gp.dialogState;
                 currentDialogue = "Come again soon!";
             }
-        }
+        }        
     }
 
     public void trade_buy()
@@ -449,6 +459,106 @@ public class UI {
             }
         }
     }
+
+    public void trade_upgrade()
+    {
+        // DRAW PLAYER INVENTORY
+        drawInventory(gp.player, true);
+
+        int x;
+        int y;
+        int width;
+        int height;
+
+        // DRAW HINT WINDOW
+        x = (gp.tileSize * 2);
+        y = gp.tileSize *5;
+        width = ((gp.tileSize/2) * 5) + 70;
+        height = (gp.tileSize/2) * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("[ESC] Back", x+24, y+75);
+        
+        // DRAW PLAYER'S COIN
+        x = gp.screenWidth - width - gp.tileSize;;
+        y = gp.tileSize *5;
+        width = ((gp.tileSize/2) * 5) + 70;
+        height = (gp.tileSize/2) * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Your Coins: " + gp.player.coin, x+24, y+75);
+
+        // DRAW PRICE WINDOW
+        int itemIndex = getItemIndex(playerSlotCol, playerSlotRow);
+        if(itemIndex < gp.player.inventory.size()){
+            x = (int) (gp.tileSize * 7) + 60;
+            y = (int) (gp.tileSize * 2.5) + 100;
+            width = (int) (gp.tileSize * 3.5) / 2;
+            height = gp.tileSize / 2;
+            drawSubWindow(x, y, width, height);
+
+            String text = "Upgrade: $50";
+            g2.drawString(text, x+20, y+40);
+
+            // UPGRADE ITEM
+            if(gp.keyH.enterPressed == true)
+            {
+                Entity selectedItem = gp.player.inventory.get(itemIndex);
+                if(selectedItem.type != Entity.type_sword && selectedItem.type != Entity.type_armor){
+                    gp.gameState = gp.dialogState;
+                    currentDialogue = "Only weapon and armor \ncan be upgraded!";
+                    return;
+                }
+                if(selectedItem.upgradeLevel >= 5){
+                    gp.gameState = gp.dialogState;
+                    currentDialogue = "This item is already MAX \nlevel!";
+                    return;
+                }
+                if(gp.player.coin < 50){
+                    gp.gameState = gp.dialogState;
+                    currentDialogue = "Not enough coins!";
+                    return;
+                }
+                int materialIndex = gp.player.findUpgradeMaterial(selectedItem);
+
+                if(materialIndex == 999){
+                    gp.gameState = gp.dialogState;
+                    currentDialogue = "You need another " + selectedItem.name + "\nto Upgrade this!";
+                    return;
+                }             
+                
+                gp.player.inventory.remove(materialIndex);
+                gp.player.coin -= 50;
+
+                if(selectedItem.type == Entity.type_sword){
+                    selectedItem.attackValue++;
+                }     
+                if(selectedItem.type == Entity.type_armor){
+                    selectedItem.defenseValue++;
+                }
+
+                selectedItem.upgradeLevel++;
+                gp.player.updateStats();
+
+
+
+                // if(gp.player.inventory.get(itemIndex) == gp.player.currentSword ||
+                // gp.player.inventory.get(itemIndex) == gp.player.currentArmor){
+                //     commandNum = 0;
+                //     subState = 0;
+                //     gp.gameState = gp.dialogState;
+                //     currentDialogue = "You cannot sell an equipped item!";
+                // }
+                // else{
+                //     if(gp.player.inventory.get(itemIndex).amount > 1){
+                //         gp.player.inventory.get(itemIndex).amount--;
+                //     }
+                //     else{
+                //         gp.player.inventory.remove(itemIndex);
+                //     }
+                //     gp.player.coin += price;
+                // }
+            }
+        }
+    }    
 
     public void option_top(int frameX, int frameY){
 
@@ -825,10 +935,31 @@ public class UI {
                 //NUMBER
                 g2.setColor(Color.white);
                 g2.drawString(s, amountX - 1, amountY - 1);
+            }  
+
+            Entity item = entity.inventory.get(i);
+
+            if(item.type == Entity.type_sword ||
+            item.type == Entity.type_armor){
+
+                String s = "+" + item.upgradeLevel;
+
+                int levelX = slotX + 4;
+                int levelY = slotY + 18;
+
+                g2.setFont(g2.getFont().deriveFont(18f));
+
+                // shadow
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s, levelX + 1, levelY + 1);
+
+                // text
+                g2.setColor(Color.YELLOW);
+                g2.drawString(s, levelX, levelY);
             }
 
             slotX += slotsize;
-
+            
             //sebelum
             // if(i == 4 || i==9 || i ==16){
             //     slotX = slotXstart;
