@@ -34,7 +34,8 @@ public class UI {
     public int playerSlotCol=0;
     public int playerSlotRow=0;
 
-public boolean saveGameOn = false; // Ini default nda save
+    public boolean saveGameOn = false; // Ini default nda save
+    public boolean InfiniteMode = false;
 
     // BufferedImage coin;
     // // for icon (NGEBUG ND JELAS)
@@ -78,14 +79,22 @@ public boolean saveGameOn = false; // Ini default nda save
         // play state
         if(gp.gameState == gp.playState){
             if(gp.currentMap == 2){
-                g2.drawString("DungeonStage: " + gp.player.getDungeonStage(), gp.tileSize/8, gp.tileSize / 2);
-                g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
+                if(InfiniteMode){
+                    g2.drawString("Infinite Mode", gp.getWidth() / 2, gp.tileSize / 2);
+                    g2.drawString("Highest Level: " + gp.player.getDungeonInfiniteHighest(), gp.tileSize/8, gp.tileSize / 2);
+                    g2.drawString("Current Level: " + gp.player.getDungeonInfiniteLevel(), gp.tileSize/8, gp.tileSize);
+                }else{
+                    g2.drawString("Story Mode", gp.getWidth() / 2, gp.tileSize / 2);
+                    g2.drawString("DungeonStage: " + gp.player.getDungeonStage(), gp.tileSize/8, gp.tileSize / 2);
+                    g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
+                }
             }
             g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
             g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
             // g2.drawString("Potion: " + gp.player.hasPotion, gp.tileSize*4, gp.tileSize*8);
             showMassage();
         }
+
         // pause state
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
@@ -110,7 +119,75 @@ public boolean saveGameOn = false; // Ini default nda save
         if(gp.gameState == gp.tradeState){
             drawTradeScreen();
         }
+        // Dungeon Option
+        if(gp.gameState == gp.dungeonOption){
+            drawDungeonOption();
+        }
+
     }
+
+    public void drawDungeonOption(){
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameWidth = gp.tileSize * 5;
+        int frameHeight = gp.tileSize * 6;
+        int frameX = gp.getWidth() / 2 - frameWidth / 2;
+        int frameY = gp.getHeight() / 2 - frameHeight / 2;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        optionDungeon(frameX, frameY);
+
+        gp.keyH.enterPressed = false;
+    }
+
+    public void optionDungeon(int frameX, int frameY){
+
+        int textX;
+        int textY;
+
+        // TITLE
+        String text = "Enter Dungeon";
+        textX = getXforCenteredText(text);
+        textY = frameY + gp.tileSize / 2;
+        g2.drawString(text, textX, textY);
+
+        // END GAME
+        textY+=gp.tileSize/2;
+        g2.drawString("Choose Mode", textX, textY);
+        if(commandNum == 0){
+            g2.drawString(">", textX - 35, textY);
+            if (gp.keyH.enterPressed == true) {
+                gp.eHandler.TeleportDungeon(gp.dialogState);
+            }
+        }
+
+        // BACK
+        textY+=gp.tileSize*2;
+        g2.drawString("Back", textX, textY);
+        if(commandNum == 1){
+            g2.drawString(">", textX - 35, textY);
+            if (gp.keyH.enterPressed == true) {
+                gp.gameState = gp.playState;
+                commandNum = 0;
+            }
+        }
+
+        // Story / Infinite
+        textY += (gp.tileSize / 2) * 2 + gp.tileSize / 4;
+        
+        String toggleText = "";
+        if(commandNum == 0){
+            if (InfiniteMode == false) {
+                toggleText = "Story Mode";
+            } else {
+                toggleText = "Infinite Mode";
+            }
+            g2.drawString("< " + toggleText + " >", textX - 35, textY);
+        }else {
+            g2.drawString(toggleText, textX - 35, textY);
+        }
+    }
+
 
     public void drawGameOverScreen() {
         g2.setColor(new Color (0,0,0,150));

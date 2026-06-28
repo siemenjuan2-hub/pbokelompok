@@ -54,7 +54,7 @@ public class EventHandler {
         }
 
         if(hit(20, 21) && gp.player.direction == "up") {
-            TeleportDungeon(gp.dialogState);
+            gp.gameState = gp.dungeonOption;
         }
     }
 
@@ -68,15 +68,28 @@ public class EventHandler {
 
     public void eventMap3(){
         if(hit(24, 9) && gp.player.direction == "up" && gp.aSetter.monsterCounterDungeon == 0){
-            if(gp.player.getDungeonLevel() == 10){
-                TeleportDungeonBoss(gp.dialogState);
-                gp.player.setDungeonLevel(1);
-
+            if(!gp.ui.InfiniteMode){
+                if(gp.player.getDungeonStage() == 5){
+                    TeleportDungeonBoss(gp.dialogState);
+                }else{
+                    if(gp.player.getDungeonLevel() == 10){
+                        gp.player.setDungeonLevel(1);
+                    }else{
+                        TeleportNextLevel(gp.dialogState);
+                    }
+                }
             }else{
                 TeleportNextLevel(gp.dialogState);
             }
         }
+        if(hit(24, 39) && gp.player.direction == "down"){
+            if(gp.ui.InfiniteMode){
+                gp.player.setDungeonInfiniteHighest(gp.player.getDungeonInfiniteLevel());
+            }
+            TeleportOverWorldDungeon(gp.dialogState);
+        }
     }
+
 
     public void eventMap4(){
         if(gp.aSetter.monsterCounterDungeon == 0){
@@ -138,16 +151,22 @@ public class EventHandler {
     // teleport dungeon
     public void TeleportDungeon(int gameState){
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You Teleported!!";
+        if(gp.ui.InfiniteMode){
+            gp.player.setDungeonInfiniteLevel(1);
+            gp.ui.currentDialogue = "You Entered Infinite Mode!!";
+        }else{
+            gp.ui.currentDialogue = "You Entered Story Mode!!";
+        }
         gp.currentMap = 2;
         gp.tileM.loadMap("/assets/Maps/Maps3", gp.currentMap);
         gp.aSetter.setMonsterDungeon();
 
         // atur lokasi player setelah teleport
         gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
-        gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 37 + gp.tileSize / 2;
         gp.player.direction = "up";
     }
+
 
     public void TeleportNextLevel(int gameState){
         gp.gameState = gameState;
@@ -159,7 +178,10 @@ public class EventHandler {
         gp.player.WorldX = gp.tileSize * 23 + gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 38 + gp.tileSize / 2;
         gp.player.direction = "up";
-        gp.player.setDungeonLevel(gp.player.getDungeonLevel()+1);
+        if(!gp.ui.InfiniteMode){
+            gp.player.setDungeonLevel(gp.player.getDungeonLevel()+1);
+        }
+        gp.player.setDungeonInfiniteLevel(gp.player.getDungeonInfiniteLevel()+1);
     }
 
     public void TeleportDungeonBoss(int gameState){
@@ -198,7 +220,7 @@ public class EventHandler {
 
         // atur lokasi player setelah teleport
         gp.player.WorldX = gp.tileSize * 20 - gp.tileSize / 2;
-        gp.player.WorldY = gp.tileSize * 22 - gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 21 - gp.tileSize / 2;
         gp.player.direction = "down";
     }
 
@@ -214,7 +236,7 @@ public class EventHandler {
     }
 
     public void drawDebugMap3(Graphics2D g2){
-        drawEventRect(g2, 24, 40); // Teleport balik overworld
+        drawEventRect(g2, 24, 39); // Teleport balik overworld
     }
 
     private void drawEventRect(Graphics2D g2, int col, int row) {
