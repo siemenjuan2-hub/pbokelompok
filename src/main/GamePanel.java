@@ -87,6 +87,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 6;
     // public final int transitionState = 7; untuk transition state di video 39 tidak di pake :D (Stevanus)
     public final int tradeState = 7;
+    public final int dungeonOption = 8;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

@@ -78,6 +78,7 @@ public class SaveLoad {
             ds.coin = gp.player.coin;
             ds.dungeonLevel = gp.player.getDungeonLevel();
             ds.dungeonStage = gp.player.getDungeonStage();
+            ds.dungeonInfiniteHighest = gp.player.getDungeonInfiniteHighest();
 
             // PLAYER INVENTORY
             for (int i = 0 ; i < gp.player.inventory.size() ; i++){
@@ -138,6 +139,7 @@ public class SaveLoad {
             gp.player.coin = ds.coin;
             gp.player.setDungeonLevel(ds.dungeonLevel);
             gp.player.setDungeonStage(ds.dungeonStage);
+            gp.player.setDungeonInfiniteHighest(ds.dungeonInfiniteHighest);
 
             // PLAYER INVENTORY
             gp.player.inventory.clear();

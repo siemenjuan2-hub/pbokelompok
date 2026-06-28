@@ -236,6 +236,45 @@ public class KeyHandler implements KeyListener{
             }            
         }
 
+        // DUNGEON OPTION
+        else if(gp.gameState == gp.dungeonOption){
+            int maxCommandNum = 1;
+            if(key == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.playState;
+            }
+            if(key == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            }
+            if(key == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = maxCommandNum;
+                }
+            }
+            if(key == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum > maxCommandNum) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if(key == KeyEvent.VK_A){
+                if (gp.ui.commandNum == 0 && !gp.ui.InfiniteMode) {
+                    gp.ui.InfiniteMode = true;
+                }else if(gp.ui.commandNum == 0 && gp.ui.InfiniteMode){
+                    gp.ui.InfiniteMode = false;
+                }
+            }
+            if(key == KeyEvent.VK_D){
+                if (gp.ui.commandNum == 0 && !gp.ui.InfiniteMode) {
+                    gp.ui.InfiniteMode = true;
+                }else if(gp.ui.commandNum == 0 && gp.ui.InfiniteMode){
+                    gp.ui.InfiniteMode = false;
+                }
+            }
+            
+        }
+
+
     }
 
     public void playerInventory(int key)

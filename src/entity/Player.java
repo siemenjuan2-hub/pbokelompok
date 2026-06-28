@@ -33,6 +33,8 @@ public class Player extends Entity {
     public int coin = 500;
     private int dungeonLevel;
     private int dungeonStage;
+    private int dungeonInfiniteHighest;
+    private int dungeonInfiniteLevel;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -70,7 +72,7 @@ public class Player extends Entity {
         this.setHp(this.getMaxHp());
         defaultSpeed=6;
         this.setSpeed(defaultSpeed);
-        this.setStrength(1);
+        this.setStrength(100);
         this.setDef(1);
         this.setExp(0);
         this.setNextLevelExp(5);
@@ -81,6 +83,8 @@ public class Player extends Entity {
         setDefense(this.getDef() + currentArmor.defenseValue);
         this.setDungeonLevel(1);
         this.setDungeonStage(1);
+        this.setDungeonInfiniteLevel(1);
+        this.setDungeonInfiniteHighest(1);
 
         
         getPlayerImage();
@@ -918,5 +922,21 @@ public class Player extends Entity {
 
     public void setDungeonStage(int dungeonStage){
         this.dungeonStage = dungeonStage;
+    }
+
+    public int getDungeonInfiniteHighest(){
+        return dungeonInfiniteHighest;
+    }
+
+    public void setDungeonInfiniteHighest(int dungeonInfiniteHighest){
+        this.dungeonInfiniteHighest = dungeonInfiniteHighest;
+    }
+
+    public int getDungeonInfiniteLevel(){
+        return dungeonInfiniteLevel;
+    }
+
+    public void setDungeonInfiniteLevel(int dungeonInfiniteLevel){
+        this.dungeonInfiniteLevel = dungeonInfiniteLevel;
     }
 }
