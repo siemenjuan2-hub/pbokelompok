@@ -671,29 +671,31 @@ public class Player extends Entity {
     }
 
     public boolean canObtainItem(Entity item) {
-    boolean canObtain = false;
+        boolean canObtain = false;
 
-    // PERBAIKAN: Gunakan == atau langsung panggil boolean-nya
-    if (item.stackable == true) { 
-        int index = searchItemInInventory(item.name);
+        Entity newItem = gp.eGenerator.getObject(item.name);
 
-        if (index != 999) {
-            inventory.get(index).amount++;
-            canObtain = true;
-        } else { 
+        // PERBAIKAN: Gunakan == atau langsung panggil boolean-nya
+        if (newItem.stackable == true) { 
+            int index = searchItemInInventory(newItem.name);
+
+            if (index != 999) {
+                inventory.get(index).amount++;
+                canObtain = true;
+            } else { 
+                if (inventory.size() != inventorySize) {
+                    inventory.add(newItem);
+                    canObtain = true;
+                }
+            }
+        } else { // KALO NDA STACKABLE
             if (inventory.size() != inventorySize) {
-                inventory.add(item);
+                inventory.add(newItem);
                 canObtain = true;
             }
         }
-    } else { // KALO NDA STACKABLE
-        if (inventory.size() != inventorySize) {
-            inventory.add(item);
-            canObtain = true;
-        }
+        return canObtain;
     }
-    return canObtain;
-}
 
 
     public void draw(Graphics2D g2) {

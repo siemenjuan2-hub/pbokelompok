@@ -5,17 +5,19 @@ import main.GamePanel;
 
 public class OBJ_Sword_Normal extends Entity{
     
+    public static final String objName = "Normal Sword";    
+
     public OBJ_Sword_Normal(GamePanel gp){
         super(gp);
 
-        name = "Normal Sword";
+        name = objName;
         down1 = setUp("/assets/Pedang/item1", 32, 32);
         attackValue = 10;
         description ="["+name+"]\nan old sword";
         type = type_sword;
         price = 50;
         knockBackPower=1;
-        stackable = true;
+        stackable = false;
 
     }
 

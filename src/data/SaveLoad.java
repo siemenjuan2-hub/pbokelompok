@@ -35,29 +35,7 @@ public class SaveLoad {
         this.gp = gp;
     }
 
-    public Entity getObject(String itemNames){
-        
-        Entity obj = null;
 
-        switch (itemNames) {
-            case "Normal Sword": obj = new OBJ_Sword_Normal(gp); break;
-            case "Copper Sword": obj = new OBJ_Sword_Copper(gp); break;
-            case "Normal Armor": obj = new OBJ_Armor_Normal(gp); break;
-            case "Better Armor": obj = new OBJ_Armor_Better(gp); break;
-            case "Health Potion": obj = new OBJ_Potion_Health(gp); break;
-            case "RumahKananBawah": obj = new KananBawah(gp); break;
-            case "RumahKananAtas": obj = new KananAtas(gp); break;
-            case "RumahKiriBawah": obj = new KiriAtas(gp); break;
-            case "RumahKiriAtas": obj = new Kiribawah(gp); break;
-            case "AutumnBush": obj = new OBJ_AutumnBush(gp); break;
-            case "BurnedTree": obj = new OBJ_BurnedTree(gp); break;
-            case "Bush1": obj = new OBJ_Bush1(gp); break;
-            case "Bush2": obj = new OBJ_Bush2(gp); break;
-
-        }
-
-        return obj;
-    }
 
     public void save(){
 
@@ -144,7 +122,7 @@ public class SaveLoad {
             // PLAYER INVENTORY
             gp.player.inventory.clear();
             for(int i = 0 ; i < ds.itemNames.size() ; i++){
-                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                gp.player.inventory.add(gp.eGenerator.getObject(ds.itemNames.get(i)));
                 gp.player.inventory.get(i).amount = ds.itemAmounts.get(i);
             }
 
@@ -158,7 +136,7 @@ public class SaveLoad {
                     if(ds.mapObjectNames[mapNum][i].equals("NA")){
                         gp.obj[mapNum][i] = null;
                     }else{
-                        gp.obj[mapNum][i] = getObject(ds.mapObjectNames[mapNum][i]);
+                        gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectNames[mapNum][i]);
                         gp.obj[mapNum][i].WorldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].WorldY = ds.mapObjectWorldY[mapNum][i];
 

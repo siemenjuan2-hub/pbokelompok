@@ -4,11 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class KananAtas extends Entity {
+    public static final String objName = "RumahAtas";
+
     public KananAtas(GamePanel gp)
     {
         super(gp);
         entitySize = 128;
-        name = "RumahKananAtas";
+        name = objName;
         down1 = setUp("/assets/World/Rumah/TileR1C2", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
