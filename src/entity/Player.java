@@ -641,8 +641,14 @@ public class Player extends Entity {
             }
             if (selectedItem.type == type_consumable) {
                 // sementara sprite potion pakai sprite emas lootdrop (item 567)
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if(selectedItem.use(this) == true){
+                    if(selectedItem.amount > 1){
+                        selectedItem.amount--;
+                    }
+                    else{
+                        inventory.remove(itemIndex);
+                    }
+                }
             }
 
         }

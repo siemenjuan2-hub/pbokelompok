@@ -8,7 +8,7 @@ public class OBJ_Potion_Health extends Entity{
     public OBJ_Potion_Health(GamePanel gp) {
         super(gp);
         entitySize = 128;
-        // int value = 25; HARUSNYA PAKE YG INI TAPI TIDAK BISA DIPAKAI DI METHOD use() entah kenapaaaa
+        // int value = 25; HARUSNYA PAKE YG INI TAPI TIDAK BISA DIPAKAI DI METHOD use() entah kenapa
         value = 25;
 
         name = "Health Potion";
@@ -29,7 +29,7 @@ public class OBJ_Potion_Health extends Entity{
         // bisa tambah attack area kalo mau
     }
 
-    public void use(Entity entity)
+    public boolean use(Entity entity)
     {
         gp.gameState = gp.dialogState;
         gp.ui.currentDialogue = "You drink the " + name + "!"
@@ -38,10 +38,12 @@ public class OBJ_Potion_Health extends Entity{
         if(temp > gp.player.getMaxHp())
         {
             gp.player.setHp(gp.player.getMaxHp());
+            return true;
         }
         else
         {
             gp.player.setHp(gp.player.getHp() + value);
+            return true;
         }
     }
     
