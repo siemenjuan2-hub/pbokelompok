@@ -5,18 +5,20 @@ import main.GamePanel;
 
 public class OBJ_Armor_Better extends Entity{
 
+    public static final String objName = "Better Amor";
+
     public OBJ_Armor_Better(GamePanel gp) {
         super(gp);
         entitySize = 128;
 
-        name = "Better Armor";
+        name = objName;
         down1 = setUp("/assets/Armor/item240", 32, 32);
         defenseValue = 5;
         description ="["+name+"]\na better armor";
         pickupable = true;
         type = type_armor;
         price = 120;
-        stackable = true;
+        stackable = false;
 
         solidArea.x = 0;
         solidArea.y = 0;

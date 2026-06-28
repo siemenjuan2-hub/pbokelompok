@@ -4,11 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Bush1 extends Entity {
+    public static final String objName = "Bush1";
+
     public OBJ_Bush1(GamePanel gp)
     {
         super(gp);
         entitySize = 128;
-        name = "Bush1";
+        name = objName;
         down1 = setUp("/assets/Objects/Bush_simple1_1", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;

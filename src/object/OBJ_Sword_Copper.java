@@ -5,11 +5,13 @@ import main.GamePanel;
 
 public class OBJ_Sword_Copper extends Entity{
 
+    public static final String objName = "Copper Sword";
+
     public OBJ_Sword_Copper(GamePanel gp) {
         super(gp);
         entitySize = 128;
 
-        name = "Copper Sword";
+        name = objName;
         down1 = setUp("/assets/Pedang/item3", 32, 32);
         attackValue = 14;
         description ="["+name+"]\na copper sword";
@@ -17,7 +19,7 @@ public class OBJ_Sword_Copper extends Entity{
         type = type_sword;
         price = 100;
         knockBackPower=29;
-        stackable = true;
+        stackable = false;
 
         solidArea.x = 0;
         solidArea.y = 0;
