@@ -13,7 +13,7 @@ public class OBJ_Sword_Copper extends Entity{
 
         name = objName;
         down1 = setUp("/assets/Pedang/item3", 32, 32);
-        attackValue = 250;
+        attackValue = 15;
         description ="["+name+"]\na copper sword";
         pickupable = true;
         type = type_sword;

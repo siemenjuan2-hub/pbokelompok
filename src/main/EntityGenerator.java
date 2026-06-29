@@ -17,6 +17,8 @@ import object.OBJ_Pohon_Hijau_Jumbo;
 import object.OBJ_Potion_Health;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
+import object.OBJ_Armor_Godly;
+import object.OBJ_Sword_Godly;
 
 public class EntityGenerator {
     GamePanel gp;
@@ -46,6 +48,8 @@ public class EntityGenerator {
             case DROP1.objName: obj = new DROP1(gp);break;
             case DROP2.objName: obj = new DROP2(gp);break;
             case CEWE.objName:obj = new CEWE(gp);break;
+            case OBJ_Armor_Godly.objName:obj = new OBJ_Armor_Godly(gp);break;
+            case OBJ_Sword_Godly.objName:obj = new OBJ_Sword_Godly(gp);break;
         }
 
         return obj;

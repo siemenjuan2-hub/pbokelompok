@@ -16,7 +16,7 @@ public class DROP1 extends Entity{
         description ="["+name+"]\n the life span from the slime monster!\ncould be valuable?";
         pickupable = true;
         type = type_drop;
-        price = 250;
+        price = 50;
         stackable = true;
         collision=false;
 

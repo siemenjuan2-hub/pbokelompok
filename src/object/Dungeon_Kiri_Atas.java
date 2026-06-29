@@ -11,13 +11,14 @@ public class Dungeon_Kiri_Atas extends Entity {
         super(gp);
         entitySize = 128;
         name = objName;
-        down1 = setUp("/Dungeon_door/DKIRAT", gp.tileSize, gp.tileSize);
+        down1 = setUp("/assets/World/Dungeon_door/DKIRAT", gp.tileSize, gp.tileSize);
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = entitySize;
         solidArea.height = entitySize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        collision = false;
     }
 
     @Override

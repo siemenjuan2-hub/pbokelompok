@@ -30,7 +30,7 @@ public class Player extends Entity {
     public boolean atkDelay = false;
 
     // coin
-    public int coin = 500;
+    public int coin = 1000;
     private int dungeonLevel;
     private int dungeonStage;
     private int dungeonInfiniteHighest;
@@ -300,6 +300,8 @@ public class Player extends Entity {
                 gp.gameState = gp.gameOverState;
                 gp.ui.commandNum = -1;
                 gp.stopMusic();
+                gp.eHandler.resetPhase2OnPlayerDeath();
+                gp.eHandler.resetBossPhase1();
             }
 
             if (keyH.upPressed == true) {

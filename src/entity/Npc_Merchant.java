@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 public class Npc_Merchant extends Entity{
     public Npc_Merchant (GamePanel gp){
         super(gp);
-        entitySize = 100;
+        entitySize = 128;
         solidArea = new Rectangle(0, 0, entitySize , entitySize);
 
         direction = "down";
@@ -31,20 +31,20 @@ public class Npc_Merchant extends Entity{
     public void getImage() {
         // Merchant tidak gerak
         //Atas
-        up1 = setUp("/assets/Npc/Wizard/oldman_down_1", gp.tileSize, gp.tileSize);
-        up2 = setUp("/assets/Npc/Wizard/oldman_down_2", gp.tileSize, gp.tileSize);
+        up1 = setUp("/assets/Npc/Merchant/merchant_down_1", gp.tileSize, gp.tileSize);
+        up2 = setUp("/assets/Npc/Wizard/merchant_down_2", gp.tileSize, gp.tileSize);
 
         //Bawah
-        down1 = setUp("/assets/Npc/Wizard/oldman_down_1", gp.tileSize, gp.tileSize);
-        down2 = setUp("/assets/Npc/Wizard/oldman_down_2", gp.tileSize, gp.tileSize);
+        down1 = setUp("/assets/Npc/Merchant/merchant_down_1", gp.tileSize, gp.tileSize);
+        down2 = setUp("/assets/Npc/Merchant/merchant_down_2", gp.tileSize, gp.tileSize);
 
         //Kiri
-        left1 = setUp("/assets/Npc/Wizard/oldman_down_1", gp.tileSize, gp.tileSize);
-        left2 = setUp("/assets/Npc/Wizard/oldman_down_2", gp.tileSize, gp.tileSize);
+        left1 = setUp("/assets/Npc/Merchant/merchant_down_1", gp.tileSize, gp.tileSize);
+        left2 = setUp("/assets/Npc/Merchant/merchant_down_2", gp.tileSize, gp.tileSize);
 
         //Kanan
-        right1 = setUp("/assets/Npc/Wizard/oldman_down_1", gp.tileSize, gp.tileSize);
-        right2 = setUp("/assets/Npc/Wizard/oldman_down_2", gp.tileSize, gp.tileSize);
+        right1 = setUp("/assets/Npc/Merchant/merchant_down_1", gp.tileSize, gp.tileSize);
+        right2 = setUp("/assets/Npc/Merchant/merchant_down_2", gp.tileSize, gp.tileSize);
     }
 
     public void setDialogues() {
