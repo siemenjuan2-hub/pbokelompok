@@ -12,7 +12,7 @@ public class EventHandler {
     boolean spawn2 = false;
     boolean spawn3 = false;
     boolean spawn4 = false;
-
+    
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
@@ -61,6 +61,7 @@ public class EventHandler {
             TeleportRumahTrader(gp.dialogState);
         }
 
+        // Teleport dungeon
         if(hit(20, 21) && gp.player.direction == "up") {
             gp.gameState = gp.dungeonOption;
         }
@@ -77,11 +78,12 @@ public class EventHandler {
     public void eventMap3(){
         if(hit(24, 9) && gp.player.direction == "up" && gp.aSetter.monsterCounterDungeon == 0){
             if(!gp.ui.InfiniteMode){
-                if(gp.player.getDungeonStage() == 1 && gp.player.getDungeonLevel() == 1){
+                if(gp.player.getDungeonStage() == 3 && gp.player.getDungeonLevel() == 5){
                     TeleportDungeonBoss(gp.dialogState);
                 }else{
-                    if(gp.player.getDungeonLevel() == 10){
-                        gp.player.setDungeonLevel(1);
+                    if(gp.player.getDungeonLevel() == 5){
+                        gp.player.setDungeonStage(gp.player.getDungeonStage()+1);
+                        gp.player.setDungeonLevel(0);
                     }else{
                         TeleportNextLevel(gp.dialogState);
                     }
@@ -125,11 +127,24 @@ public class EventHandler {
     }
 
 
-    public void eventMap5(){
-        if(gp.aSetter.monsterCounterDungeon == 0){
-            TeleportOverWorldDungeon(gp.dialogState);
+public void eventMap5() {
+    
+    if(gp.aSetter.monsterCounterDungeon == 0 && !gp.aSetter.bossRewardSpawned) {
+        gp.aSetter.bossReward();
+        gp.aSetter.bossRewardSpawned = true;
+    }
+    else if(gp.aSetter.bossRewardSpawned&&gp.aSetter.taken!=true){
+        if(hit(26, 22)) {
+            gp.aSetter.taken=true;
+            TeleportAfterboss(gp.dialogState);
         }
     }
+    else if(gp.aSetter.bossRewardSpawned&&gp.aSetter.taken==true){
+        if(gp.aSetter.monsterCounterDungeon == 0) {
+            TeleportAfterTaken(gp.dialogState);
+        }
+    }
+}
 
     public boolean hit(int eventCol, int eventRow) {
 
@@ -256,6 +271,34 @@ public class EventHandler {
         // atur lokasi player setelah teleport
         gp.player.WorldX = gp.tileSize * 37 - gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 22 - gp.tileSize / 2;
+        gp.player.direction = "down";
+        gp.aSetter.setNpc();
+    }
+
+    public void TeleportAfterboss(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Save A Girl!!!!";
+        // pindah map
+        gp.currentMap = 0;
+        gp.tileM.loadMap("/assets/Maps/Maps1", gp.currentMap);
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 20 - gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 21 - gp.tileSize / 2;
+        gp.player.direction = "down";
+        gp.aSetter.setNpc();
+    }
+
+    public void TeleportAfterTaken(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You Already saved a girl!!!!";
+        // pindah map
+        gp.currentMap = 0;
+        gp.tileM.loadMap("/assets/Maps/Maps1", gp.currentMap);
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 20 - gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 21 - gp.tileSize / 2;
         gp.player.direction = "down";
         gp.aSetter.setNpc();
     }

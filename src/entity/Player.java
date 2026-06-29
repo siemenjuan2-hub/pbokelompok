@@ -81,7 +81,7 @@ public class Player extends Entity {
         currentSword = new OBJ_Sword_Normal(gp);
         setAtk(this.getStrength() + currentSword.attackValue);
         setDefense(this.getDef() + currentArmor.defenseValue);
-        this.setDungeonLevel(1);
+        this.setDungeonLevel(4);
         this.setDungeonStage(1);
         this.setDungeonInfiniteLevel(1);
         this.setDungeonInfiniteHighest(1);

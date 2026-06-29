@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import main.GamePanel;
+import main.Main;
 import main.UtilityTool;
 
 public class TileManager {
@@ -34,7 +35,7 @@ public class TileManager {
 
     public void getTileImage(){
         // Rumput & Jalan (Bisa Lewat)
-        setup(0, "Rumput", false);
+        setup(0, "rumputi", false);
         setup(1, "JalanKanan", false);
         setup(2, "JalanKiri", false);
         setup(3, "Pasir", false);
@@ -63,7 +64,7 @@ public class TileManager {
         setup(18, "RumputPojokKananBawah", false);
         setup(19, "RumputPojokKiriAtas", false);
         setup(20, "RumputPojokKananAtas", false);
-        setup(21, "Bunga", false);
+        setup(21, "anggrekmekar", false);
 
         // World 2 (bisa ubah asset sesuaikan dengan dungeon atau dalam rumah)
         setup(22, "T603", false);
@@ -73,6 +74,31 @@ public class TileManager {
         // Dungeon (maps3.txt)
         setup(25, "/Dungeon/dungeon-door",false);
         setup(26, "/Dungeon/dungeon-floor1", false);
+        setup(27, "/Jalan/JalanAtas", false);
+        setup(28, "/Jalan/JalanBawah", false);
+        setup(29, "/Jalan/JalanKiri", false);
+        setup(30, "/Jalan/JalanKanan", false);
+        setup(31, "/Jalan/JalanTengah", false);
+        setup(32, "/Jalan/JejakKaki1", false);
+        setup(33, "/Jalan/JejakKaki2", false);
+        setup(34, "/Jalan/JalanKananAtas", false);
+        setup(35, "/Jalan/JalanKananBawah", false);
+        setup(36, "/Jalan/JalanKiriAtas", false);
+        setup(37, "/Jalan/JalanKiriBawah", false);
+
+        setup(38, "/Dungeon_door/1",false);
+        setup(39, "/Dungeon_door/2", false);
+        setup(40, "/Dungeon_door/3", false);
+        setup(41, "/Dungeon_door/4", false);
+        setup(42, "/Dungeon_door/5", false);
+        setup(43, "/Dungeon_door/6", false);
+        setup(44, "/Dungeon_door/7", false);
+        setup(45, "/Dungeon_door/8", false);
+        setup(46, "/Dungeon_door/9", false);
+        setup(47, "/Dungeon_door/10", false);
+        setup(48, "/Dungeon_door/11", false);
+        setup(49, "/Dungeon_door/12", false);
+
     }
 
     

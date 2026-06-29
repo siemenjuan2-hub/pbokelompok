@@ -7,6 +7,9 @@ import main.GamePanel;
 import object.OBJ_Armor_Better;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
+import object.DROP1;
+import object.DROP2;
+
 
 public class MON_RedSlime extends Entity {
     public MON_RedSlime(GamePanel gp) {
@@ -86,10 +89,10 @@ public class MON_RedSlime extends Entity {
         // cast a die
         int i = new Random().nextInt(100) + 1;
         if (i < 50) {
-            dropItem(new OBJ_Armor_Better(gp));
+            dropItem(new DROP1(gp));
         }
         if (i > 50 && i < 100) {
-            dropItem(new OBJ_Sword_Copper(gp));
+            dropItem(new DROP2(gp));
         }
     }
 }

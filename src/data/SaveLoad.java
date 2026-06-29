@@ -138,7 +138,6 @@ public class SaveLoad {
                         gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectNames[mapNum][i]);
                         gp.obj[mapNum][i].WorldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].WorldY = ds.mapObjectWorldY[mapNum][i];
-
                     }
                 }
             }
