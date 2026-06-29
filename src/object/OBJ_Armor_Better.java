@@ -5,7 +5,7 @@ import main.GamePanel;
 
 public class OBJ_Armor_Better extends Entity{
 
-    public static final String objName = "Better Amor";
+    public static final String objName = "Better Armor";
 
     public OBJ_Armor_Better(GamePanel gp) {
         super(gp);

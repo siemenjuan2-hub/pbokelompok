@@ -71,7 +71,7 @@ public abstract class Entity {
     private int speed;
     private int maxHp;
     private int hp;
-    private int level = 1;
+    private int level = 0; // ganti
     private int atk;
     private int strength;
     private int defense;

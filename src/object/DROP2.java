@@ -16,7 +16,7 @@ public class DROP2 extends Entity{
         description ="["+name+"]\n pure RAGE from the slime monster!\ncould be valuable?";
         pickupable = true;
         type = type_drop;
-        price = 300;
+        price = 100;
         stackable = true;
         collision=false;
 

@@ -86,18 +86,9 @@ public class TileManager {
         setup(36, "/Jalan/JalanKiriAtas", false);
         setup(37, "/Jalan/JalanKiriBawah", false);
 
-        setup(38, "/Dungeon_door/1",false);
-        setup(39, "/Dungeon_door/2", false);
-        setup(40, "/Dungeon_door/3", false);
-        setup(41, "/Dungeon_door/4", false);
-        setup(42, "/Dungeon_door/5", false);
-        setup(43, "/Dungeon_door/6", false);
-        setup(44, "/Dungeon_door/7", false);
-        setup(45, "/Dungeon_door/8", false);
-        setup(46, "/Dungeon_door/9", false);
-        setup(47, "/Dungeon_door/10", false);
-        setup(48, "/Dungeon_door/11", false);
-        setup(49, "/Dungeon_door/12", false);
+        setup(38, "/Rumah/floor01", false);
+
+       
 
     }
 
