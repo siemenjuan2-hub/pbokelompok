@@ -17,11 +17,21 @@ public class Sound {
 
     public Sound() {
         soundURL[0] = getClass().getResource("/assets/Sound/Always_With_Me.wav");
-        // soundURL[1] = getClass().getResource("/assets/Sound/BlueBoyAdventure.wav");
+        soundURL[1] = getClass().getResource("/assets/Sound/hitmonster.wav");
+        soundURL[2] = getClass().getResource("/assets/Sound/cursor.wav");
+        soundURL[3] = getClass().getResource("/assets/Sound/hitmonster.wav");
+        soundURL[4] = getClass().getResource("/assets/Sound/powerup.wav");
+        soundURL[5] = getClass().getResource("/assets/Sound/armor-gearup.wav");
+        soundURL[6] = getClass().getResource("/assets/Sound/Slime.wav");
+        soundURL[7] = getClass().getResource("/assets/Sound/Dungeon.wav");
+        soundURL[8] = getClass().getResource("/assets/Sound/trade-song.wav");
+        soundURL[9] = getClass().getResource("/assets/Sound/damage-player.wav");
+
+
     }
 
     public void setFile(int i) {
-        try {
+        try { 
             System.out.println(soundURL[i]);
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();

@@ -12,21 +12,21 @@ public class MON_RedSlime extends Entity {
     public MON_RedSlime(GamePanel gp) {
         super(gp);
         type = type_monster;
-        entitySize = 64;
+        entitySize = 32;
         name = "Red Slime";
-        defaultSpeed=1;
+        defaultSpeed=4;
         this.setSpeed(defaultSpeed);
-        this.setMaxHp(125);
+        this.setMaxHp(75);
         this.setHp(this.getMaxHp());
         this.setExp(12);
-        this.setAtk(4);
-        this.setDef(2);
-        knockBackPower=5;
+        this.setAtk(20);
+        this.setDef(0);
+        knockBackPower=3;
 
         solidArea.x = 3;
         solidArea.y = 18;
-        solidArea.width = 42;
-        solidArea.height = 42;
+        solidArea.width = entitySize;
+        solidArea.height = entitySize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();

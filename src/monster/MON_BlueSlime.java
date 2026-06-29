@@ -4,6 +4,7 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
+import object.DROP1;
 import object.OBJ_Armor_Better;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
@@ -12,21 +13,21 @@ public class MON_BlueSlime extends Entity {
     public MON_BlueSlime(GamePanel gp) {
         super(gp);
         type = type_monster;
-        entitySize = 64;
+        entitySize = 128;
         name = "Blue Slime";
-        defaultSpeed=2;
+        defaultSpeed=1;
         this.setSpeed(defaultSpeed);
-        this.setMaxHp(85);
+        this.setMaxHp(200);
         this.setHp(this.getMaxHp());
-        this.setExp(10);
-        this.setAtk(5);
-        this.setDef(0);
-        knockBackPower=5;
+        this.setExp(30);
+        this.setAtk(8);
+        this.setDef(10);
+        knockBackPower=7;
 
         solidArea.x = 3;
         solidArea.y = 18;
-        solidArea.width = 42;
-        solidArea.height = 42;
+        solidArea.width = entitySize;
+        solidArea.height = entitySize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();
@@ -86,10 +87,10 @@ public class MON_BlueSlime extends Entity {
         // cast a die
         int i = new Random().nextInt(100) + 1;
         if (i < 50) {
-            dropItem(new OBJ_Armor_Better(gp));
+            dropItem(new DROP1(gp));
         }
         if (i > 50 && i < 100) {
-            dropItem(new OBJ_Sword_Copper(gp));
+            dropItem(new DROP1(gp));
         }
     }
 }

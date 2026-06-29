@@ -9,12 +9,12 @@ public class OBJ_Potion_Health extends Entity{
 
     public OBJ_Potion_Health(GamePanel gp) {
         super(gp);
-        entitySize = 128;
+        entitySize = 64;
         // int value = 25; HARUSNYA PAKE YG INI TAPI TIDAK BISA DIPAKAI DI METHOD use() entah kenapa
         value = 25;
 
         name = objName;
-        down1 = setUp("/assets/LootDrop/item567", 32, 32);
+        down1 = setUp("/assets/Objects/potion-health", 32, 32);
         attackValue = 14;
         description ="["+name+"]\nregenerate some of your\nhealth (25)";
         pickupable = true;
@@ -34,6 +34,7 @@ public class OBJ_Potion_Health extends Entity{
     public boolean use(Entity entity)
     {
         gp.gameState = gp.dialogState;
+        gp.playSE(4);
         gp.ui.currentDialogue = "You drink the " + name + "!"
         + "\nYour health has been recovered by " + value + ".";
         int temp=gp.player.getHp()+value;

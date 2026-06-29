@@ -8,6 +8,11 @@ public class EventHandler {
     
     GamePanel gp;
     Rectangle eventRect;
+    boolean spawn1 = false;
+    boolean spawn2 = false;
+    boolean spawn3 = false;
+    boolean spawn4 = false;
+
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
@@ -35,6 +40,9 @@ public class EventHandler {
                 break;
             case 3:
                 eventMap4();
+                break;
+            case 4:
+                eventMap5();
                 break;
         }
 
@@ -69,7 +77,7 @@ public class EventHandler {
     public void eventMap3(){
         if(hit(24, 9) && gp.player.direction == "up" && gp.aSetter.monsterCounterDungeon == 0){
             if(!gp.ui.InfiniteMode){
-                if(gp.player.getDungeonStage() == 5){
+                if(gp.player.getDungeonStage() == 1 && gp.player.getDungeonLevel() == 1){
                     TeleportDungeonBoss(gp.dialogState);
                 }else{
                     if(gp.player.getDungeonLevel() == 10){
@@ -92,6 +100,32 @@ public class EventHandler {
 
 
     public void eventMap4(){
+        
+        if(gp.monster[3][0] == null){
+            TeleportFase2(gp.dialogState);
+        }else{
+            if(gp.monster[3][0].getMaxHp() * 25 / 100 > gp.monster[3][0].getHp() && !spawn3){
+                System.out.println("SPAWN SLIME MERAH");
+                gp.aSetter.SpawnMonsterBoss();
+                spawn3 = true;
+            }
+            else if(gp.monster[3][0].getMaxHp() * 50 / 100 > gp.monster[3][0].getHp() && !spawn2){
+                System.out.println("SPAWN SLIME BIRU");
+                gp.aSetter.SpawnMonsterBoss();
+                spawn2 = true;
+            }
+            else if(gp.monster[3][0].getMaxHp() * 75 / 100 > gp.monster[3][0].getHp() && !spawn1){
+                System.out.println("SPAWN SLIME HIJAU");
+                gp.aSetter.SpawnMonsterBoss();
+                spawn1 = true;
+            }else{
+                System.out.println("Tidak Terdeteksi");
+            }
+        }
+    }
+
+
+    public void eventMap5(){
         if(gp.aSetter.monsterCounterDungeon == 0){
             TeleportOverWorldDungeon(gp.dialogState);
         }
@@ -167,6 +201,20 @@ public class EventHandler {
         gp.player.direction = "up";
     }
 
+    // Teleport Fase 2
+    public void TeleportFase2(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "FASE 2!!";
+        gp.currentMap = 4;
+        gp.tileM.loadMap("/assets/Maps/Maps5", gp.currentMap);
+        gp.aSetter.setBossFase2();
+
+        // atur lokasi player setelah teleport
+        gp.player.WorldX = gp.tileSize * 22 + gp.tileSize / 2;
+        gp.player.WorldY = gp.tileSize * 37 + gp.tileSize / 2;
+        gp.player.direction = "up";
+    }
+
 
     public void TeleportNextLevel(int gameState){
         gp.gameState = gameState;
@@ -209,6 +257,7 @@ public class EventHandler {
         gp.player.WorldX = gp.tileSize * 37 - gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 22 - gp.tileSize / 2;
         gp.player.direction = "down";
+        gp.aSetter.setNpc();
     }
 
     public void TeleportOverWorldDungeon(int gameState) {
@@ -222,6 +271,7 @@ public class EventHandler {
         gp.player.WorldX = gp.tileSize * 20 - gp.tileSize / 2;
         gp.player.WorldY = gp.tileSize * 21 - gp.tileSize / 2;
         gp.player.direction = "down";
+        gp.aSetter.setNpc();
     }
 
 

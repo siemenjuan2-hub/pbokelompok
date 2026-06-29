@@ -70,6 +70,8 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this);
     public boolean fullScreenOn = false;
 
+    private int previousMap = 0;
+
 
     //===============================================================================================================================================
     //  NOTE: KARENA SEKARANG OBJ, MONSTER, DAN NPC MENJADI ARRAY 2 DIMENSI MAKA TERJADI PERUBAHAN BESAR DALAM PEMANGGILANNYA :V
@@ -102,7 +104,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame()
     {
         aSetter.setObject();
-        // playMusic(0);
         aSetter.setNpc();
         aSetter.setMonsterMap1();
         eManager.setup();
@@ -119,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.setDefaultPosition();
         aSetter.setNpc();
         aSetter.setMonsterMap1();
+        stopMusic();
 
         if(restart == true){
             player.setDefaultValues();
@@ -170,6 +172,41 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update(){
+
+            if(currentMap != previousMap){
+
+            stopMusic();
+
+            switch(currentMap){
+
+                case 0:
+                    playMusic(0);
+                    break;
+
+                case 1:
+                    playMusic(8);
+                    break;
+
+                case 2:
+                    playMusic(7);
+                    break;
+
+                case 3:
+                    playMusic(6);
+                    break;
+
+                case 4:
+                    playMusic(6);
+                    break;
+
+                case 5:
+                    playMusic(6);
+                    break;
+
+            }
+
+            previousMap = currentMap;
+        }
 
         if(gameState == playState){
             // PLAYER
@@ -256,7 +293,10 @@ public class GamePanel extends JPanel implements Runnable {
             Collections.sort(entityList, new Comparator<Entity>(){
                 @Override
                 public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.WorldY, e2.WorldY);
+                    int result = Integer.compare(
+                                    e1.WorldY + e1.solidArea.y + e1.solidArea.height,
+                                    e2.WorldY + e2.solidArea.y + e2.solidArea.height
+                                );
                     return result;
                 }
             });

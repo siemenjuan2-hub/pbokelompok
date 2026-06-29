@@ -17,7 +17,7 @@ public class Lighting {
 
     public Lighting(GamePanel gp, int circleSize) {
         this.gp = gp;
-        this.circleSize = circleSize;
+        this.circleSize = 1000;
         
         setLightSource(); 
     }
@@ -81,7 +81,7 @@ public class Lighting {
 
 
     //FRADATION PAINT
-    RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, (circleSize / 2), fraction, color);
+    RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, (circleSize /2 ), fraction, color);
 
     // SET GRADASI
     g2.setPaint(gPaint);

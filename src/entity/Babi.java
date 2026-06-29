@@ -12,9 +12,10 @@ public class Babi extends Entity{
     public Babi (GamePanel gp){
         super(gp);
         entitySize = 128;
-        solidArea = new Rectangle(0, 0, entitySize, entitySize);
-
+        solidArea = new Rectangle(0, 0, entitySize , entitySize );
+        knockBackPower=3;
         this.setSpeed(3);
+        collision = false;
 
         getImage();
 

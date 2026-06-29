@@ -9,10 +9,10 @@ import entity.Keledai;
 import entity.Npc_Merchant;
 import entity.Npc_OldMan;
 import entity.Sapi;
-import object.OBJ_AutumnBush;
 import object.OBJ_BurnedTree;
 import object.OBJ_Bush1;
 import object.OBJ_Bush2;
+import object.OBJ_Pohon_Hijau_Jumbo;
 import object.OBJ_Potion_Health;
 import object.OBJ_Sword_Copper;
 import object.KananAtas;
@@ -36,10 +36,9 @@ public class AssetSetter {
     {
         int mapNum = 0;
         int i = 0;
-        gp.obj[mapNum][i] = new OBJ_AutumnBush(gp);
+        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
         gp.obj[mapNum][i].WorldX = 22 * gp.tileSize;
         gp.obj[mapNum][i].WorldY = 20 * gp.tileSize;
-        gp.obj[mapNum][i].collision = false;
         i++;
         gp.obj[mapNum][i] = new OBJ_Bush1(gp);
         gp.obj[mapNum][i].WorldX = 30 * gp.tileSize;
@@ -51,10 +50,9 @@ public class AssetSetter {
         gp.obj[mapNum][i].WorldY = 41 * gp.tileSize;
         gp.obj[mapNum][i].collision = false;
         i++;
-        gp.obj[mapNum][i] = new OBJ_AutumnBush(gp);
+        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
         gp.obj[mapNum][i].WorldX = 25 * gp.tileSize;
         gp.obj[mapNum][i].WorldY = 20 * gp.tileSize;
-        gp.obj[mapNum][i].collision = false;
         i++;
         gp.obj[mapNum][i] = new OBJ_BurnedTree(gp);
         gp.obj[mapNum][i].WorldX = 25 * gp.tileSize;
@@ -94,6 +92,8 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Potion_Health(gp);
         gp.obj[mapNum][i].WorldX = 28 * gp.tileSize;
         gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
+        i++;
+        
     }
 
     public void setNpc(){
@@ -275,67 +275,204 @@ public class AssetSetter {
     public void setMonsterMap1() {
         int mapNum = 0;
         int i = 0;
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 40;
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 40;
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 26;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 42;
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 26;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 42;
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 28;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 38;
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 28;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 38;
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 32;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 36;
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 32;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 36;
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 35;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 34;
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 35;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 34;
+        // i++;
 
     }
 
     public void setMonsterDungeon() {
         int mapNum = 2;
         int i = 0;
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 10;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 30;
-        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
-        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
-        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
-        i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 12;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 33;
-        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
-        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
-        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
-        i++;
+        // SLIME HIJAU KIRI
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 10;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 30;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 13;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 34;
-        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
-        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
-        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 12;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 33;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
 
-        gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
-        gp.monster[mapNum][i].WorldX = gp.tileSize * 15;
-        gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
-        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
-        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
-        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
-        i++;
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 13;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 34;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 15;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 15;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 33;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // // SLIME HIJAU KANAN
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 38;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 30;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 37;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 33;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 33;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 30;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 35;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 34;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 33;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+
+
+        // // SLIME MERAH (KIRI ATAS)
+        // gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 13;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 19;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 8;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 19;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 8;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 13;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 10;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 21;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+
+        // // SLIME BIRU (KANAN ATAS)
+        // gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 35;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 19;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 40;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 19;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 39;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 22;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 35;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+
+        // gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+        // gp.monster[mapNum][i].WorldX = gp.tileSize * 38;
+        // gp.monster[mapNum][i].WorldY = gp.tileSize * 21;
+        // gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+        // gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        // gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        // i++;
+        
         monsterCounterDungeon = i;
     }
 
@@ -343,6 +480,344 @@ public class AssetSetter {
         int mapNum = 3;
         int i = 0;
         // SPAWN BOSS DI SINI
+        gp.monster[mapNum][i] = new monster.MON_KingSlime(gp);
+        gp.monster[mapNum][i].WorldX = gp.tileSize * 24;
+        gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk()); // ubah atkMonster Berdasarkan levelDungeon
+        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp()); // ubah MaxHpMonster Berdasarkan LevelDungeon
+        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        i++;
         monsterCounterDungeon = i;
+    }
+
+    public void setBossFase2() {
+        int mapNum = 4;
+        int i = 0;
+        gp.monster[mapNum][i] = new monster.MON_KingSlime(gp);
+        gp.monster[mapNum][i].WorldX = gp.tileSize * 30;
+        gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() / 2); // ubah atkMonster
+        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() / 2); // ubah MaxHpMonster
+        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        gp.monster[mapNum][i].entitySize = 256;
+        gp.monster[mapNum][i].solidArea.width = gp.monster[mapNum][i].entitySize;
+        gp.monster[mapNum][i].solidArea.height = gp.monster[mapNum][i].entitySize;
+        i++;
+
+        gp.monster[mapNum][i] = new monster.MON_KingSlime(gp);
+        gp.monster[mapNum][i].WorldX = gp.tileSize * 24;
+        gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() / 2); // ubah atkMonster
+        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() / 2); // ubah MaxHpMonster
+        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        gp.monster[mapNum][i].entitySize = 256;
+        gp.monster[mapNum][i].solidArea.width = gp.monster[mapNum][i].entitySize;
+        gp.monster[mapNum][i].solidArea.height = gp.monster[mapNum][i].entitySize;
+        i++;
+
+        gp.monster[mapNum][i] = new monster.MON_KingSlime(gp);
+        gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+        gp.monster[mapNum][i].WorldY = gp.tileSize * 31;
+        gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() / 2); // ubah atkMonster
+        gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() / 2); // ubah MaxHpMonster
+        gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+        gp.monster[mapNum][i].entitySize = 256;
+        gp.monster[mapNum][i].solidArea.width = gp.monster[mapNum][i].entitySize;
+        gp.monster[mapNum][i].solidArea.height = gp.monster[mapNum][i].entitySize;
+        i++;
+        monsterCounterDungeon = i;
+    }
+
+    public void SpawnMonsterBoss(){
+        int mapNum = 3;
+        int i = monsterCounterDungeon;
+        if(gp.monster[3][0] == null){
+            
+        }
+        else if(gp.monster[3][0] != null && gp.monster[3][0].getMaxHp() * 25 / 100 > gp.monster[3][0].getHp() && !gp.eHandler.spawn3){
+            i = 1;
+            // SPAWN BAWAH
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = 27;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 25;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 24;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 21;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 19;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 25;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KANAN
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 29;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 26;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 22;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 28;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 22;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KIRI
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 20;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 21;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 26;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_RedSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 18;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+        }
+        else if(gp.monster[3][0] != null && gp.monster[3][0].getMaxHp() * 50 / 100 > gp.monster[3][0].getHp() && !gp.eHandler.spawn3){
+            i = 1;
+            // SPAWN BAWAH
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = 27;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 25;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 24;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 21;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 19;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 25;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KANAN
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 29;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 26;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 22;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 28;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 22;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KIRI
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 20;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 21;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 26;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 18;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+        }
+        else if(gp.monster[3][0] != null && gp.monster[3][0].getMaxHp() * 75 / 100 > gp.monster[3][0].getHp() && !gp.eHandler.spawn3){
+            i = 1;
+            // SPAWN bAWAH
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = 27;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 25;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 24;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 21;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 23;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 19;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 25;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KANAN
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 29;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 26;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 22;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 28;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 23;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 22;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            // SPAWN KIRI
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 20;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 21;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 26;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 29;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+            gp.monster[mapNum][i] = new monster.MON_GreenSlime(gp);
+            gp.monster[mapNum][i].WorldX = gp.tileSize * 18;
+            gp.monster[mapNum][i].WorldY = gp.tileSize * 18;
+            gp.monster[mapNum][i].setAtk(gp.monster[mapNum][i].getAtk() + (gp.player.getDungeonStage()*gp.player.getDungeonLevel())); // ubah atkMonster Berdasarkan levelDungeon
+            gp.monster[mapNum][i].setMaxHp(gp.monster[mapNum][i].getMaxHp() + ((2+gp.player.getDungeonStage())*gp.player.getDungeonLevel())); // ubah MaxHpMonster Berdasarkan LevelDungeon
+            gp.monster[mapNum][i].setHp(gp.monster[mapNum][i].getMaxHp());
+            i++;
+
+        }
+        monsterCounterDungeon = i;
+        
+
     }
 }
