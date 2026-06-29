@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import entity.Entity;
 import object.OBJ_Potion_Health;
+import object.CEWE;
 
 public class UI {
     GamePanel gp;
@@ -87,6 +88,7 @@ public class UI {
                     g2.drawString("Story Mode", gp.getWidth() / 2, gp.tileSize / 2);
                     g2.drawString("DungeonStage: " + gp.player.getDungeonStage(), gp.tileSize/8, gp.tileSize / 2);
                     g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
+                    g2.drawString("Current Monster: " + gp.aSetter.monsterCounterDungeon, gp.tileSize/8, gp.tileSize + gp.tileSize / 2);
                 }
             }
             if(gp.currentMap == 3){
@@ -120,6 +122,7 @@ public class UI {
         if(gp.gameState == gp.optionState){
             drawOptionScreen();
         }
+        // game over state
         if(gp.gameState == gp.gameOverState){
             drawGameOverScreen();
         }
@@ -385,6 +388,7 @@ public class UI {
                 }
                 else{
                     if(gp.player.canObtainItem(npc.inventory.get(itemIndex)) == true){
+                        gp.playSE(10);
                         gp.player.coin -= npc.inventory.get(itemIndex).price;
                     }
                     else {
@@ -455,14 +459,27 @@ public class UI {
                     gp.gameState = gp.dialogState;
                     currentDialogue = "You cannot sell an equipped item!";
                 }
+
                 else{
+                    Entity selectedItem = gp.player.inventory.get(itemIndex);                    
+                    boolean soldPrincess = selectedItem.name.equals(CEWE.objName);
+
                     if(gp.player.inventory.get(itemIndex).amount > 1){
                         gp.player.inventory.get(itemIndex).amount--;
                     }
                     else{
                         gp.player.inventory.remove(itemIndex);
                     }
+
+                    gp.playSE(10);
                     gp.player.coin += price;
+
+                    if(soldPrincess){
+                        commandNum = 0;
+                        subState = 0;
+                        gp.gameState = gp.dialogState;
+                        currentDialogue = "Kamu jahat!";
+                    }                    
                 }
             }
         }
@@ -511,16 +528,19 @@ public class UI {
             {
                 Entity selectedItem = gp.player.inventory.get(itemIndex);
                 if(selectedItem.type != Entity.type_sword && selectedItem.type != Entity.type_armor){
+                    subState = 0;                    
                     gp.gameState = gp.dialogState;
                     currentDialogue = "Only weapon and armor \ncan be upgraded!";
                     return;
                 }
                 if(selectedItem.upgradeLevel >= 5){
+                    subState = 0;                    
                     gp.gameState = gp.dialogState;
                     currentDialogue = "This item is already MAX \nlevel!";
                     return;
                 }
                 if(gp.player.coin < 50){
+                    subState = 0;                    
                     gp.gameState = gp.dialogState;
                     currentDialogue = "Not enough coins!";
                     return;
@@ -528,6 +548,7 @@ public class UI {
                 int materialIndex = gp.player.findUpgradeMaterial(selectedItem);
 
                 if(materialIndex == 999){
+                    subState = 0;                    
                     gp.gameState = gp.dialogState;
                     currentDialogue = "You need another " + selectedItem.name + "\nto Upgrade this!";
                     return;
@@ -542,8 +563,9 @@ public class UI {
                 if(selectedItem.type == Entity.type_armor){
                     selectedItem.defenseValue++;
                 }
-
+                
                 selectedItem.upgradeLevel++;
+                gp.playSE(5);                
                 gp.player.updateStats();
 
 

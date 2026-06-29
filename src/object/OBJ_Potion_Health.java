@@ -21,6 +21,8 @@ public class OBJ_Potion_Health extends Entity{
         type = type_consumable;
         price = 40;
         stackable = true;
+        collision = false;
+
         
         solidArea.x = 0;
         solidArea.y = 0;

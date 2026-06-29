@@ -5,6 +5,7 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePanel;
 import object.DROP1;
+import object.DROP2;
 import object.OBJ_Armor_Better;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
@@ -90,7 +91,7 @@ public class MON_GreenSlime extends Entity {
             dropItem(new DROP1(gp));
         }
         if (i > 50 && i < 100) {
-            dropItem(new DROP1(gp));
+            dropItem(new DROP2(gp));
         }
     }
 }

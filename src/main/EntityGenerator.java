@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import object.CEWE;
 import object.DROP1;
 import object.DROP2;
 import object.KananAtas;
@@ -44,6 +45,7 @@ public class EntityGenerator {
             case OBJ_Bush2.objName: obj = new OBJ_Bush2(gp); break;
             case DROP1.objName: obj = new DROP1(gp);break;
             case DROP2.objName: obj = new DROP2(gp);break;
+            case CEWE.objName:obj = new CEWE(gp);break;
         }
 
         return obj;

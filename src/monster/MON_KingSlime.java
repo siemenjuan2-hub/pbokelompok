@@ -136,18 +136,22 @@ public class MON_KingSlime extends Entity {
 
                         case 0:
                             direction = "up";
+                            gp.playSE(9);
                             break;
 
                         case 1:
                             direction = "down";
+                            gp.playSE(9);
                             break;
 
                         case 2:
                             direction = "left";
+                            gp.playSE(9);
                             break;
 
                         case 3:
                             direction = "right";
+                            gp.playSE(9);
                             break;
                     }
 
@@ -166,13 +170,13 @@ public class MON_KingSlime extends Entity {
             // DASH SYSTEM
             if (!dashing) {
 
-                // 0.5% chance tiap frame
+                // 5% chance tiap frame
                 if (rand.nextInt(1000) < 5) {
 
                     dashing = true;
-                    dashCounter = 60;
+                    dashCounter = 120;
 
-                    setSpeed((defaultSpeed + 5) * 3);
+                    this.setSpeed((defaultSpeed + 50) * 3);
                 }
 
             } else {

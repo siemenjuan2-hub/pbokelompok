@@ -26,7 +26,7 @@ public class Sound {
         soundURL[7] = getClass().getResource("/assets/Sound/Dungeon.wav");
         soundURL[8] = getClass().getResource("/assets/Sound/trade-song.wav");
         soundURL[9] = getClass().getResource("/assets/Sound/damage-player.wav");
-
+        soundURL[10] = getClass().getResource("/assets/Sound/buy-item.wav");
 
     }
 
