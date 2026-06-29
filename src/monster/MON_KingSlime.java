@@ -176,7 +176,7 @@ public class MON_KingSlime extends Entity {
                     dashing = true;
                     dashCounter = 120;
 
-                    this.setSpeed((defaultSpeed + 50) * 3);
+                    this.setSpeed((defaultSpeed + 5) * 3);
                 }
 
             } else {
