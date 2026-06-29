@@ -28,6 +28,7 @@ public class TileManager {
         loadMap("/assets/Maps/Maps2.txt", 1);
         loadMap("/assets/Maps/Maps3.txt", 2);
         loadMap("/assets/Maps/Maps4.txt", 3);
+        loadMap("/assets/Maps/Maps5.txt", 4);
 
     }
 
@@ -72,7 +73,6 @@ public class TileManager {
         // Dungeon (maps3.txt)
         setup(25, "/Dungeon/dungeon-door",false);
         setup(26, "/Dungeon/dungeon-floor1", false);
-        
     }
 
     
@@ -170,7 +170,13 @@ public void setup(int index, String imageName, boolean collision) {
                 screenY > -gp.tileSize &&
                 screenY < gp.getHeight() + gp.tileSize
             ){
-
+            if(tile[tileNum] == null){
+                System.out.println("NULL TILE DETECTED");
+                System.out.println("tileNum = " + tileNum);
+                System.out.println("col = " + worldCol);
+                System.out.println("row = " + worldRow);
+                return;
+            }
                 g2.drawImage(
                     tile[tileNum].image,
                     screenX,

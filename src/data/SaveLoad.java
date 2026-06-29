@@ -19,7 +19,6 @@ import object.KiriAtas;
 import object.Kiribawah;
 import object.OBJ_Armor_Better;
 import object.OBJ_Armor_Normal;
-import object.OBJ_AutumnBush;
 import object.OBJ_BurnedTree;
 import object.OBJ_Bush1;
 import object.OBJ_Bush2;

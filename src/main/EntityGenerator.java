@@ -1,16 +1,18 @@
 package main;
 
 import entity.Entity;
+import object.DROP1;
+import object.DROP2;
 import object.KananAtas;
 import object.KananBawah;
 import object.KiriAtas;
 import object.Kiribawah;
 import object.OBJ_Armor_Better;
 import object.OBJ_Armor_Normal;
-import object.OBJ_AutumnBush;
 import object.OBJ_BurnedTree;
 import object.OBJ_Bush1;
 import object.OBJ_Bush2;
+import object.OBJ_Pohon_Hijau_Jumbo;
 import object.OBJ_Potion_Health;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
@@ -36,10 +38,12 @@ public class EntityGenerator {
             case KananAtas.objName: obj = new KananAtas(gp); break;
             case Kiribawah.objName: obj = new Kiribawah(gp); break;
             case KiriAtas.objName: obj = new KiriAtas(gp); break;
-            case OBJ_AutumnBush.objName: obj = new OBJ_AutumnBush(gp); break;
+            case OBJ_Pohon_Hijau_Jumbo.objName: obj = new OBJ_Pohon_Hijau_Jumbo(gp); break;
             case OBJ_BurnedTree.objName: obj = new OBJ_BurnedTree(gp); break;
             case OBJ_Bush1.objName: obj = new OBJ_Bush1(gp); break;
             case OBJ_Bush2.objName: obj = new OBJ_Bush2(gp); break;
+            case DROP1.objName: obj = new DROP1(gp);break;
+            case DROP2.objName: obj = new DROP2(gp);break;
         }
 
         return obj;

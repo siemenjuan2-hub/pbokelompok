@@ -288,15 +288,20 @@ public class KeyHandler implements KeyListener{
     {
             if(key == KeyEvent.VK_W) {
                 if(gp.ui.playerSlotRow > 0) { gp.ui.playerSlotRow--; }
+                gp.playSE(2);
+                
             }
             if(key == KeyEvent.VK_S) {
                 if(gp.ui.playerSlotRow < 3) { gp.ui.playerSlotRow++; }
+                gp.playSE(2);
             }
             if(key == KeyEvent.VK_A) {
                 if(gp.ui.playerSlotCol > 0) { gp.ui.playerSlotCol--; }
+                gp.playSE(2);
             }
             if(key == KeyEvent.VK_D) {
                 if(gp.ui.playerSlotCol < 4) { gp.ui.playerSlotCol++; }
+                gp.playSE(2);
             }
     }
 
@@ -304,15 +309,21 @@ public class KeyHandler implements KeyListener{
     {
             if(key == KeyEvent.VK_W) {
                 if(gp.ui.npcSlotRow > 0) { gp.ui.npcSlotRow--; }
+                gp.playSE(2);
             }
             if(key == KeyEvent.VK_S) {
                 if(gp.ui.npcSlotRow < 3) { gp.ui.npcSlotRow++; }
+                gp.playSE(2);
+
             }
             if(key == KeyEvent.VK_A) {
                 if(gp.ui.npcSlotCol > 0) { gp.ui.npcSlotCol--; }
+                gp.playSE(2);
+
             }
             if(key == KeyEvent.VK_D) {
                 if(gp.ui.npcSlotCol < 4) { gp.ui.npcSlotCol++; }
+                gp.playSE(2);
             }
     }    
 

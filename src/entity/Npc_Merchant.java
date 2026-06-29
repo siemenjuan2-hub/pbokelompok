@@ -18,7 +18,7 @@ public class Npc_Merchant extends Entity{
     public Npc_Merchant (GamePanel gp){
         super(gp);
         entitySize = 100;
-        solidArea = new Rectangle(0, 0, entitySize, entitySize);
+        solidArea = new Rectangle(0, 0, entitySize , entitySize);
 
         direction = "down";
         this.setSpeed(0);

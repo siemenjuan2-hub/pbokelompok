@@ -13,8 +13,9 @@ public class Bebek extends Entity{
         super(gp);
         entitySize = 96;
         solidArea = new Rectangle(0, 0, entitySize, entitySize);
-        
+        knockBackPower=3;
         this.setSpeed(3);
+        collision = false;
 
         getImage();
 

@@ -72,7 +72,7 @@ public class Player extends Entity {
         this.setHp(this.getMaxHp());
         defaultSpeed=6;
         this.setSpeed(defaultSpeed);
-        this.setStrength(100);
+        this.setStrength(10);
         this.setDef(1);
         this.setExp(0);
         this.setNextLevelExp(5);
@@ -332,7 +332,21 @@ public class Player extends Entity {
 
                 if (monster != null) {
 
-                    if (solidArea.intersects(monster.solidArea)) {
+                    Rectangle playerArea = new Rectangle(
+                        WorldX + solidArea.x,
+                        WorldY + solidArea.y,
+                        solidArea.width,
+                        solidArea.height
+                    );
+
+                    Rectangle monsterArea = new Rectangle(
+                        monster.WorldX + monster.solidArea.x,
+                        monster.WorldY + monster.solidArea.y,
+                        monster.solidArea.width,
+                        monster.solidArea.height
+                    );
+
+                    if (playerArea.intersects(monsterArea)) {
                         contactMonster(monster);
                     }
                 }
@@ -571,13 +585,12 @@ public class Player extends Entity {
 
             if (gp.monster[gp.currentMap][i].invincible == false) {
                 
+                gp.playSE(1); // hitmonster.wav
+
                 if(knockBackPower>0){
                     
                 }
                 knockback(gp.monster[gp.currentMap][i],knockBackPower);
-
-                
-
                 // System.out.println("Monster Hit!");
                 int damage = getAtk() - gp.monster[gp.currentMap][i].getDefense();
                 if (damage < 0) {
@@ -588,7 +601,6 @@ public class Player extends Entity {
                 gp.ui.showMassage(damage + " damage!");
                 gp.monster[gp.currentMap][i].invincible = true;
                 hit = true;
-
                 if (gp.monster[gp.currentMap][i].getHp() <= 0) {
                     gp.monster[gp.currentMap][i].dying = true;
                     gp.ui.showMassage("killed the " + gp.monster[gp.currentMap][i].name + "!");
@@ -634,6 +646,7 @@ public class Player extends Entity {
 
             if (selectedItem.type == type_sword) {
                 currentSword = selectedItem;
+                gp.playSE(5);
                 // di tutorial:
                 // attack (kodingan kita nama var. attackValue) = getAttack() sudah kucoba tidak
                 // work jadi buat method baru
@@ -641,6 +654,7 @@ public class Player extends Entity {
             }
             if (selectedItem.type == type_armor) {
                 currentArmor = selectedItem;
+                gp.playSE(5);
                 updateStats();
             }
             if (selectedItem.type == type_consumable) {

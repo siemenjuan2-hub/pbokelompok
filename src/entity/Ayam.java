@@ -12,9 +12,11 @@ public class Ayam extends Entity{
     public Ayam (GamePanel gp){
         super(gp);
         entitySize = 64;
-        solidArea = new Rectangle(0, 0, entitySize, entitySize);
+        solidArea = new Rectangle(0, 0, entitySize , entitySize);
+        knockBackPower=3;
         this.setSpeed(3);
         getImage();
+        collision = false;
 
         setDialogues();
     }

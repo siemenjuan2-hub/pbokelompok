@@ -13,10 +13,9 @@ public class Npc_OldMan extends Entity{
         super(gp);
         entitySize = 100;
         solidArea = new Rectangle(0, 0, entitySize, entitySize);
-
+        knockBackPower=3;
         direction = "down";
         this.setSpeed(3);
-
         getImage();
 
         setDialogues();

@@ -38,6 +38,7 @@ public abstract class Entity {
     public int attackCooldown = 0;
     public final int attackInterval = 60; // 60 frame = 1 atk/detik
     public ArrayList<Node> pathList = new ArrayList<>();
+    
 
     // STATE
     public int WorldX, WorldY;
@@ -106,6 +107,7 @@ public abstract class Entity {
     public final static int type_sword = 2;
     public final static int type_armor = 3;
     public final static int type_consumable = 4;
+    public final static int type_drop = 5;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -268,6 +270,7 @@ public abstract class Entity {
         boolean contactPlayer = gp.cCheker.checkPlayer(this);
         if (type == type_monster && contactPlayer == true) {
             damagePlayer(atk);
+            gp.playSE(9);
             gp.player.invincible = true;
         }
 
@@ -339,10 +342,10 @@ public abstract class Entity {
         int screenX = WorldX - gp.player.WorldX + gp.player.ScreenX;
         int screenY = WorldY - gp.player.WorldY + gp.player.ScreenY;
 
-        if (WorldX + gp.tileSize > gp.player.WorldX - gp.player.ScreenX &&
-                WorldX - gp.tileSize < gp.player.WorldX + gp.player.ScreenX &&
-                WorldY + gp.tileSize > gp.player.WorldY - gp.player.ScreenY &&
-                WorldY - gp.tileSize < gp.player.WorldY + gp.player.ScreenY) {
+        if (WorldX + entitySize > gp.player.WorldX - gp.player.ScreenX &&
+            WorldX - entitySize < gp.player.WorldX + gp.player.ScreenX &&
+            WorldY + entitySize > gp.player.WorldY - gp.player.ScreenY &&
+            WorldY - entitySize < gp.player.WorldY + gp.player.ScreenY) {
 
             switch (direction) {
                 case "up":
@@ -465,8 +468,11 @@ public abstract class Entity {
     
     public void searchPath(int goalCol, int goalrow) {
 
-        int startCol = (WorldX + solidArea.x) / gp.tileSize;
-        int startRow = (WorldY + solidArea.y) / gp.tileSize;
+        int startCenterX = WorldX + solidArea.x + solidArea.width / 2;
+        int startCenterY = WorldY + solidArea.y + solidArea.height / 2;
+
+        int startCol = startCenterX / gp.tileSize;
+        int startRow = startCenterY / gp.tileSize;
 
         gp.pFinder.setNodes(startCol, startRow, goalCol, goalrow);
 
@@ -479,28 +485,26 @@ public abstract class Entity {
             int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
 
             // entity solid area position
-            int enLeftX = WorldX + solidArea.x;
-            int enRightX = WorldX + solidArea.x + solidArea.width;
-            int enTopY = WorldY + solidArea.y;
-            int enBottomY = WorldY + solidArea.y + solidArea.height;
+            int centerX = WorldX + solidArea.x + solidArea.width / 2;
+            int centerY = WorldY + solidArea.y + solidArea.height / 2;
 
-            if (enTopY > nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
+            if (centerY > nextY && centerX >= nextX && centerX <= nextX + gp.tileSize) {
                 direction = "up";
                 checkCollision();
-            } else if (enTopY < nextY && enLeftX >= nextX && enRightX <= nextX + gp.tileSize) {
+            } else if (centerY < nextY && centerX >= nextX && centerX <= nextX + gp.tileSize) {
                 direction = "down";
                 checkCollision();
-            } else if (enTopY >= nextY && enBottomY <= nextY + gp.tileSize) {
+            } else if (centerY >= nextY && centerY <= nextY + gp.tileSize) {
                 // left or right
-                if (enLeftX > nextX) {
+                if (centerX > nextX) {
                     direction = "left";
                     checkCollision();
                 }
-                if (enRightX < nextX + gp.tileSize) {
+                if (centerX < nextX + gp.tileSize) {
                     direction = "right";
                     checkCollision();
                 }
-            } else if (enTopY > nextY && enLeftX > nextX) {
+            } else if (centerY > nextY && centerX > nextX) {
                 // up or left
                 direction = "up";
                 checkCollision();
@@ -508,7 +512,7 @@ public abstract class Entity {
                     direction = "left";
                     checkCollision();
                 }
-            } else if (enTopY > nextY && enLeftX < nextX) {
+            } else if (centerY > nextY && centerX < nextX) {
                 // up or right
                 direction = "up";
                 checkCollision();
@@ -516,7 +520,7 @@ public abstract class Entity {
                     direction = "right";
                     checkCollision();
                 }
-            } else if (enTopY < nextY && enLeftX > nextX) {
+            } else if (centerY < nextY && centerX > nextX) {
                 // down or left
                 direction = "down";
                 checkCollision();
@@ -524,7 +528,7 @@ public abstract class Entity {
                     direction = "left";
                     checkCollision();
                 }
-            } else if (enTopY < nextY && enLeftX < nextX) {
+            } else if (centerY < nextY && centerX < nextX) {
                 // down or right
                 direction = "down";
                 checkCollision();

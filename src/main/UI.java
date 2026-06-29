@@ -89,8 +89,16 @@ public class UI {
                     g2.drawString("DungeonLevel: " + gp.player.getDungeonLevel(), gp.tileSize/8, gp.tileSize);
                 }
             }
-            g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.tileSize*8);
-            g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.tileSize*8);
+            if(gp.currentMap == 3){
+                g2.drawString("BOSS FIGHT", gp.getWidth() / 2, gp.tileSize / 2);
+                g2.drawString("Current Monster: " + gp.aSetter.monsterCounterDungeon, gp.tileSize/8, gp.tileSize / 2);
+            }
+            if(gp.currentMap == 4){
+                g2.drawString("BOSS FIGHT FASE 2", gp.getWidth() / 2, gp.tileSize / 2);
+                g2.drawString("Current Monster: " + gp.aSetter.monsterCounterDungeon, gp.tileSize/8, gp.tileSize / 2);
+            }
+            g2.drawString("HP: " + gp.player.getHp() + "/" + gp.player.getMaxHp(), gp.tileSize/8, gp.getHeight() - gp.tileSize / 2);
+            g2.drawString("AGI: " + dFormat.format(gp.player.stamina) + "/" + gp.player.maxStamina, gp.tileSize*2, gp.getHeight() - gp.tileSize / 2);
             // g2.drawString("Potion: " + gp.player.hasPotion, gp.tileSize*4, gp.tileSize*8);
             showMassage();
         }
