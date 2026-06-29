@@ -84,7 +84,7 @@ public class EventHandler {
         }
         if(hit(24, 39) && gp.player.direction == "down"){
             if(gp.ui.InfiniteMode){
-                gp.player.setDungeonInfiniteHighest(gp.player.getDungeonInfiniteLevel());
+                gp.player.setDungeonInfiniteHighest(Math.max(gp.player.getDungeonInfiniteLevel(), gp.player.getDungeonInfiniteHighest()));
             }
             TeleportOverWorldDungeon(gp.dialogState);
         }

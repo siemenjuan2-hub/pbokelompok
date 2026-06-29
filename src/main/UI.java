@@ -663,12 +663,16 @@ public class UI {
             if (saveGameOn == true) {
                 toggleText = "Save";
                 if(gp.keyH.enterPressed){
+                    commandNum = 0;
+                    subState = 0;
                     gp.saveLoad.save();
                     gp.gameState = gp.titleState;
                 }
             } else {
                 toggleText = "Dont Save";
                 if(gp.keyH.enterPressed){
+                    commandNum = 0;
+                    subState = 0;
                     gp.gameState = gp.titleState;
                 }
             }
