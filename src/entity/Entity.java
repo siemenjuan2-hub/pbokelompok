@@ -441,28 +441,28 @@ public abstract class Entity {
             g2.drawImage(image, screenX, screenY, entitySize, entitySize, null);
             changeAlpha(g2, 1f);
 
-            // DEBUG HITBOX
-            g2.setColor(java.awt.Color.PINK);
-            g2.drawRect(
-                    screenX + solidArea.x,
-                    screenY + solidArea.y,
-                    solidArea.width,
-                    solidArea.height);
+            // // DEBUG HITBOX
+            // g2.setColor(java.awt.Color.PINK);
+            // g2.drawRect(
+            //         screenX + solidArea.x,
+            //         screenY + solidArea.y,
+            //         solidArea.width,
+            //         solidArea.height);
 
-            // DEBUG PATHFINDING
-            if(drawPath){
-                g2.setColor(new Color(255, 0, 0, 70));
+            // // DEBUG PATHFINDING
+            // if(drawPath){
+            //     g2.setColor(new Color(255, 0, 0, 70));
 
-                for(int i = 0; i < pathList.size(); i++){
-                    int worldX = pathList.get(i).col * gp.tileSize;
-                    int worldY = pathList.get(i).row * gp.tileSize;
+            //     for(int i = 0; i < pathList.size(); i++){
+            //         int worldX = pathList.get(i).col * gp.tileSize;
+            //         int worldY = pathList.get(i).row * gp.tileSize;
 
-                    int pathScreenX = worldX - gp.player.WorldX + gp.player.ScreenX;
-                    int pathScreenY = worldY - gp.player.WorldY + gp.player.ScreenY;
+            //         int pathScreenX = worldX - gp.player.WorldX + gp.player.ScreenX;
+            //         int pathScreenY = worldY - gp.player.WorldY + gp.player.ScreenY;
 
-                    g2.fillRect(pathScreenX, pathScreenY, gp.tileSize, gp.tileSize);
-                }
-            }
+            //         g2.fillRect(pathScreenX, pathScreenY, gp.tileSize, gp.tileSize);
+            //     }
+            // }
         }
     }
     

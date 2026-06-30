@@ -87,10 +87,13 @@ public class MON_GreenSlime extends Entity {
     public void checkDrop() {
         // cast a die
         int i = new Random().nextInt(100) + 1;
-        if (i < 50) {
+        if (i < 40) {
+            
+        }
+        if (i >= 40 && i < 80) {
             dropItem(new DROP1(gp));
         }
-        if (i > 50 && i < 100) {
+        if (i >= 80 && i <= 100) {
             dropItem(new DROP2(gp));
         }
     }

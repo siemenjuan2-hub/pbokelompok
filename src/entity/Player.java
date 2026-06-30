@@ -880,55 +880,55 @@ public class Player extends Entity {
         // RESET ALPHA
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1f));
 
-        // HITBOX PLAYER
-        g2.setColor(java.awt.Color.ORANGE);
+        // // DEBUG HITBOX PLAYER
+        // g2.setColor(java.awt.Color.ORANGE);
 
-        g2.drawRect(
-                (gp.player.WorldX + gp.player.solidArea.x) / gp.tileSize,
-                (gp.player.WorldY + gp.player.solidArea.y) / gp.tileSize,
-                solidArea.width,
-                solidArea.height);
+        // g2.drawRect(
+        //         (gp.player.WorldX + gp.player.solidArea.x) / gp.tileSize,
+        //         (gp.player.WorldY + gp.player.solidArea.y) / gp.tileSize,
+        //         solidArea.width,
+        //         solidArea.height);
 
         // GOAL MONSTER PATHFINDING
-        g2.drawRect(
-        tempScreenX + solidArea.x,
-        tempScreenY + solidArea.y,
-        solidArea.width,
-        solidArea.height);
+        // g2.drawRect(
+        // tempScreenX + solidArea.x,
+        // tempScreenY + solidArea.y,
+        // solidArea.width,
+        // solidArea.height);
 
-        // HITBOX ATTACK
-        if (attack) {
+        // // DEBUG HITBOX ATTACK
+        // if (attack) {
 
-            int atkX = tempScreenX + solidArea.x;
-            int atkY = tempScreenY + solidArea.y;
+        //     int atkX = tempScreenX + solidArea.x;
+        //     int atkY = tempScreenY + solidArea.y;
 
-            switch (direction) {
+        //     switch (direction) {
 
-                case "up":
-                    atkY -= attackArea.height;
-                    break;
+        //         case "up":
+        //             atkY -= attackArea.height;
+        //             break;
 
-                case "down":
-                    atkY += solidArea.height;
-                    break;
+        //         case "down":
+        //             atkY += solidArea.height;
+        //             break;
 
-                case "left":
-                    atkX -= attackArea.width;
-                    break;
+        //         case "left":
+        //             atkX -= attackArea.width;
+        //             break;
 
-                case "right":
-                    atkX += solidArea.width;
-                    break;
-            }
+        //         case "right":
+        //             atkX += solidArea.width;
+        //             break;
+        //     }
 
-            g2.setColor(java.awt.Color.RED);
+        //     g2.setColor(java.awt.Color.RED);
 
-            g2.drawRect(
-                    atkX,
-                    atkY,
-                    attackArea.width,
-                    attackArea.height);
-        }
+        //     g2.drawRect(
+        //             atkX,
+        //             atkY,
+        //             attackArea.width,
+        //             attackArea.height);
+        // }
     }
 
     @Override
