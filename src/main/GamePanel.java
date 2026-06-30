@@ -312,21 +312,21 @@ public class GamePanel extends JPanel implements Runnable {
             //ENVIRONMENT
             eManager.draw(g2);
 
-            //UI
+            //UI DEBUG HITBOX EVENTHANDLER
             ui.draw(g2);
-            switch (currentMap) {
+            // switch (currentMap) {
 
-                case 0:
-                    eHandler.drawDebugMap1(g2);
-                    break;
-                case 1:
-                    eHandler.drawDebugMap2(g2);
-                    break;
-                case 2:
-                    eHandler.drawDebugMap3(g2);
-                    break;
-            }
-            g2.setColor(Color.RED);
+            //     case 0:
+            //         eHandler.drawDebugMap1(g2);
+            //         break;
+            //     case 1:
+            //         eHandler.drawDebugMap2(g2);
+            //         break;
+            //     case 2:
+            //         eHandler.drawDebugMap3(g2);
+            //         break;
+            // }
+            // g2.setColor(Color.RED);
         }
         
         //Debug buat Liat Cetak Berapa Tile dalam nano seccond
@@ -374,18 +374,20 @@ public class GamePanel extends JPanel implements Runnable {
                     worldY + tileSize > player.WorldY - player.ScreenY &&
                     worldY - tileSize < player.WorldY - player.ScreenY + getHeight()
                 ) {
-                    g2.drawRect(
-                        screenX,
-                        screenY,
-                        tileSize,
-                        tileSize
-                    );
 
-                    g2.drawString(
-                        col + "," + row,
-                        screenX + 5,
-                        screenY + 15
-                    );
+                    // HITBOX / BESAR TILE (KOORDINAT MAP/TILE)
+                    // g2.drawRect(
+                    //     screenX,
+                    //     screenY,
+                    //     tileSize,
+                    //     tileSize
+                    // );
+
+                    // g2.drawString(
+                    //     col + "," + row,
+                    //     screenX + 5,
+                    //     screenY + 15
+                    // );
                 }
             }
         }

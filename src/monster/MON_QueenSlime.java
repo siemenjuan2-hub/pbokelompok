@@ -4,6 +4,8 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
+import object.DROP1;
+import object.DROP2;
 import object.OBJ_Armor_Better;
 import object.OBJ_Sword_Copper;
 import object.OBJ_Sword_Normal;
@@ -215,11 +217,20 @@ public class MON_QueenSlime extends Entity {
     public void checkDrop() {
         // cast a die
         int i = new Random().nextInt(100) + 1;
-        if (i < 50) {
-            dropItem(new OBJ_Armor_Better(gp));
+        if (i < 40) {
+            
         }
-        if (i > 50 && i < 100) {
+        if (i >= 40 && i < 80) {
+            dropItem(new DROP1(gp));
+        }
+        if (i >= 80 && i <= 90) {
+            dropItem(new DROP2(gp));
+        }
+        if (i > 95) {
             dropItem(new OBJ_Sword_Copper(gp));
+        }
+        if (i > 90 && i <= 95  ) {
+            dropItem(new OBJ_Armor_Better(gp));
         }
     }
 }

@@ -247,6 +247,16 @@ public class AssetSetter {
         gp.obj[mapNum][i].WorldY = 11 * gp.tileSize;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
+        gp.obj[mapNum][i].WorldX = 26 * gp.tileSize;
+        gp.obj[mapNum][i].WorldY = 32 * gp.tileSize;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Sedang(gp);
+        gp.obj[mapNum][i].WorldX = 30 * gp.tileSize;
+        gp.obj[mapNum][i].WorldY = 36 * gp.tileSize;
+        i++;
+
         for (int j = 23; j < 30; j++) {
             for (int k = 11; k < 24; k++) {
                 if(j == 23){
@@ -273,6 +283,46 @@ public class AssetSetter {
             }
         }
 
+        for (int j = 32; j < 40 ; j++) {
+            for (int k = 11; k < 22; k++) {
+                if(j % 2 == 0 && k % 2 == 1){
+                    if(i % 2 == 0){
+                        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
+                        gp.obj[mapNum][i].WorldX = k * gp.tileSize;
+                        gp.obj[mapNum][i].WorldY = j * gp.tileSize;
+                        gp.obj[mapNum][i].collision = true;
+                    }else{
+                        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Sedang(gp);
+                        gp.obj[mapNum][i].WorldX = k * gp.tileSize;
+                        gp.obj[mapNum][i].WorldY = j * gp.tileSize;
+                        gp.obj[mapNum][i].collision = true;
+                    }
+                    i++;
+                }
+            }
+        }
+
+        for (int j = 8; j < 17 ; j++) {
+            for (int k = 26; k < 37; k++) {
+                if(j % 2 == 0 && k % 2 == 0){
+                    if(i % 2 == 0){
+                        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
+                        gp.obj[mapNum][i].WorldX = k * gp.tileSize;
+                        gp.obj[mapNum][i].WorldY = j * gp.tileSize;
+                        gp.obj[mapNum][i].collision = true;
+                    }else{
+                        gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Sedang(gp);
+                        gp.obj[mapNum][i].WorldX = k * gp.tileSize;
+                        gp.obj[mapNum][i].WorldY = j * gp.tileSize;
+                        gp.obj[mapNum][i].collision = true;
+                    }
+                    i++;
+                }
+            }
+        }
+
+
+
         
         gp.obj[mapNum][i] = new OBJ_Bush1(gp);
         gp.obj[mapNum][i].WorldX = 23 * gp.tileSize;
@@ -292,11 +342,11 @@ public class AssetSetter {
 
         i++;
 
-        gp.obj[mapNum][i] = new OBJ_Bush2(gp);
-        gp.obj[mapNum][i].WorldX = 23 * gp.tileSize;
-        gp.obj[mapNum][i].WorldY = 27 * gp.tileSize;
-        gp.obj[mapNum][i].collision = false;
-        i++;
+        // gp.obj[mapNum][i] = new OBJ_Bush2(gp);
+        // gp.obj[mapNum][i].WorldX = 23 * gp.tileSize;
+        // gp.obj[mapNum][i].WorldY = 27 * gp.tileSize;
+        // gp.obj[mapNum][i].collision = false;
+        // i++;
 
         gp.obj[mapNum][i] = new OBJ_Fountain(gp);
         gp.obj[mapNum][i].WorldX = 16 * gp.tileSize + gp.tileSize / 2;
@@ -306,20 +356,20 @@ public class AssetSetter {
 
 
 
-        gp.obj[mapNum][i] = new OBJ_Bush2(gp);
-        gp.obj[mapNum][i].WorldX = 37 * gp.tileSize;
-        gp.obj[mapNum][i].WorldY = 41 * gp.tileSize;
-        gp.obj[mapNum][i].collision = false;
-        i++;
+        // gp.obj[mapNum][i] = new OBJ_Bush2(gp);
+        // gp.obj[mapNum][i].WorldX = 37 * gp.tileSize;
+        // gp.obj[mapNum][i].WorldY = 41 * gp.tileSize;
+        // gp.obj[mapNum][i].collision = false;
+        // i++;
         gp.obj[mapNum][i] = new OBJ_Pohon_Hijau_Jumbo(gp);
         gp.obj[mapNum][i].WorldX = 26 * gp.tileSize;
         gp.obj[mapNum][i].WorldY = 19 * gp.tileSize;
         i++;
-        gp.obj[mapNum][i] = new OBJ_BurnedTree(gp);
-        gp.obj[mapNum][i].WorldX = 25 * gp.tileSize;
-        gp.obj[mapNum][i].WorldY = 21 * gp.tileSize;
-        gp.obj[mapNum][i].collision = false;
-        i++;
+        // gp.obj[mapNum][i] = new OBJ_BurnedTree(gp);
+        // gp.obj[mapNum][i].WorldX = 25 * gp.tileSize;
+        // gp.obj[mapNum][i].WorldY = 21 * gp.tileSize;
+        // gp.obj[mapNum][i].collision = false;
+        // i++;
 
         gp.obj[mapNum][i] = new OBJ_BurnedTree(gp);
         gp.obj[mapNum][i].WorldX = 15 * gp.tileSize;
@@ -558,15 +608,16 @@ public class AssetSetter {
         // gp.obj[mapNum][i].WorldX = 29 * gp.tileSize;
         // gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
         // i++;
-        gp.obj[mapNum][i] = new OBJ_Armor_Godly(gp);
-        gp.obj[mapNum][i].WorldX = 29 * gp.tileSize;
-        gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
-        i++;                
 
-        gp.obj[mapNum][i] = new OBJ_Sword_Godly(gp);
-        gp.obj[mapNum][i].WorldX = 30 * gp.tileSize;
-        gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
-        i++;      
+        // gp.obj[mapNum][i] = new OBJ_Armor_Godly(gp);
+        // gp.obj[mapNum][i].WorldX = 29 * gp.tileSize;
+        // gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
+        // i++;                
+
+        // gp.obj[mapNum][i] = new OBJ_Sword_Godly(gp);
+        // gp.obj[mapNum][i].WorldX = 30 * gp.tileSize;
+        // gp.obj[mapNum][i].WorldY = 22 * gp.tileSize;
+        // i++;      
 
         gp.obj[mapNum][i] = new Dungeon_Kiri_Atas(gp);
         gp.obj[mapNum][i].WorldX = 11 * gp.tileSize;
@@ -733,8 +784,8 @@ public class AssetSetter {
         i++;
 
         gp.npc[mapNum][i] = new Babi(gp);
-        gp.npc[mapNum][i].WorldX = gp.tileSize*27;
-        gp.npc[mapNum][i].WorldY = gp.tileSize*17;
+        gp.npc[mapNum][i].WorldX = gp.tileSize*28;
+        gp.npc[mapNum][i].WorldY = gp.tileSize*18;
         gp.npc[mapNum][i].direction = "up";
         i++;
 

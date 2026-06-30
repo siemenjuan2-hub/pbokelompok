@@ -72,9 +72,9 @@ public class EventHandler {
     // EVENT MAP 1
     public void eventMap1(){
         // event 1: Burned Tree
-        if(hit(25, 21)) {
-            damagePit(gp.dialogState);
-        }
+        // if(hit(25, 21)) {
+        //     damagePit(gp.dialogState);
+        // }
 
         if(hit(22, 19)) {
             damagePit(gp.dialogState);
@@ -415,21 +415,21 @@ public class EventHandler {
         gp.aSetter.setNpc();
     }
 
+    // DEBUG HITBOX EVENT
+    // public void drawDebugMap1(Graphics2D g2) {
+    //     drawEventRect(g2, 25, 21); // Burned Tree
+    //     drawEventRect(g2, 37, 20); // Teleport Rumah Trader
+    //     drawEventRect(g2, 18, 20); // Teleport Dungeon
+    //     drawEventRect(g2, 19, 20); // Teleport Dungeon
+    // }
 
-    public void drawDebugMap1(Graphics2D g2) {
-        drawEventRect(g2, 25, 21); // Burned Tree
-        drawEventRect(g2, 37, 20); // Teleport Rumah Trader
-        drawEventRect(g2, 18, 20); // Teleport Dungeon
-        drawEventRect(g2, 19, 20); // Teleport Dungeon
-    }
+    // public void drawDebugMap2(Graphics2D g2){
+    //     drawEventRect(g2, 24, 28); // Teleport Over Wolrd
+    // }
 
-    public void drawDebugMap2(Graphics2D g2){
-        drawEventRect(g2, 24, 28); // Teleport Over Wolrd
-    }
-
-    public void drawDebugMap3(Graphics2D g2){
-        drawEventRect(g2, 24, 39); // Teleport balik overworld
-    }
+    // public void drawDebugMap3(Graphics2D g2){
+    //     drawEventRect(g2, 24, 39); // Teleport balik overworld
+    // }
 
     private void drawEventRect(Graphics2D g2, int col, int row) {
 
